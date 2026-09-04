@@ -1,282 +1,324 @@
-# Builder 1 — Intelligence engine and Workbench contract
+# Builder 1 — Intelligence Engine, Evidence Model, and Workbench Artifact
 
-## Your mission
+## Assignment
 
-Build the deterministic intelligence engine behind **JB Clarity**. Your work must turn the supplied synthetic Julius Baer challenge data into one versioned, validated Workbench JSON artifact that Builder 2 can render without interpreting raw financial data.
+Build the complete deterministic intelligence layer for **JB Clarity**. Turn the supplied Julius Baer challenge files into one versioned, schema-valid Workbench artifact that Builder 2 renders without reading raw data or inventing financial logic.
 
-The product promise is: **Know who to call, why, and how to begin.**
+This is an execution brief. Implement the code, artifact, tests, and handoff. Do not stop after planning.
 
-The pitch is: **AI should not replace wealth advice; it should make every RM conversation timely, personal, and defensible.**
+**Promise:** Know who to call, why, and how to begin.
 
-Execute the implementation and tests. Do not stop after producing a plan.
+**Thesis:** AI should not replace wealth advice; it should make every RM conversation timely, personal, and defensible.
+
+Your output must let Priscilla Ong answer:
+
+1. Which client conversation needs attention first?
+2. What changed or may happen soon?
+3. Why does it matter to this client?
+4. What evidence supports it, and what remains uncertain?
+5. How can the RM begin a human-led conversation?
+
+## Why this wins
+
+| Judging dimension | What the engine must prove |
+|---|---|
+| Client-centric innovation | Join portfolio facts, objectives, obligations, and relationship notes into one Client Case. |
+| User experience | Pre-shape concise “why now?” explanations so the UI does no analytics. |
+| Feasibility | Deterministic calculations, typed output, Controlled Event Source, traceability, uncertainty, and offline operation. |
+| Strategic impact | Rank the full Book while proving three deep, relationship-specific cases. |
+
+The winning story is not model sophistication. It is that Priscilla sees the right client, understands the whole situation, proves each statement, and prepares the conversation before the client notices the problem.
 
 ## Read before editing
 
-Read these sources in this order:
+Read in this order:
 
 1. `AGENTS.md`
 2. `CONTEXT.md`
 3. `.scratch/jb-clarity/spec.md`
-4. `contracts/workbench.schema.json`
-5. `artifacts/workbench.fixture.json`
-6. `.scratch/jb-clarity/infrastructure-state-prototype.html` from branch `prototype/infrastructure-state`
-7. Every ADR in `docs/adr/`
+4. every file in `docs/adr/`
+5. `contracts/workbench.schema.json`
+6. `artifacts/workbench.fixture.json`
+7. `docs/research/open-source-leverage.md`
 8. `singhacks-jb-wealth-intelligence/README.md`
 9. `singhacks-jb-wealth-intelligence/docs/DATA_DICTIONARY.md`
+10. `git show prototype/infrastructure-state:.scratch/jb-clarity/infrastructure-state-prototype.html`
 
-Use the glossary's exact terms in code, schemas, tests, and generated copy. In particular: Client Case, Priority Queue, Priority Rationale, Evidence Chain, Evidence Packet, Anticipatory Signal, Open Loop, Governance Clock, Meeting Brief, Urgency, Confidence, Safety Override, Eligible Liquidity, Guided Action, Client-Ready View, and Case Resolution.
+Use the canonical terms in `CONTEXT.md`. `event_log.csv` is authoritative for every 2026 event claim. Outside knowledge and model memory are not evidence.
 
-Treat `event_log.csv` as the **Controlled Event Source** for every claim about a 2026 external event. Model memory and invented news are not evidence.
+## Ownership and fixed decisions
 
-## Product outcome
+You own `engine/`, compatible additions to `contracts/workbench.schema.json`, generated `artifacts/workbench.json`, engine tests, and `THIRD_PARTY_NOTICES.md` if code is copied. Builder 2 owns `web/`; do not edit it.
 
-Priscilla Ong manages a Book of 20 clients and 24 portfolios. Existing tools show holdings; JB Clarity must tell her which client conversation requires attention, why it matters to that client, what evidence supports it, what remains uncertain, and how to prepare.
+- Default as-of date: `2026-08-26`.
+- Snapshots: `2025-12-31`, `2026-02-27`, `2026-03-31`, `2026-06-30`, `2026-08-26`.
+- Rank all 20 clients honestly.
+- Deep cases: Hartono `CL-0001`, Cheung `CL-0012`, Margarethe `CL-0003`.
+- Deep-case richness never changes ranking.
+- Urgency and Confidence are independent.
+- Only Safety Overrides produce Critical.
+- Cached validated language is mandatory; live AI is optional.
+- AI never calculates, selects facts, ranks, contacts clients, or executes actions.
 
-The engine must rank all 20 clients honestly, while producing unusually deep Client Cases for:
+## Required implementation shape
 
-- `CL-0001` — Hartono Wijaya Kusuma
-- `CL-0012` — Cheung Kwok Wing
-- `CL-0003` — Margarethe Voss-Brenner
+Use Python 3.11+, pandas, Pydantic v2, pytest, and `jsonschema`. Keep dependencies small. Create:
 
-The selected demo clients must never be artificially promoted in the Priority Queue.
+```text
+engine/
+  pyproject.toml
+  README.md
+  src/jb_clarity/
+    cli.py
+    build.py
+    config/scoring.v1.json
+    domain/{models,enums}.py
+    ingestion/{loader,normalization,validation}.py
+    calculations/{fx,exposure,liquidity,ltv,mandate,timeline}.py
+    detectors/{credit,cash_needs,liquidity_restrictions,concentration,suitability,mandate,governance,open_loops,evidence_conflicts}.py
+    evidence/{ids,packets,claims}.py
+    ranking/{urgency,confidence,queue}.py
+    language/{cached,validator}.py
+    language/fixtures/{cl-0001.en,cl-0012.en,cl-0012.zh-Hant,cl-0003.en,cl-0003.de}.json
+  tests/
+    test_build_workbench.py
+    test_contract.py
+    test_queue.py
+    test_evidence_integrity.py
+    test_credit_signals.py
+    test_liquidity_signals.py
+    test_mandate_and_concentration.py
+    test_governance_and_open_loops.py
+    test_deep_cases.py
+    test_language_integrity.py
+artifacts/workbench.json
+```
 
-## Ownership and collaboration boundary
+Expose:
 
-You own:
+```python
+build_workbench(data_source: Path, as_of_date: date) -> WorkbenchModel
+```
 
-- `engine/` — Python package, ingestion, validation, calculations, detectors, ranking, packet construction, and cached language data
-- compatible evolution of `contracts/workbench.schema.json` — the shared JSON Schema already starts at v1.0.0
-- `artifacts/workbench.json` — reproducible generated output for the fixed challenge dataset
-- Engine tests and engine-facing documentation
+Required commands from repository root:
 
-Builder 2 owns `web/` and all interface code. Do not edit that directory.
+```bash
+python -m pip install -e 'engine[dev]'
+python -m jb_clarity.cli build --data singhacks-jb-wealth-intelligence/data --as-of 2026-08-26 --output artifacts/workbench.json
+pytest engine/tests
+```
 
-The v1 contract and `artifacts/workbench.fixture.json` are already present, so Builder 2 can start immediately. Preserve the fixture as a stable UI development input. Your first usable milestone is a schema-valid generated `artifacts/workbench.json` with `meta.artifactKind: "generated"` and `meta.schemaVersion: "1.0.0"`.
+Document them in `engine/README.md`.
 
-## Infrastructure you are fitting into
+## Build sequence and completion gates
 
-The main integration seam has already been established:
+### 1. Typed ingestion
 
-1. `contracts/workbench.schema.json` defines the only data boundary between builders.
-2. `artifacts/workbench.fixture.json` is a partial Hartono fixture for Builder 2's parallel start. It is clearly marked `artifactKind: "fixture"` and does not claim to contain the full Queue.
-3. Your engine publishes `artifacts/workbench.json` with `artifactKind: "generated"`, all 20 clients, and the same schema version.
-4. Builder 2 validates `schemaVersion` before adopting the generated artifact. A mismatch is a blocked integration, never an invitation for the UI to guess.
-5. Builder 2 owns temporary RM workflow state; your artifact owns financial facts, calculations, citations, allowed actions, and cached language.
+Load all CSVs with explicit types and parse `rm_notes.json` into typed records. Index clients, portfolios, instruments, facilities, commitments, cash needs, transactions, notes, events, mandates, holdings by snapshot, and market series. Validate foreign keys and duplicate identifiers. Preserve or report orphans, missing calculation inputs, stale valuation dates, and contradictory totals; never silently discard them.
 
-The runnable state harness at `.scratch/jb-clarity/infrastructure-state-prototype.html` on branch `prototype/infrastructure-state` records these invariants. Inspect it with `git show prototype/infrastructure-state:.scratch/jb-clarity/infrastructure-state-prototype.html`, or switch to that branch and open it directly in a browser.
+**Gate:** the loader reports 20 clients, 24 portfolios, five ordered snapshots, and a deterministic data-quality summary.
 
-Treat v1 as frozen for required fields and meanings. Add optional fields when necessary. If a breaking change is truly unavoidable, coordinate it before implementation, increment the major version, update the schema and fixture together, and leave the old path usable until Builder 2 adopts the new version.
+### 2. Workbench skeleton
 
-### Your integration checkpoints
+Represent every required schema object with Pydantic. Generate:
 
-- **Checkpoint 1 — engine skeleton:** generation command exists and emits a JSON document with the v1 top-level shape.
-- **Checkpoint 2 — contract-valid artifact:** `artifacts/workbench.json` validates, identifies itself as generated v1.0.0, and contains 20 ranked Client Cases.
-- **Checkpoint 3 — evidence completeness:** the three deep cases and supporting Book cases satisfy their regression tests and every claim resolves to an Evidence Packet item.
-- **Checkpoint 4 — UI hand-off:** tell Builder 2 the exact command, artifact path, schema version, and any optional fields added. Builder 2 should need no raw dataset access.
+- `meta.schemaVersion: "1.0.0"`;
+- `meta.artifactKind: "generated"`;
+- the fixed as-of date and ordered snapshots;
+- one Queue item and one Client Case per client;
+- stable IDs such as `CASE-CL-0001` and `PACKET-CL-0001-CREDIT`.
 
-## Highest behavioral seam
+Use an injectable clock. `generatedAt` is the only intentionally variable field.
 
-Expose one primary behavior equivalent to:
+**Gate:** the generated artifact validates against `contracts/workbench.schema.json`, contains 20 unique cases, and repeats semantically with identical inputs.
 
-`build_workbench(data_source, as_of_date) -> WorkbenchModel`
+### 3. Calculations
 
-For this prototype, the default `as_of_date` is `2026-08-26`. Provide a command that writes the serialized result to `artifacts/workbench.json` from the supplied dataset. Keep calculations pure or deterministic wherever possible.
+#### LTV
 
-Tests should call this highest seam with the real supplied fixture dataset. Add narrower tests only where a calculation has a meaningful independent boundary.
+```text
+LTV % = drawn amount / lending value × 100
+distance to trigger = trigger % - LTV %
+```
 
-## Shared Workbench contract
+Never divide by raw collateral market value. Missing or non-positive lending value creates an Evidence Conflict.
 
-Implement against the existing JSON Schema with this stable conceptual shape. You may add optional fields, but do not remove, rename, or change the meaning of these concepts without coordinating with Builder 2:
+- `active`: current LTV ≥ trigger.
+- `near`: below trigger and within 5 percentage points, or moving toward it by at least 3 points over the latest comparable interval.
+- `historical-resolved`: a prior snapshot breached and current LTV is below trigger.
+- `normal`: none of the above.
 
-- `meta`
-  - schema version
-  - as-of date
-  - generated timestamp
-  - source snapshot dates
-  - data-quality summary
-- `book`
-  - RM identity
-  - client and portfolio counts
-  - Book summary
-  - available filter values
-  - ordered Priority Queue
-- `book.priorityQueue[]`
-  - stable case and client identifiers
-  - client name, booking centre, and reporting language
-  - Urgency tier and 0–100 score
-  - optional Safety Override with rule identifier and reason
-  - Confidence level and reasons, separate from Urgency
-  - concise Priority Rationale
-  - visible factor contributions
-  - signal, Open Loop, and Governance Clock summaries
-  - current/historical status wording
-- `clientCases[]`
-  - conclusion and `whyNow`
-  - facts, interpretations, and uncertainties as separate collections
-  - factor breakdown
-  - Anticipatory Signals
-  - Open Loop candidates
-  - Governance Clocks
-  - five-snapshot timeline and comparison data
-  - Evidence Packets
-  - allowed Guided Actions
-  - editable Meeting Brief seed content
-  - cached internal and client-language drafts where applicable
-  - optional Hartono Collateral Stress Test scenarios
-- `evidencePackets[]`
-  - stable packet and item identifiers
-  - client and case identifiers
-  - as-of date and signal type
-  - status, facts, interpretations, uncertainties, conflicts, and assumptions
-  - urgency and confidence inputs
-  - derived metrics with formula, input values, units, and snapshot date
-  - source references with file and stable record key or row identity
-  - allowed Guided Actions
+When present state is near after a historic breach, show `near` and retain history in the signal/timeline.
 
-Represent currency values as numeric amount plus ISO currency. Preserve full precision in data and calculations; round only presentation fields. Dates use ISO 8601. Ratios must identify whether the unit is a decimal or percentage.
+#### Eligible Liquidity
 
-The engine should precompute bounded Hartono stress scenarios so the browser selects a deterministic result rather than inventing financial calculations. Include assumption, collateral value, lending value, LTV, distance to trigger, and status for each allowed scenario.
+For each confirmed or likely need calculate days to `due_from`, amount, currency, restricted assets, and coverage:
 
-## Deterministic analysis requirements
+- include `Daily` holdings;
+- include `Weekly` only with at least 14 days;
+- include `Monthly` only with at least 45 days;
+- exclude `Quarterly Gate` and `Illiquid` from guaranteed coverage and show them separately;
+- convert with the as-of-date market-context pair using its documented quote convention;
+- expose FX assumptions and lower Confidence if a direct pair is missing;
+- do not count uncertain future calls as cash;
+- do not allocate the same liquid asset twice without exposing the overlap.
 
-### Data ingestion and quality
+Keep these conservative prototype rules in a named policy/configuration module.
 
-- Load all supplied CSV and JSON sources with explicit types and stable identifiers.
-- Validate referential integrity across clients, portfolios, holdings, instruments, facilities, mandates, commitments, cash needs, transactions, notes, and events.
-- Detect missing inputs relevant to a conclusion, stale valuation dates, and material disagreement between client, portfolio, and holding totals.
-- Preserve conflicts. Do not silently choose whichever source supports a stronger story.
-- Aggregate client exposure across all of that client's portfolios while distinguishing managed and custody accounts.
+#### Exposure, mandate, and suitability
 
-### Urgency and Confidence
+- Aggregate `market_value_usd` across every client portfolio.
+- Retain portfolio/service-model breakdowns.
+- Include Custody in client concentration but exclude it from mandate compliance.
+- Test mandate bands on applicable Discretionary/Advisory portfolios.
+- Apply single-position limits only where `concentration_limit_applies == Y`.
+- Use `underlying_reference` for structured-product look-through.
+- When look-through weights are unavailable, name indicative underlying exposure without fabricating an amount.
+- Evaluate binding sustainability exclusions separately from ordinary drift.
+- Show evidenced waivers/client directions without erasing the underlying breach.
+- Compare risk profile/objectives/source of wealth with actual exposure.
 
-- Keep Urgency and Confidence as independent axes.
-- Reserve **Critical** for these auditable Safety Overrides only:
-  1. an active facility breach;
-  2. a confirmed obligation beginning within 90 days with less than full Eligible Liquidity coverage;
-  3. an unwaived binding exclusion or compliance breach.
-- Score other cases from 0–100 using visible, versioned factors: time urgency, threshold proximity or historical breach, suitability/objective mismatch, financial exposure, and relationship signals.
-- The highest-severity Advisory Insight establishes the base priority. Independent signals add capped escalation points; never average signals in a way that dilutes a severe issue.
-- Derive exact scoring weights from the dataset distribution, store them as versioned configuration, and emit each factor contribution.
-- Use deterministic stable ordering, including a documented tie-breaker.
-- Confidence reflects completeness, source agreement, calculation quality, and required human confirmation. Low Confidence must not hide high Urgency.
+#### Time and events
 
-### Anticipatory Signals
+- Calculate from exact values at all five snapshots.
+- Preserve stale private-market valuation dates as caveats.
+- Link events only when `primary_transmission` defensibly maps to the affected holding, sector, asset class, rate, commodity, region, or FX exposure.
+- Phrase linkage as explanation supported by the event source, not certain causation.
 
-Implement and source-cite at least:
+**Gate:** pure calculation tests cover normal, boundary, missing-input, FX-direction, custody, stale-valuation, and look-through cases.
 
-- facility LTV: active breach, near trigger, historical-resolved breach, and normal;
-- confirmed and likely cash needs, time remaining, currency, and Eligible Liquidity;
-- redemption gates and liquidity restrictions without equating a gate to total illiquidity;
-- mandate asset-class bands and managed-versus-custody applicability;
-- binding exclusions separately from ordinary drift;
-- single-position and client-level concentration;
-- structured-product look-through using `underlying_reference`, with limitations explicit;
-- KYC due soon, due today, and overdue relative to the selected as-of date;
-- material suitability or objective mismatch;
-- material source conflicts.
+### 4. Signals, conflicts, and relationship memory
 
-### Relationship intelligence
+Create general detectors for facility state, cash needs, commitments, redemption restrictions, mandate drift, exclusions, concentration, look-through, suitability mismatch, KYC, and material source conflict. Do not use a hand-authored client allowlist.
 
-Extract source-cited Open Loop **candidates** from dated RM notes:
+Create an Open Loop candidate only when a dated note supports an unanswered question, an unresolved promise, a repeated deferred/agreed discussion, or a still-relevant client constraint. Each candidate needs note date, short exact excerpt, why it may be open, Confidence, evidence IDs, `confirmationRequired: true`, and state `candidate`. Search later notes for resolution before emitting it.
 
-- unanswered client questions;
-- promises or commitments to revisit a topic;
-- recurring discussions that were agreed or deferred but remain unresolved;
-- client constraints that change what an otherwise reasonable Advisory Action would mean.
+Governance Clock rules:
 
-Every candidate needs its note date, source excerpt, why it may be open, Confidence, and `confirmationRequired: true`. The engine proposes; the RM confirms, defers, assigns, or dismisses.
+- before as-of: `overdue`;
+- equal to as-of: `due-today`;
+- 1–30 days after: `due-soon`;
+- later: `future`.
 
-At the default as-of date, do not label any KYC review overdue. Due-soon cases include Tan Boon Huat on `2026-08-31`; calculate all wording from dates rather than hard-coding it.
+At the fixed date no KYC is overdue. Tan Boon Huat is due soon on `2026-08-31`.
+
+Conflicting totals remain visible with both sources. Narrow the conclusion and lower Confidence rather than choosing the stronger story.
+
+**Gate:** `CL-0006`, `CL-0004`, `CL-0011`, and `CL-0009` emerge from general rules with the correct signal/open-loop/governance context.
+
+### 5. Deterministic ranking
+
+Put thresholds and weights in `scoring.v1.json`. Safety Overrides are exclusively:
+
+1. current facility breach;
+2. confirmed obligation starting within 90 days with Eligible Liquidity coverage below 100%;
+3. unwaived binding exclusion or compliance breach.
+
+Initial non-critical factor budget:
+
+| Factor | Max | Rule |
+|---|---:|---|
+| Time urgency | 30 | Confirmed ≤30 days: 30; ≤90: 25; ≤180: 15; later: 5. Likely needs get at most 70% of confirmed points. |
+| Threshold/history | 35 | Near trigger up to 35; historical-resolved breach 30; worsening outside near band 15. |
+| Suitability/objective mismatch | 20 | Strong mismatch receives more than ordinary drift. |
+| Financial exposure | 10 | Transparent configured bands relative to client AUM. |
+| Relationship signal | 10 | Recent unanswered question or repeated material deferral receives most. |
+
+Cap at 100. Critical sorts first. Non-critical scores ≥65 are High; others are Watch. A severe signal establishes the base; independent signals add capped contributions. Never average signals.
+
+Stable order: Safety Override; score descending; earliest confirmed need ascending with missing last; client ID ascending.
+
+Confidence begins at 100 and applies named, configured deductions for missing inputs, material conflicts, conclusion-relevant stale values, indicative look-through, and human confirmation. Map to High/Medium/Low with documented thresholds. Confidence does not alter Urgency.
+
+**Gate:** every displayed point equals an emitted factor, repeated builds have identical ranks, and deep-case status never enters scoring.
+
+### 6. Evidence and language
+
+Every material claim cites Evidence Packet items. Items contain source file and stable record key. Derived metrics also include formula, exact inputs, unit, result, and snapshot date.
+
+Keep facts, interpretations, assumptions, uncertainties, and conflicts separate. Fail artifact generation when a claim cites a missing item, crosses client/case boundaries without a shared-event explanation, makes an event claim without `event_log.csv`, or exposes an unavailable Guided Action.
+
+Prepare cached canonical English for all deep cases, Traditional Chinese for Cheung, and German for Margarethe. Numbers, dates, currencies, and evidence IDs must be identical across languages. All client-ready content remains draft.
+
+An optional model adapter receives one bounded packet plus a fixed task type. Reject and fall back to cache if output changes/adds a figure, uses an unsupported citation, or fails validation.
+
+Adapt Anthropic’s Meeting Prep output checklist and human-review boundary from `docs/research/open-source-leverage.md`; write original JB Clarity templates or preserve required attribution.
+
+**Gate:** automated integrity tests resolve every claim → evidence item → source, and language tests prove financial-token/citation parity.
 
 ## Required regression stories
 
-### Hartono — `CL-0001`
+### Hartono — `CL-0001` (primary technical walkthrough)
 
-- Facility `CF-0005` breached its 70% trigger at the `2025-12-31` and `2026-02-27` snapshots: approximately 78.50% and 75.68% LTV.
-- It resolved to approximately 58.86% at `2026-03-31`; the current status is safe, not an active breach.
-- SGD 8m borrowing remained unchanged; the cure came from a higher lending value from the collateral portfolio, not recorded client action.
-- Aggregate the direct coal/energy family exposure and energy-linked FCN look-through across portfolios. Keep look-through limitations visible.
-- Surface the SGD 9m 2027 property need and the note-based family/political constraint against selling the legacy stake.
-- Produce bounded, explicitly labelled what-if stress scenarios. They are calculations, not forecasts.
+- `CF-0005` is SGD, not USD.
+- Trigger: 70%.
+- Breaches: about 78.50% on `2025-12-31`, 75.68% on `2026-02-27`.
+- Resolved: about 58.86% on `2026-03-31`.
+- Current `2026-08-26`: drawn SGD 8,000,000; raw collateral SGD 26,618,144.28; lending value SGD 13,525,392.14; LTV about 59.15%.
+- Current state is safe. The cure came from higher lending value with unchanged borrowing, not recorded client action.
+- Aggregate direct legacy coal/energy and energy-linked FCN exposure, with look-through limitations.
+- Surface the SGD 9m 2027 property need and political/family constraint on selling the legacy stake.
+- Precompute base and 15%-down collateral scenarios. Hold borrowing and advance-rate structure constant. Label them calculations, not forecasts.
 
 ### Cheung — `CL-0012`
 
-- Connect the energy-shock/rising-yield event evidence to duration-sensitive bond losses without claiming causation beyond the Controlled Event Source.
-- Show the portfolio decline from roughly USD 30.13m to USD 28.03m and the long-dated US Treasury maturity in 2045.
-- Preserve the conflict between the objective's USD 1.1m annual draw and the planned-cash record of USD 1.28m.
-- Include retirement, medical spending, refusal to sell at a loss, and longevity/liquidity implications without making a life-expectancy claim.
-- Supply cached canonical English and Traditional Chinese Client-Ready drafts with identical figures and evidence identifiers.
+- Show portfolio decline from about USD 30.13m to USD 28.03m.
+- Ground the rising-yield/duration explanation in event and holding evidence.
+- Join retirement, Income objective, medical spending, refusal to sell at a loss, and 2045 longest maturity.
+- Preserve the USD 1.1m objective versus USD 1.28m planned-cash conflict.
+- Make no life-expectancy prediction; explain that waiting until 2045 does not answer the near-term income question.
+- Provide English and Traditional Chinese drafts with identical financial tokens/citations.
 
 ### Margarethe — `CL-0003`
 
-- Show the Conservative profile against the strongly equity-weighted inherited portfolio.
-- Surface the confirmed EUR 3.4m German inheritance-tax need before year-end.
-- Preserve the material disagreement between current client/holding totals of roughly USD 22.18m and portfolio-record totals of roughly USD 20.31m; reduce Confidence accordingly.
-- Treat widowhood and unfamiliarity with the inherited portfolio as sensitive relationship context, not a risk score.
-- Supply cached canonical English and German Client-Ready drafts with identical figures and evidence identifiers.
+- Conservative profile versus strongly equity-weighted inherited portfolio.
+- Confirmed EUR 3.4m German inheritance-tax instalment before year-end.
+- Preserve about USD 22.18m client/holding totals versus about USD 20.31m portfolio records; reduce Confidence.
+- Treat widowhood and unfamiliarity as sensitive conversation context, never scoring points.
+- Provide English and German drafts with identical financial tokens/citations.
 
-### Supporting Book-wide stories
+### Supporting Book
 
-- `CL-0006`: gated private-credit exposure alongside a USD 5m tuition need around 1 September and likely USD 3m capital calls around 1 October, with SGD assets versus USD obligations.
-- `CL-0004`: the unanswered 19 August question about moving everything to deposits.
-- `CL-0011`: the fourth deferred succession discussion and KYC due in five days at the fixed as-of date.
-- `CL-0009`: deployment was agreed more than once but remains unexecuted.
-- Detect every facility trending near its trigger and every applicable mandate-band break from the data, not from a hand-written client allowlist.
+- `CL-0006`: gated private credit, roughly USD 5m tuition near 1 September, likely USD 3m capital calls near 1 October, SGD assets versus USD obligations.
+- `CL-0004`: unanswered 19 August “move everything to deposits?” question.
+- `CL-0011`: fourth succession attempt and due-soon KYC.
+- `CL-0009`: deployment agreed repeatedly but unexecuted.
+- Detect every near-trigger facility and applicable mandate break generally.
+- Recalculate all approximations and assert precise source-derived values.
 
-Recalculate all stated approximations from source data and assert the precise values in tests.
+## Contract and integration rules
 
-## Meeting Brief and language payloads
+- v1.0.0 meanings are frozen; prefer optional additive fields.
+- Update schema, fixture, model, artifact, and tests together for contract changes.
+- Preserve `workbench.fixture.json` as partial UI input.
+- Money is numeric amount plus ISO currency; dates are ISO 8601; percentages use explicit percent units.
+- Preserve full calculation precision and round only presentation text.
+- Source references use dataset-relative files and stable keys.
+- Notify Builder 2 at each checkpoint with schema version, artifact path/kind, generation/test commands, added fields, quality issues, and a sample case/packet ID.
 
-For the three selected cases, emit editable seed content containing:
+## Open-source policy
 
-- what changed and why it matters now;
-- factual evidence with packet item citations;
-- interpretation separated from fact;
-- uncertainty and Evidence Conflicts;
-- a respectful opening question;
-- two or three discussion options, phrased for RM review;
-- specialist involvement where relevant;
-- Open Loops and Governance Clocks;
-- approved Guided Actions only.
+- Reproduce AI WealthPilot’s typed-boundary and offline-fixture parity idea using our schema.
+- Use Ghostfolio/Wealthfolio only as edge-case checklists; write original code.
+- Defer Riskfolio-Lib, optimization, ML ranking, SHAP, LangGraph, live APIs, and databases.
+- Do not copy Navam Invest; it is BSL 1.1.
+- Record source repository, commit SHA, files, modifications, and notices for copied MIT/BSD/Apache code.
 
-Cached language is the required baseline. Any optional live model adapter must receive one bounded Evidence Packet and fixed task type, return structured output, cite only packet item identifiers, and fail closed to cached content if it changes a figure or uses an unsupported citation. A model never calculates, ranks, selects evidence, contacts a client, or executes a trade.
+## Required verification
 
-## Tests and verification
+Test: full build; JSON Schema; fixed-clock repeatability; 20 unique contiguous ranks; all Safety Override boundaries; Urgency/Confidence independence; LTV states and missing lending value; liquidity timing/FX/restrictions; mandate applicability and exclusions; concentration/look-through; five-snapshot time logic; KYC boundaries; evidence graph integrity; conflicts; Open Loop lifecycle inputs; bilingual parity; and zero-network operation.
 
-Build tests around observable behavior:
-
-- full dataset → schema-valid Workbench artifact;
-- repeat runs with the same inputs → identical semantic output;
-- queue ordering, Safety Overrides, compound-signal caps, and Urgency/Confidence separation;
-- active, near, historical-resolved, and normal LTV states;
-- obligation window and Eligible Liquidity boundaries;
-- managed/custody handling, mandate drift, exclusions, concentration, and look-through;
-- KYC date boundaries;
-- Evidence Conflicts and source traceability;
-- regression facts for all named clients above;
-- every language claim cites an existing packet item and every translated figure matches the canonical figure.
-
-Do not test pandas implementation details. Provide one documented generation command and one documented test command. Run both before handoff.
-
-## Out of scope
-
-- autonomous advice, trading, orders, outreach, email, or calendar actions;
-- live markets, live news, or external data;
-- open-ended chat over the Book;
-- production authentication, entitlements, encryption, deployment, or regulatory approval;
-- definitive tax, legal, or suitability advice;
-- automatic conflict resolution;
-- a generic scenario engine beyond Hartono's bounded collateral what-if;
-- persistence or multi-user workflow.
+Run both the generation and complete test commands from a clean checkout.
 
 ## Definition of done
 
-Your work is complete when:
+- Generated artifact is offline, reproducible, schema-valid, and contains all 20 ranked cases.
+- Three deep cases and four named supporting stories pass regression tests.
+- Every score, Confidence reason, Safety Override, assumption, and conflict is inspectable.
+- Every material claim has a complete Evidence Chain.
+- Hartono’s LTV uses lending value, SGD, and correct historical/current wording.
+- Cached bilingual content passes parity tests.
+- Builder 2 adopts the generated artifact without workflow changes.
+- Handoff records commands, results, schema, artifact path, additions, uncertainties, and attribution.
 
-- Builder 2 has a stable JSON Schema and generated artifact containing all 20 ranked Client Cases;
-- Hartono, Cheung, and Margarethe satisfy every regression story;
-- all conclusions have a reproducible Evidence Chain;
-- every score exposes its factor contributions and Confidence remains separate;
-- Open Loops and Governance Clocks are present and date-correct;
-- generation and tests pass from a clean checkout without network or AI credentials;
-- you leave a concise handoff stating commands run, test results, schema version, generated artifact path, and remaining uncertainties.
+The engine succeeds when the workbench can tell a defensible client story without redoing one calculation.

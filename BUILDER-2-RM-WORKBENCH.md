@@ -1,298 +1,421 @@
-# Builder 2 — RM Intelligence Workbench and demo experience
+# Builder 2 — RM Intelligence Workbench and Winning Demo
 
-## Your mission
+## Assignment
 
-Build the **JB Clarity** desktop workbench that lets Priscilla Ong identify whom to call, understand why, inspect the evidence, and approve a Meeting Brief in under 60 seconds.
+Build the complete **JB Clarity** desktop workbench. Priscilla Ong must be able to identify whom to call, understand why, inspect the evidence, and approve a Meeting Brief in under 60 seconds.
 
-The product promise is: **Know who to call, why, and how to begin.**
+This is an execution brief. Implement the application, interaction state, tests, and demo path. Do not stop at wireframes or a plan.
 
-The pitch is: **AI should not replace wealth advice; it should make every RM conversation timely, personal, and defensible.**
+**Promise:** Know who to call, why, and how to begin.
 
-Execute the application, tests, and demo flow. Do not stop after producing a mock-up or plan.
+**Thesis:** AI should not replace wealth advice; it should make every RM conversation timely, personal, and defensible.
+
+The judges must immediately understand:
+
+1. who Priscilla should contact first;
+2. why that client’s situation matters now;
+3. how financial signals and relationship memory connect;
+4. what evidence and uncertainty sit behind the conclusion;
+5. how the RM—not AI—controls the next conversation.
+
+## Why this wins
+
+| Judging dimension | What the interface must prove |
+|---|---|
+| Client-centric innovation | Show personal objectives, obligations, sensitivities, and unfinished relationship threads—not generic alerts. |
+| User experience | Complete Queue → Case → Evidence → Meeting Brief in under 60 seconds with plain language first. |
+| Feasibility | Make deterministic evidence, confidence, source traceability, human approval, offline mode, and target-bank controls visible. |
+| Strategic impact | Show a repeatable whole-Book workflow that strengthens the RM relationship rather than replacing it. |
+
+Do not lead with a dashboard tour or architecture diagram. Lead with Priscilla’s attention problem and a client story.
 
 ## Read before editing
 
-Read these sources in this order:
+Read in this order:
 
 1. `AGENTS.md`
 2. `CONTEXT.md`
 3. `.scratch/jb-clarity/spec.md`
-4. `contracts/workbench.schema.json`
-5. `artifacts/workbench.fixture.json`
-6. `.scratch/jb-clarity/infrastructure-state-prototype.html` from branch `prototype/infrastructure-state`
-7. Every ADR in `docs/adr/`
-8. `singhacks-jb-wealth-intelligence/README.md` for challenge framing
+4. every file in `docs/adr/`
+5. `contracts/workbench.schema.json`
+6. `artifacts/workbench.fixture.json`
+7. `docs/research/open-source-leverage.md`
+8. `singhacks-jb-wealth-intelligence/README.md`
+9. `git show prototype/infrastructure-state:.scratch/jb-clarity/infrastructure-state-prototype.html`
+
+Use the exact terms in `CONTEXT.md`. This is an RM Intelligence Workbench, not a chatbot, robo-adviser, trading terminal, or generic portfolio dashboard.
+
+## Ownership and fixed decisions
+
+You own `web/`: Next.js/TypeScript application, visual system, artifact adapter, presentation state, components, tests, accessibility, and demo documentation. Builder 1 owns `engine/`, schema evolution, financial calculations, queue order, facts, citations, stress scenarios, and `artifacts/workbench.json`.
+
+The browser may format, filter, select, compare, and maintain temporary RM state. It must not calculate financial facts, change rank, infer missing evidence, translate figures independently, or read raw CSV files.
+
+- Build against `artifacts/workbench.fixture.json` immediately.
+- Switch to generated `artifacts/workbench.json` through the same adapter when available.
+- Fixture mode is visibly marked development data and may contain only Hartono.
+- Schema mismatch blocks adoption and retains the last compatible artifact.
+- All core behavior works without network or AI credentials.
+- No trade, order, email, message, calendar action, open chat, or persistent workflow is implemented.
+
+## Required technical shape
+
+Use current stable Next.js App Router, TypeScript strict mode, React, Ajv for JSON Schema validation, Vitest + Testing Library, and Playwright for the golden path. Use npm. Prefer CSS Modules or a small token stylesheet over a large component framework. Build charts with accessible HTML/SVG/CSS unless a dependency clearly saves time.
+
+Create:
+
+```text
+web/
+  package.json
+  README.md
+  next.config.ts
+  tsconfig.json
+  public/data/workbench.json
+  scripts/sync-workbench.mjs
+  src/app/{layout,page,globals.css}.tsx
+  src/app/architecture/page.tsx
+  src/lib/workbench/{types,schema,adapter,format,selectors}.ts
+  src/lib/state/{model,reducer,selectors}.ts
+  src/components/layout/CommandCentre.tsx
+  src/components/queue/{PriorityQueue,QueueFilters,QueueItem,FactorBreakdown}.tsx
+  src/components/case/{ClientCasePanel,CaseHeader,SignalList,OpenLoops,GovernanceClocks,SnapshotComparison}.tsx
+  src/components/work-surface/{WorkSurface,EvidenceChain,StressTest,MeetingBrief,ClientReadyView}.tsx
+  src/components/common/{StatusBadge,ConfidenceBadge,CitationLink,EmptyState,ErrorState}.tsx
+  src/components/architecture/TargetArchitecture.tsx
+  src/styles/tokens.css
+  src/tests/
+  e2e/hartono-golden-path.spec.ts
+```
 
-Use the glossary's exact terms in UI copy and tests. This is an RM Intelligence Workbench, not a portfolio dashboard, chatbot, robo-adviser, or autonomous agent.
+`sync-workbench.mjs` must select `../artifacts/workbench.json` when present and valid, otherwise the fixture; copy it to `public/data/workbench.json`; print source path, schema version, and artifact kind. It must never convert or repair incompatible data.
 
-## Product outcome
+Required commands:
 
-The judges must see a direct answer to three questions:
+```bash
+cd web
+npm install
+npm run sync-data
+npm run dev
+npm test
+npm run test:e2e
+npm run build
+```
 
-1. Who should Priscilla contact first?
-2. Why does that client's situation matter now?
-3. How can she begin a grounded, human-led conversation?
+Document exact clean-checkout and offline-demo commands in `web/README.md`.
 
-The demonstration must combine financial intelligence with relationship memory:
+## State model—implement before styling
 
-- **Anticipatory Signals** — issues the client may notice soon, such as LTV proximity, tax obligations, redemption gates, mandate breaks, and governance deadlines.
-- **Open Loops** — unanswered messages, promises, deferred discussions, and agreed actions that remain unresolved.
-- **Meeting Brief** — one preparation surface joining the Client Case, Evidence Chain, Open Loops, Governance Clock, preferred language, questions, and possible actions.
+Use one reducer with this conceptual state:
 
-## Ownership and collaboration boundary
+```ts
+type WorkbenchState = {
+  source: { status: 'loading' | 'ready' | 'error'; artifactKind?: 'fixture' | 'generated'; schemaVersion?: string; error?: string }
+  activeCaseId: string | null
+  filters: { query: string; signalTypes: string[]; bookingCentres: string[]; urgencyTiers: string[]; confidenceLevels: string[] }
+  rightSurface: 'none' | 'evidence' | 'stress-test' | 'meeting-brief' | 'client-ready'
+  activeEvidenceItemId: string | null
+  selectedSnapshots: [string, string]
+  selectedStressScenarioId: string | null
+  openLoopStates: Record<string, { state: 'candidate' | 'confirmed' | 'deferred' | 'assigned' | 'dismissed'; note?: string }>
+  meetingBriefs: Record<string, { revision: number; status: 'draft' | 'approved'; approvedRevision: number | null; fields: EditableBrief }>
+  caseResolutions: Record<string, { state: 'unresolved' | 'conversation-prepared' | 'information-requested' | 'specialist-involved' | 'dismissed'; reason?: string; briefRevision?: number }>
+}
+```
 
-You own:
+Required invariants:
 
-- `web/` — Next.js, TypeScript, UI components, presentation adapters, state, tests, and workbench documentation
-- the visual system and responsive desktop behavior
-- the in-memory Guided Action, Meeting Brief edit, approval, Open Loop confirmation/deferral, and Case Resolution states
-- the target-architecture presentation view
+- A case can be selected only after a compatible artifact loads.
+- Right-surface content always belongs to the active case.
+- Financial facts remain immutable.
+- Meeting Brief starts at revision 1, draft.
+- Explicit approval stores the current approved revision.
+- Editing an approved brief increments revision, returns to draft, clears approval, and invalidates `conversation-prepared`.
+- `conversation-prepared` is legal only for the currently approved revision.
+- Open Loop decisions affect presentation state, never source evidence.
+- Filters never reorder rows; they only hide/show the artifact’s stable order.
+- Quick access to demo clients selects or finds them without ranking changes.
+- A mismatched artifact is rejected rather than coerced.
 
-Builder 1 owns `engine/`, compatible evolution of `contracts/workbench.schema.json`, and `artifacts/workbench.json`. Do not alter calculations or raw-data interpretation in the browser.
+Write reducer tests before integrating screens. The prototype branch is the reference behavior.
 
-Begin against the existing `artifacts/workbench.fixture.json` if the generated artifact is not yet available. Keep the fixture behind the same typed adapter used by the real artifact. Switch to `artifacts/workbench.json` as soon as it is available, then remove any contradictory hard-coded facts.
+## Build sequence and completion gates
 
-If the schema and interface need to change, coordinate the contract instead of silently forking its meaning.
+### 1. Application and typed boundary
 
-## Infrastructure you are fitting into
+Scaffold the app, define tokens, implement the data-sync command, hand-write or safely generate TypeScript types from the repository schema, validate with Ajv at the boundary, and expose one adapter API. No component imports JSON directly.
 
-The main integration seam already exists:
+The error state must say what failed, expected schema version, received version when known, and how to regenerate/sync the artifact. In fixture mode show a quiet “Demo fixture · partial Book” label.
 
-1. `contracts/workbench.schema.json` is the only source of truth for data crossing from the intelligence engine into the workbench.
-2. `artifacts/workbench.fixture.json` is a partial, schema-shaped Hartono input that lets you build in parallel. Its `artifactKind: "fixture"` means the UI must identify it as development data and must not expect 20 Queue rows.
-3. Builder 1 will publish `artifacts/workbench.json` with `artifactKind: "generated"`, all 20 cases, and `schemaVersion: "1.0.0"`.
-4. Your boundary adapter validates the schema version and required shape before rendering. If validation fails or the version differs, show the actionable artifact-error state and retain the last compatible source.
-5. Financial facts, ordering, factors, source references, allowed Guided Actions, stress scenarios, and cached language come from the artifact. Selection, pane state, filters, brief edits, approvals, Open Loop decisions, and Case Resolution live in your in-memory presentation state.
+**Gate:** fixture loads through the adapter; malformed shape and wrong version show actionable errors; components receive typed data only.
 
-The runnable state harness at `.scratch/jb-clarity/infrastructure-state-prototype.html` on branch `prototype/infrastructure-state` demonstrates the agreed transitions and rejected shortcuts. Inspect it with `git show prototype/infrastructure-state:.scratch/jb-clarity/infrastructure-state-prototype.html`, or switch to that branch and open it directly in a browser. It is a primary design source, not production UI.
+### 2. Command Centre shell
 
-### State invariants to preserve
+Build a persistent desktop three-column layout:
 
-- A Client Case can be selected only after a compatible Workbench source is loaded.
-- Evidence Chain and Meeting Brief surfaces always belong to the active Client Case.
-- A Meeting Brief begins as draft and becomes approved only through an explicit RM action.
-- Editing an approved brief increments its revision, returns it to draft, clears its approved revision, and invalidates the previous Case Resolution.
-- `conversation-prepared` is legal only when the current brief revision is approved.
-- Adopting a mismatched artifact is blocked; the UI does not coerce or reinterpret it.
+- **Left, 300–340px:** Priority Queue.
+- **Centre, min 440px:** active Client Case.
+- **Right, 380–460px:** contextual work surface.
 
-### Your integration checkpoints
+At typical presentation widths around 1440px, all three remain visible. At narrower laptop widths, the right surface may overlay as a drawer while Queue and Case remain usable. Below tablet width, stack deliberately; mobile optimization is not required.
 
-- **Checkpoint 1 — typed boundary:** load and validate `artifacts/workbench.fixture.json` through one adapter; no screen imports the JSON directly.
-- **Checkpoint 2 — fixture workbench:** the Hartono golden path works from the fixture, including evidence, scenario selection, brief edit, approval, approval invalidation, and resolution.
-- **Checkpoint 3 — generated artifact:** switch the adapter input to `artifacts/workbench.json`; render all 20 Queue rows without changing the workflow code.
-- **Checkpoint 4 — integrated smoke test:** run the offline golden path and record the schema version and artifact kind shown by the application.
+Top bar: JB Clarity identity, as-of date, RM name, artifact status, and architecture link. Do not fill it with generic KPIs.
 
-## Technical baseline
+**Gate:** selection and surfaces work with fixture data, no horizontal overflow at 1440×900 and 1280×800, and regions retain the sequence choose → understand → prepare.
 
-- Use Next.js with TypeScript.
-- Keep the prototype offline-first and runnable without an API key.
-- Read the versioned Workbench JSON through one typed adapter and validate it at the boundary.
-- The UI may format, filter, select, compare, and manage temporary interaction state. It must not infer source facts, calculate rankings, or invent evidence.
-- Hartono's what-if control selects the deterministic scenarios supplied by Builder 1.
-- Use cached validated explanation and translation payloads as the required demonstration path. A live model is optional and must never be required for the demo.
-- Provide one documented start command, one test command, and one production build command.
+### 3. Priority Queue
 
-## Information architecture
+Each row shows, in this order:
 
-Use a persistent three-column **Command Centre** at desktop widths:
+1. rank and client;
+2. Critical/High/Watch Urgency with score;
+3. one- or two-line Priority Rationale;
+4. current state text such as Active, Near trigger, or Historical—resolved;
+5. signal/Open Loop/Governance summaries;
+6. Confidence as a separate badge/value;
+7. expandable factor contributions with points and reasons.
 
-- **Left — Priority Queue:** whole Book, filters, tiers, Confidence, concise Priority Rationales.
-- **Centre — active Client Case:** conclusion, why now, factors, timeline, Anticipatory Signals, Open Loops, and Governance Clock.
-- **Right — contextual work surface:** Evidence Chain, Collateral Stress Test, Meeting Brief editor, or Client-Ready View.
+Group visually by tier without altering rank. Implement query, signal type, booking centre, Urgency, and Confidence filters from artifact-provided values. Add quick-find chips/bookmarks for Hartono, Cheung, and Margarethe; label them “Demo cases,” not “Top clients.”
 
-The columns express a stable sequence: **choose the conversation → understand the case → prepare the action**. Preserve this sequence even if the narrow-screen presentation becomes stacked or drawer-based.
+Never let high Confidence make a case look more urgent. Never display Hartono’s old breach as current.
 
-This layout was selected directly rather than validated through a separate UI prototype. Keep the three regions modular so their proportions can be adjusted after rehearsal without changing behavior.
+**Gate:** generated artifact displays all 20 rows in artifact order; filtering and quick find preserve rank; keyboard selection works.
 
-## Visual direction
+### 4. Client Case centre panel
 
-The interface should feel like a calm, premium private-client casebook used by a busy RM—not consumer fintech and not a trading terminal.
+Lead with the conclusion and “Why now,” not AUM. Then show:
 
-- Use deep ink/navy for the work surface, paper-white or mineral-gray reading surfaces, and a restrained copper accent for attention or primary action.
-- Use color semantically and sparingly. Every status must also have text or iconography; color alone is insufficient.
-- Prefer quiet tonal separation, typography, and spacing over heavy borders, gradients, glowing charts, or a grid of generic KPI cards.
-- Make the signature element a visible **case thread** connecting signal → evidence → conversation. Repeat that relationship in the Queue rationale, Case timeline, cited evidence, and Meeting Brief.
-- Use tabular numerals for financial values and dates.
-- Keep source details progressively disclosed. Plain English leads; formulas and source rows remain one action away.
-- Use purposeful motion under 300ms only for occasional pane transitions or confirmation. Respect reduced-motion settings.
-- Provide visible focus, keyboard navigation, semantic controls, readable contrast, and at least 44px hit targets.
+- explicit current/historical status;
+- Urgency and separate Confidence reasons;
+- visible factor contribution bar/list;
+- Anticipatory Signals;
+- Open Loops with source date and candidate status;
+- Governance Clocks with calculated wording;
+- five-snapshot timeline/comparison;
+- bounded Guided Actions from `allowedGuidedActions`.
 
-## Required screens and behavior
+Visually distinguish Fact, Interpretation, Assumption, Uncertainty, and Conflict. Every material claim has a citation control opening the relevant Evidence Chain without changing case selection.
 
-### Priority Queue
+Snapshot comparison lets the RM choose two available dates and shows supplied/precomputed metrics only. It does not calculate return attribution in the browser.
 
-- Show all 20 Client Cases in honest deterministic order from the artifact.
-- Clearly separate Critical, High, and Watch tiers.
-- Display Urgency score/factors and Confidence separately.
-- Show current, near, and historical-resolved status explicitly; never present Hartono's old breach as current.
-- Support filters for signal type, booking centre, Urgency, and Confidence.
-- Provide quick find or bookmarks for the three deep demo cases without altering their ranks.
-- Each row must answer “why now?” in one or two lines and expose its factor contribution breakdown.
+**Gate:** a user understands the case summary before expanding evidence; every displayed claim resolves to an artifact evidence ID.
 
-### Client Case workspace
+### 5. Evidence Chain surface
 
-- Lead with the client-specific conclusion, not an account balance.
-- Show why now, the factor breakdown, selected timeline, Anticipatory Signals, Open Loops, Governance Clock, and Guided Actions.
-- Allow comparison between two of the five dataset snapshots.
-- Keep fact, interpretation, assumption, and uncertainty visually distinct.
-- Every material claim has a visible path to the relevant Evidence Packet item.
-- Evidence opens in the right-hand surface without losing the Queue or active case context.
-- Source references show the source file and stable record key; formula views show inputs, units, date, and result.
-- Evidence Conflicts lower displayed Confidence and remain prominent until reviewed.
+Show a progressive path:
 
-### Guided Actions and human control
+```text
+source record → exact value → derived metric/formula → interpretation → advisory significance
+```
 
-Offer bounded actions such as:
+For each evidence item show label, value, file, record key, and field. For derived metrics show formula, inputs, unit, snapshot date, and unrounded result with an appropriately rounded display value. Conflicts show both values/sources and explain their impact on Confidence.
 
-- Explain this case
-- Show evidence
-- Prepare conversation
-- Request missing information
-- Involve a specialist
-- Confirm, defer, assign, or dismiss an Open Loop
-- Dismiss/defer a Client Case with a reason
+Clicking a citation focuses the matching item. The Queue and case context stay visible. Offer a “Back to claim” affordance and do not expose filesystem paths or pretend source rows are live bank links.
 
-Do not provide open chat. Do not execute a trade, order, email, message, or calendar action.
+**Gate:** Hartono’s LTV Evidence Chain visibly uses lending value and SGD; Margarethe’s conflicting totals show both sources.
 
-### Meeting Brief
+### 6. Anticipatory Signals, Open Loops, and Governance
 
-“Prepare conversation” opens an editable RM-facing brief containing:
+These are one joined Client Case, not three disconnected products.
 
-- what changed and why it matters now;
-- evidence citations;
-- uncertainties and conflicts;
-- relevant Open Loops and Governance Clocks;
-- a respectful opening question;
-- two or three possible discussion options;
-- specialist involvement where relevant.
+- Signals show time horizon, status, summary, and evidence.
+- Open Loops show excerpt/date/why-open/Confidence and actions to confirm, defer, assign, or dismiss.
+- Require a small reason/note for dismissal or deferral.
+- Governance Clocks show due date, days remaining, and due-soon/today/overdue/future.
+- Never mutate the artifact; store decisions in reducer state.
 
-Draft and approved states must be unmistakable. Approval is an explicit in-memory action. Editing an approved brief returns it to draft. Show the resulting Case Resolution after approval. Label generated or cached language as a draft until the RM approves it.
+Use the relationship framing: **“Your client is about to notice this”** for approaching financial issues, and **“The threads at risk of being dropped”** for Open Loops. Keep copy professional and avoid alarmist notification language.
 
-### Client-Ready View
+**Gate:** CL-0004 unanswered deposit question, CL-0011 succession/KYC, CL-0009 unexecuted deployment, and CL-0006 liquidity/gate are inspectable from generated data.
 
-- Keep the canonical English content beside the client-language version.
-- Use the client's `reporting_language` from the artifact.
-- Cheung requires Traditional Chinese; Margarethe requires German.
-- Quantities, dates, currencies, and evidence identifiers must remain identical between languages.
-- Make this a preparation view; it does not send content to a client.
+### 7. Hartono stress test
 
-### Target architecture view
+Render only artifact-supplied scenarios. Use a selector, not a free-form numeric engine. Show:
 
-Add a concise presentation view showing how the prototype maps to a credible private-bank deployment:
+- assumption/change in collateral;
+- collateral market value;
+- lending value;
+- unchanged drawn amount;
+- calculated LTV;
+- 70% trigger;
+- percentage-point distance;
+- state.
 
-- governed source systems and the Controlled Event Source;
-- deterministic analytics and Evidence Packet construction;
-- optional bounded language generation;
-- RM review and approval;
-- target identity, entitlements, encryption, audit trail, model gateway, and deployment boundary.
+Label the surface **Illustrative collateral what-if — not a forecast**. Do not imply the scenario probability or recommend a trade.
 
-Clearly label which controls are demonstrated and which are target architecture. Do not claim production security is implemented.
+**Gate:** base and 15%-down scenarios render; the UI contains no LTV formula implementation or recalculation.
 
-## Required demo cases
+### 8. Meeting Brief and Case Resolution
 
-Render facts from the Workbench artifact; do not duplicate financial calculations in UI constants.
+“Prepare conversation” opens an editable RM brief containing:
 
-### Hartono — primary live walkthrough
+- what changed;
+- why it matters now;
+- factual evidence citations;
+- uncertainties/conflicts;
+- Open Loops and Governance Clocks;
+- respectful opening question;
+- two or three discussion options;
+- specialist suggestion;
+- approved Guided Actions only.
 
-The judge-facing path must show:
+Show a visible status header: Draft, Edited draft, or Approved revision N. Provide Edit, Reset to source seed, Approve, and Mark conversation prepared. Approval is never implicit. Editing after approval invalidates it and any prepared resolution. Dismissal requires a reason. No button sends content.
 
-1. Hartono's position in the Priority Queue and visible Priority Rationale.
-2. The distinction between the 2025-12-31 and 2026-02-27 LTV breaches and the current resolved status.
-3. The Evidence Chain showing that unchanged SGD 8m borrowing and a higher lending value from the collateral portfolio produced the cure.
-4. Direct energy concentration plus the energy-linked FCN look-through, with limitations.
-5. The SGD 9m 2027 property need and the family/political constraint on selling the legacy stake.
-6. A bounded collateral what-if selector, explicitly labelled as a calculation rather than a forecast.
-7. An editable Meeting Brief, explicit approval, and Case Resolution.
+Adapt the content organization and no-send/human-review guardrails from Anthropic’s Meeting Prep Agent as recorded in `docs/research/open-source-leverage.md`; preserve JB Clarity terminology and attribution rules.
 
-### Cheung
+**Gate:** reducer and browser tests cover prepare → edit → approve → resolve and approve → edit → invalidated resolution.
 
-Show the bond/duration explanation, retirement-income objective, USD 1.1m versus USD 1.28m evidence conflict, increased medical spending, refusal to sell at a loss, 2045 maturity, and Traditional Chinese Client-Ready View. Keep the explanation respectful and avoid making a life-expectancy prediction.
+### 9. Client-Ready View
 
-### Margarethe
+Show canonical English beside the client’s reporting-language draft. Cheung uses Traditional Chinese; Margarethe uses German. The view must:
 
-Show the Conservative-profile mismatch, inherited equity exposure, confirmed EUR 3.4m inheritance-tax need, sensitive widowhood context, material disagreement between portfolio and holding/client totals, reduced Confidence, and German Client-Ready View.
+- preserve every quantity, date, currency, and evidence ID;
+- label both versions as drafts until RM approval;
+- show cached/offline mode;
+- let the RM compare content without sending it;
+- remain readable with different text lengths.
 
-### Supporting Book stories
+Do not use browser translation or independently regenerate text. Render artifact payloads.
 
-Ensure the Queue also makes these inspectable:
+**Gate:** automated tests compare visible financial tokens/citations across versions and the layout is visually checked.
 
-- `CL-0006` gated redemption and near-term USD tuition/capital calls;
-- `CL-0004` unanswered “move everything to deposits?” question;
-- `CL-0011` fourth deferred succession discussion and due-soon KYC;
-- `CL-0009` repeatedly agreed but unexecuted deployment;
-- facilities trending toward margin-call triggers;
-- applicable mandate-band breaks.
+### 10. Target architecture
 
-## Demo sequence
+Create a concise presentation route that maps prototype to a credible private-bank system:
 
-Optimize for this short presentation order:
+```text
+governed bank sources + Controlled Event Source
+  → deterministic analytics and evidence packets
+  → optional bounded language gateway
+  → RM review and approval
+  → existing advisory channels
+```
 
-1. In one sentence, establish Priscilla's problem: critical financial signals and relationship commitments are fragmented across the Book.
-2. Show the Priority Queue and explain deterministic Urgency versus separate Confidence.
-3. Walk Hartono from rationale → history → evidence → stress scenario → Meeting Brief approval.
-4. Use Cheung to demonstrate client-specific explanation and Traditional Chinese preparation.
-5. Use Margarethe to demonstrate suitability mismatch, urgent tax need, sensitive context, and honest data conflict.
-6. Show target architecture/governance.
-7. End on strategic impact: more timely, personal, defensible RM conversations.
+Clearly distinguish:
 
-Do not spend the demo leading with architecture, model novelty, or a generic dashboard tour. The client problem and RM decision come first.
+- **Demonstrated:** offline ingestion artifact, deterministic factors, citations, cached multilingual drafts, human approval.
+- **Target controls:** identity, entitlements, encryption, secrets, audit persistence, model gateway, data residency, monitoring, deployment segregation, and bank integrations.
 
-## States and resilience
+Do not claim target controls are implemented.
 
-Implement polished states for:
+**Gate:** architecture can be explained in under 30 seconds and supports rather than interrupts the client story.
 
-- initial load;
-- schema or artifact error with actionable wording;
-- no filter results;
-- low Confidence / Evidence Conflict;
-- selected and unselected case;
-- draft, edited, approved, and approval-invalidated Meeting Brief;
-- cached/offline language mode;
-- unavailable optional live language mode.
+## Visual system
 
-The app must remain fully demonstrable with network access disabled and no model credentials.
+The interface should feel like a calm private-client casebook used by a busy RM.
 
-## Tests and verification
+- Deep ink/navy work surfaces; paper white/mineral gray reading surfaces; restrained copper accent.
+- Urgency colors are semantic and always paired with text/icon.
+- Use typography, spacing, and tonal surfaces before borders.
+- Use tabular numerals for money, percentages, ranks, and dates.
+- Make the signature visual a repeated case thread connecting Signal → Evidence → Conversation.
+- Plain English first; formulas/source rows one action away.
+- Avoid generic KPI-card grids, neon gradients, market tickers, glass effects, decorative charts, and chat bubbles.
+- Use purposeful transitions under 300ms and respect reduced motion.
+- Visible focus, semantic controls, meaningful headings, keyboard navigation, readable contrast, and 44px targets are required.
 
-Test external behavior rather than component internals or incidental markup:
+## Deep demo cases
 
-- artifact boundary validation and actionable failure state;
-- Queue renders all 20 cases in artifact order;
-- Urgency and Confidence remain separate;
-- filters and quick find do not alter ranking;
-- Hartono golden path from Queue to evidence, what-if selection, Meeting Brief edit, approval, and Case Resolution;
-- historical breach is never labelled current;
-- Evidence Conflict display for Margarethe;
-- bilingual side-by-side views preserve figures and evidence identifiers;
-- cached language works without network or credentials;
-- keyboard access, focus visibility, semantic labels, non-color status cues, and readable financial formatting;
-- production build and a clean-start smoke test.
+### Hartono `CL-0001` — primary live walkthrough
 
-Visually verify the core flow at a typical presentation laptop width and at one narrower width. Fix overflow, truncated financial values, hidden evidence controls, and unreadable bilingual layouts before handoff.
+Display only artifact values. The path must show:
 
-## Out of scope
+1. honest Queue rank and rationale;
+2. SGD facility and historical 78.50%/75.68% breaches against 70%;
+3. current resolved state around 59.15%;
+4. unchanged SGD 8m borrowing plus higher lending value as the cure;
+5. direct energy/coal and energy FCN look-through with limitations;
+6. SGD 9m 2027 property need and family/political selling constraint;
+7. bounded scenario selector labelled not a forecast;
+8. editable brief, explicit approval, and Case Resolution.
 
-- raw-data analytics or ranking logic in the browser;
-- autonomous investment advice, trading, orders, or outreach;
-- open-ended chat;
-- live market data or news;
-- production authentication, permissions, integrations, or compliance approval;
-- definitive tax, legal, or suitability advice;
-- automatic resolution of evidence conflicts;
-- a generic scenario engine;
-- mobile client application;
-- persistent or multi-user workflow.
+### Cheung `CL-0012`
+
+Show bond/duration explanation, retired Income objective, USD 1.1m versus USD 1.28m conflict, increased medical costs, refusal to sell at a loss, 2045 maturity, and Traditional Chinese side-by-side draft. Use respectful language and no life-expectancy prediction.
+
+### Margarethe `CL-0003`
+
+Show Conservative profile versus inherited equity exposure, EUR 3.4m inheritance-tax need, widowhood/unfamiliarity as sensitive context, USD 22.18m versus USD 20.31m source conflict, lower Confidence, and German side-by-side draft.
+
+## Supporting Book proof
+
+Ensure generated data makes these discoverable:
+
+- `CL-0006`: gated redemption and near-term USD tuition/capital calls against SGD assets;
+- `CL-0004`: unanswered “move everything to deposits?” message;
+- `CL-0011`: fourth succession attempt and KYC due soon;
+- `CL-0009`: repeated agreement with no deployment;
+- every near-trigger facility;
+- every applicable mandate-band break.
+
+## Judge-facing demo script
+
+Optimize the product for this 4–5 minute sequence:
+
+1. **Problem, 15 seconds:** “Priscilla already has portfolio reports. What she lacks is one place that tells her which client conversation matters now and remembers both the financial risk and the human context.”
+2. **Queue, 30 seconds:** Show the full Book and explain deterministic Urgency versus separate Confidence.
+3. **Hartono, 90 seconds:** Queue rationale → breach timeline → Evidence Chain → hidden concentration/property constraint → scenario → approve brief.
+4. **Cheung, 45 seconds:** Explain the bond loss in his retirement context; reveal the cash-draw conflict and Traditional Chinese preparation.
+5. **Margarethe, 45 seconds:** Reveal suitability mismatch, tax clock, sensitive context, and honest source conflict.
+6. **Architecture, 25 seconds:** Show deterministic core, bounded language, RM approval, and target controls.
+7. **Close, 10 seconds:** “JB Clarity helps every RM conversation become more timely, personal, and defensible.”
+
+Rehearse until the Hartono path is under 60 seconds without narration stalls.
+
+## Open-source leverage policy
+
+Follow `docs/research/open-source-leverage.md`.
+
+- Inspect Advisor Desktop’s `NBAFeed`, `NBACard`, service/hook boundary, and `MeetingPrepModal` for interaction patterns.
+- Re-implement only small useful patterns against our Workbench adapter; keep our domain model and three-column Command Centre.
+- Adapt Anthropic’s Meeting Prep checklist and human-review/no-send guardrails.
+- Do not inherit composite confidence ranking, open chat, batch contact, trading, autonomous rules, or mock domain semantics.
+- Do not copy AGPL Ghostfolio/Wealthfolio code or BSL Navam code.
+- If MIT/Apache code or text is materially copied, record repository, commit SHA, files, modifications, and notices in `THIRD_PARTY_NOTICES.md`.
+
+## Required states
+
+Implement and polish: loading; compatible fixture; compatible generated artifact; schema/version error; no filter results; no case selected; active/near/historical-resolved/normal; low Confidence; Evidence Conflict; right surface closed/open; Open Loop candidate/confirmed/deferred/assigned/dismissed; Meeting Brief draft/edited/approved/invalidated; resolved/unresolved case; cached language; unavailable optional live language.
+
+## Verification matrix
+
+| Area | Observable requirement |
+|---|---|
+| Boundary | Valid fixture/generated artifacts load through one adapter; incompatible input fails visibly. |
+| Queue | 20 rows in artifact order; filters and quick find never rerank. |
+| Semantics | Urgency and Confidence remain separate; current/historical wording is correct. |
+| Evidence | Every citation opens the correct item/source/formula without losing context. |
+| Hartono | Complete queue-to-approved-brief golden path and scenario selector. |
+| State | Editing approved brief increments revision and invalidates resolution. |
+| Conflicts | Margarethe displays both totals and reduced Confidence. |
+| Language | Chinese/German views preserve all financial tokens and citations. |
+| Accessibility | Keyboard path, focus, semantic labels, non-color cues, contrast, reduced motion. |
+| Responsive | Visual check at 1440×900 and 1280×800 plus one narrower width. |
+| Offline | Core demo works with network disabled and no AI key. |
+| Build | Unit/integration tests, Playwright golden path, and production build pass. |
+
+Test behavior rather than component internals or incidental markup. Capture screenshots of Queue, Hartono Evidence Chain, approved Meeting Brief, Cheung bilingual view, Margarethe conflict, and architecture for rehearsal review.
+
+## Builder 1 integration protocol
+
+- Consume only the Workbench contract.
+- Share exact requested optional fields rather than implementing UI-side approximations.
+- On each artifact adoption, record source path, kind, schema version, and quality status.
+- Remove fixture-only assumptions once generated data arrives.
+- If a field meaning differs, block integration and coordinate; never silently reinterpret it.
+- Report any claim without an evidence target to Builder 1 as a contract defect.
 
 ## Definition of done
 
-Your work is complete when:
+- Clean checkout starts with documented commands.
+- Generated artifact displays the 20-client Queue.
+- A non-developer completes Hartono’s path in under 60 seconds.
+- Cheung and Margarethe prove multilingual preparation and honest uncertainty.
+- Signals, Open Loops, and Governance Clocks appear as one case workflow.
+- Every important claim opens an Evidence Chain.
+- Meeting Brief approval and Case Resolution remain visibly human-controlled.
+- The demo works offline without credentials.
+- Tests, Playwright golden path, and production build pass.
+- Screens have been visually inspected at presentation sizes.
+- Handoff records commands, results, screenshots, remaining uncertainties, contract requests, and attribution.
 
-- the app starts from a clean checkout using the documented command and consumes the schema-valid generated artifact;
-- a non-developer can complete the Hartono walkthrough in under 60 seconds;
-- Cheung and Margarethe demonstrate bilingual preparation and honest uncertainty;
-- the Queue exposes financial signals, Open Loops, and Governance Clocks across the Book;
-- every material claim can open its Evidence Chain;
-- Meeting Brief editing, approval, and Case Resolution are visibly human-controlled;
-- the demo works offline without AI credentials;
-- relevant tests and production build pass;
-- you leave a concise handoff stating commands run, test/build results, screenshots checked, remaining uncertainties, and any contract coordination needed from Builder 1.
+The workbench succeeds when judges stop seeing a portfolio dashboard and start seeing a better private-banking conversation.
