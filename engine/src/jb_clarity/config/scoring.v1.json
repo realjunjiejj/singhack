@@ -1,0 +1,117 @@
+{
+  "version": "1.0.0",
+  "description": "Versioned Urgency and Confidence configuration for JB Clarity. Every point shown in the Priority Queue is produced by one of these rules and is emitted as a named factor contribution. Values are calibrated against the supplied 20-client dataset distribution and are not learned, and never reference an individual client.",
+  "urgency": {
+    "maxScore": 100,
+    "highTierThreshold": 65,
+    "compoundEscalationCap": 65,
+    "additionalContributionBonus": 5,
+    "factors": {
+      "time urgency": {
+        "max": 30,
+        "confirmedBands": [
+          { "withinDays": 30, "points": 30 },
+          { "withinDays": 90, "points": 25 },
+          { "withinDays": 180, "points": 15 }
+        ],
+        "beyondBandPoints": 5,
+        "governanceOverduePoints": 20,
+        "governanceDueSoonPoints": 10,
+        "certaintyMultipliers": {
+          "Confirmed": 1.0,
+          "Likely": 0.7,
+          "Conditional": 0.3,
+          "Aspirational": 0.3
+        }
+      },
+      "threshold or historical breach": {
+        "max": 35,
+        "facilityActiveBreach": 35,
+        "facilityNearMax": 35,
+        "facilityNearFloor": 12,
+        "facilityHistoricalResolved": 30,
+        "facilityWorseningOutsideBand": 15,
+        "nearAndHistoricalBonus": 5,
+        "mandateBandBase": 10,
+        "mandateBandPerPctPoint": 0.4,
+        "mandateBandCap": 30,
+        "positionLimitBase": 8,
+        "positionLimitPerPctPoint": 0.5,
+        "positionLimitCap": 20,
+        "bindingExclusion": 25,
+        "evidencedWaiverMultiplier": 0.4
+      },
+      "suitability or objective mismatch": {
+        "max": 20,
+        "strongProfileMismatch": 20,
+        "moderateProfileMismatch": 12,
+        "sourceOfWealthConcentration": 12,
+        "liquidityNeedVersusRestrictedAssets": 10,
+        "conservativeRiskToleranceCeiling": 3,
+        "growthAssetShareThresholdPct": 50.0,
+        "restrictedAssetShareThresholdPct": 20.0
+      },
+      "financial exposure": {
+        "max": 10,
+        "bands": [
+          { "atLeastUsd": 75000000, "points": 10 },
+          { "atLeastUsd": 50000000, "points": 9 },
+          { "atLeastUsd": 35000000, "points": 8 },
+          { "atLeastUsd": 25000000, "points": 7 },
+          { "atLeastUsd": 15000000, "points": 5 },
+          { "atLeastUsd": 10000000, "points": 4 },
+          { "atLeastUsd": 0, "points": 3 }
+        ]
+      },
+      "relationship signal": {
+        "max": 10,
+        "unansweredQuestion": 10,
+        "repeatedDeferral": 8,
+        "unresolvedCommitment": 5,
+        "clientConstraint": 3
+      }
+    }
+  },
+  "confidence": {
+    "start": 100,
+    "highThreshold": 80,
+    "mediumThreshold": 55,
+    "deductions": {
+      "materialEvidenceConflict": 25,
+      "staleValuationRelevantToConclusion": 12,
+      "indicativeLookThrough": 10,
+      "missingFxPair": 10,
+      "requiresClientConfirmation": 8,
+      "freeTextNoteInterpretation": 5,
+      "missingCalculationInput": 20
+    }
+  },
+  "ltv": {
+    "nearBandPctPoints": 5.0,
+    "worseningPctPoints": 3.0,
+    "stressScenarioChangesPct": [0, -15]
+  },
+  "liquidity": {
+    "tierMinimumDays": { "Daily": 0, "Weekly": 14, "Monthly": 45 },
+    "restrictedTiers": ["Quarterly Gate", "Illiquid"],
+    "safetyOverrideHorizonDays": 90,
+    "planningHorizonDays": 365
+  },
+  "governance": {
+    "dueSoonDays": 30
+  },
+  "concentration": {
+    "clientPositionSharePct": 20.0,
+    "themeSharePct": 25.0,
+    "sourceOfWealthSharePct": 15.0,
+    "materialRestrictedSharePct": 10.0
+  },
+  "queue": {
+    "ordering": [
+      "safety override first",
+      "urgency score descending",
+      "earliest confirmed obligation ascending, missing last",
+      "client identifier ascending"
+    ]
+  }
+}

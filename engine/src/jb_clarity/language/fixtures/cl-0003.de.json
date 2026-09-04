@@ -1,0 +1,17 @@
+{
+  "clientId": "CL-0003",
+  "language": "German",
+  "canonicalLanguage": "English",
+  "note": "Reviewed translation of the canonical English Client-Ready draft. Figures keep the canonical formatting rather than German number conventions, because a translation may restate wording but must never restate a number. The build rejects this draft if any figure or citation differs from the canonical version.",
+  "content": "Zwischen 2025-12-31 und 2026-08-26 hat sich das Vermögen dieser Kundin von USD 23,516,978 auf USD 22,181,136 verändert, eine Veränderung von -5.68%. Ein als konservativ eingestuftes Profil hält 76.8% in Aktien und strukturierten Produkten. Die dokumentierten Ziele der Kundin lauten: das geerbte Portfolio verstehen und dessen Risiko reduzieren, ein stabiles Einkommen sichern sowie die deutsche Erbschaftsteuerplanung. Sie ist als konservativ eingestuft, bei mittlerem Liquiditätsbedarf. Ein Portfolio, das so deutlich über dem für die Kundin dokumentierten Risiko liegt, ist eine Eignungsfrage, die der Kundenberater ansprechen muss, und keine Schlussfolgerung, die das System selbst treffen kann. Vorschlag für den Gesprächseinstieg: Können wir gemeinsam noch einmal betrachten, welches Risikoniveau Sie für dieses Portfolio wünschen, und es mit dem vergleichen, was es derzeit tatsächlich trägt?",
+  "evidenceItemIds": [
+    "EV-CL-0003-MANDATE-BAND_PF_0005_FIXED_INCOME",
+    "EV-CL-0003-MANDATE-BAND_PF_0005_EQUITY",
+    "EV-CL-0003-MANDATE-POSITION_PF_0005_SYN_ST_0107",
+    "EV-CL-0003-SUITABILITY-RISK_PROFILE",
+    "EV-CL-0003-SUITABILITY-GROWTH_SHARE",
+    "EV-CL-0003-CONCENTRATION-LARGEST_POSITION",
+    "EV-CL-0003-CONCENTRATION-THEME_DIRECT_LUXURY_AND_CONSUMER",
+    "EV-CL-0003-CASH_NEED-CN_004_NEED"
+  ]
+}
