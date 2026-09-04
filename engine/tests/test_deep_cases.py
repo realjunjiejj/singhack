@@ -180,6 +180,23 @@ def test_cheung_draw_is_linked_to_the_falling_portfolio(cases_by_client):
     assert "6.98%" in text or "4.57%" in text
 
 
+def test_cheung_decline_has_a_grounded_duration_explanation(
+    cases_by_client, packets_by_client
+):
+    case = cases_by_client["CL-0012"]
+    text = _claims(case).lower()
+    assert "rising yields" in text
+    assert "duration" in text
+    assert "sole cause" in text
+    assert "rising yields" in case.conclusion.lower()
+
+    packets = {p.signal_type: p for p in packets_by_client["CL-0012"]}
+    packet = packets["explanation"]
+    assert any(
+        item.source_reference.file == "event_log.csv" for item in packet.items
+    )
+
+
 # --------------------------------------------------------------------------
 # Margarethe Voss-Brenner - CL-0003
 # --------------------------------------------------------------------------

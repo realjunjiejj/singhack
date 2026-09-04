@@ -20,7 +20,7 @@ The three fully developed Client Cases are:
 
 1. Cheung Kwok Wing: retirement income, rising yields, duration losses, increased medical spending, unwillingness to sell at a loss, and Traditional Chinese client communication.
 2. Hartono Wijaya Kusuma: historical LTV breaches, self-curing collateral, cross-portfolio energy concentration, structured-product look-through, a future property deposit, and family-governance constraints.
-3. Margarethe Voss-Brenner: inherited-portfolio suitability mismatch, a confirmed German inheritance-tax instalment, sensitive relationship context, conflicting portfolio totals, and a German Client-Ready View.
+3. Margarethe Voss-Brenner: inherited-portfolio suitability mismatch, a confirmed German inheritance-tax instalment, sensitive relationship context, correctly reconciled EUR-base and USD totals, and a German Client-Ready View.
 
 Supporting Book-wide examples include Nguyen Thi Bao Tran's gated redemption and near-term USD obligations; Chalermchai Suphanburi's unanswered deposit question; Tan Boon Huat's fourth deferred succession discussion and KYC due date; Andreas Lindqvist's repeatedly agreed but unexecuted deployment plan; and facilities near their LTV triggers.
 
@@ -124,7 +124,7 @@ AI is optional language generation operating on one bounded Evidence Packet at a
 
 - Cheung's case connects rising yields and duration-sensitive holdings to his retirement-income objective and increased confirmed annual cash need. It distinguishes the objective's USD 1.1m wording from the USD 1.28m planned-cash record.
 - Hartono's case shows LTV of 78.50% and 75.68% against a 70% trigger before resolution to 58.86%, alongside unchanged SGD 8m borrowing and increased lending value from the collateral portfolio. It aggregates direct energy exposure and the energy-linked structured product, and surfaces the SGD 9m property need and family constraint.
-- Margarethe's case shows a Conservative profile against a strongly equity-weighted inherited portfolio, the confirmed EUR 3.4m obligation, relationship sensitivity, and the material disagreement between current portfolio AUM and holdings/client totals.
+- Margarethe's case shows a Conservative profile against a strongly equity-weighted inherited portfolio, the confirmed EUR 3.4m obligation, relationship sensitivity, and an explicit reconciliation of the portfolio's EUR-base total to the holdings/client USD total using the supplied FX rate.
 
 ### Workbench interaction
 

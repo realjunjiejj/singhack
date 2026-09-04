@@ -19,16 +19,19 @@ export function ClientReadyView({
   const drafts = clientCase.clientReadyDrafts ?? [];
   const translated = drafts.find((draft) => draft.language !== draft.canonicalLanguage) ?? drafts[0];
   const canonicalDraft = drafts.find((draft) => draft.language === draft.canonicalLanguage);
-  const canonical = canonicalDraft?.content ?? canonicalText(clientCase, brief);
-  const citations = translated?.evidenceItemIds ?? canonicalDraft?.evidenceItemIds ?? clientCase.meetingBrief.evidenceItemIds;
+  const canonical = brief ? canonicalText(clientCase, brief) : canonicalDraft?.content ?? canonicalText(clientCase);
+  const citations = brief ? clientCase.meetingBrief.evidenceItemIds : translated?.evidenceItemIds ?? canonicalDraft?.evidenceItemIds ?? clientCase.meetingBrief.evidenceItemIds;
+  const translatedStatus = brief
+    ? "Cached draft · refresh after RM edits"
+    : "Draft · RM review required";
   return (
     <div className="surface-content client-ready">
       <div className="brief-status draft"><span>Client-Ready View · review draft</span><strong>Cached / offline mode</strong></div>
-      <p className="boundary-note">Canonical and reporting-language content are supplied by the artifact. No browser translation or regeneration is used, and nothing can be sent from this view.</p>
+      <p className="boundary-note">The artifact supplies the original canonical and reporting-language drafts. RM edits update the canonical view only; the cached translation is then explicitly marked for refresh. Nothing can be sent from this view.</p>
       {!translated ? <p className="muted">No cached Client-Ready draft was supplied for this case. Optional live language is unavailable offline.</p> : (
         <div className="bilingual-grid">
           <DraftPanel title={`Canonical · ${translated.canonicalLanguage}`} content={canonical} status={brief?.status === "approved" ? `RM-approved revision ${brief.revision}` : "Draft"} citations={citations} onEvidence={onEvidence} />
-          <DraftPanel title={`Client reporting language · ${translated.language}`} content={translated.content} status="Draft · RM review required" citations={citations} onEvidence={onEvidence} />
+          <DraftPanel title={`Client reporting language · ${translated.language}`} content={translated.content} status={translatedStatus} citations={translated.evidenceItemIds} onEvidence={onEvidence} />
         </div>
       )}
       <div className="guardrail-banner">Optional live language unavailable · validated cached content remains available</div>

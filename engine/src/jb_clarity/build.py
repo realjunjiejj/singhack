@@ -71,6 +71,8 @@ _FAMILY_LEAD_BONUS = {
     SignalType.CONCENTRATION: 8,
     SignalType.LIQUIDITY_RESTRICTION: 5,
     SignalType.RELATIONSHIP: -5,
+    SignalType.EXPLANATION: -15,
+    SignalType.TIMELINE: -100,
     SignalType.GOVERNANCE: -10,
     SignalType.DATA_CONFLICT: -20,
 }
@@ -336,7 +338,7 @@ def _build_case(
         ],
         open_loops=loops,
         governance_clocks=clocks,
-        timeline=_timeline(context),
+        timeline=_timeline(context, available_items),
         evidence_packet_ids=[p.packet_id for p in client_packets],
         allowed_guided_actions=actions,
         meeting_brief=brief,
@@ -417,7 +419,7 @@ def _priority_rationale(case: ClientCase, urgency_result) -> str:
     return " ".join(f"{c.reason}" for c in top)
 
 
-def _timeline(context) -> list[TimelinePoint]:
+def _timeline(context, available_items: set[str]) -> list[TimelinePoint]:
     points: list[TimelinePoint] = []
     baseline = context.timeline.first.total_usd
     facility = context.facilities[0] if context.facilities else None
@@ -426,6 +428,13 @@ def _timeline(context) -> list[TimelinePoint]:
     )
 
     for index, point in enumerate(context.timeline.points):
+        evidence_item_ids = [
+            ids.evidence_item_id(
+                context.client_id,
+                SignalType.TIMELINE,
+                f"snapshot-{point.snapshot_date}",
+            )
+        ]
         metrics = {
             "totalValue": Measure(
                 value=round(point.total_usd, 2), unit="currency", currency="USD"
@@ -442,6 +451,13 @@ def _timeline(context) -> list[TimelinePoint]:
 
         snapshot = ltv_by_date.get(point.snapshot_date)
         if snapshot is not None and snapshot.lending_value_usable:
+            credit_item_id = ids.evidence_item_id(
+                context.client_id,
+                SignalType.CREDIT,
+                f"{facility.facility_id}-ltv-{point.snapshot_date}",
+            )
+            if credit_item_id in available_items:
+                evidence_item_ids.append(credit_item_id)
             metrics["loanToValue"] = Measure(
                 value=round(snapshot.ltv_pct, 2), unit="percent"
             )
@@ -457,7 +473,7 @@ def _timeline(context) -> list[TimelinePoint]:
                 date=date.fromisoformat(point.snapshot_date),
                 label="; ".join(label_parts) or point.snapshot_date,
                 metrics=metrics,
-                evidence_item_ids=[],
+                evidence_item_ids=evidence_item_ids,
             )
         )
     return points

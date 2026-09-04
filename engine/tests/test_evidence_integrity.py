@@ -102,6 +102,15 @@ def test_meeting_brief_references_resolve(artifact):
             assert item_id in items
 
 
+def test_every_timeline_point_cites_its_source_records(artifact):
+    items = _all_items(artifact)
+    for case in artifact["clientCases"]:
+        for point in case["timeline"]:
+            assert point["evidenceItemIds"]
+            for item_id in point["evidenceItemIds"]:
+                assert item_id in items
+
+
 def test_derived_metrics_show_their_working(artifact):
     for packet in artifact["evidencePackets"]:
         for metric in packet["derivedMetrics"]:

@@ -84,16 +84,26 @@ def test_an_explicit_non_reply_is_high_confidence(cases_by_client):
     assert "deposits" in loop.source_excerpt.lower()
 
 
-def test_a_question_answered_in_the_same_note_is_low_confidence(cases_by_client):
+def test_a_question_answered_in_the_same_note_is_not_an_open_loop(cases_by_client):
     """CL-0012's note records the question and the answer together."""
     loops = [
         loop
         for loop in cases_by_client["CL-0012"].open_loops
         if "question" in loop.summary
     ]
-    assert loops
-    assert loops[0].confidence.level == "Low"
-    assert any("already be closed" in reason for reason in loops[0].confidence.reasons)
+    assert not loops
+
+
+def test_a_subsequent_subscription_in_the_same_note_is_not_an_open_loop(
+    cases_by_client,
+):
+    """Hartono's note says he subscribed the following day."""
+    loops = [
+        loop
+        for loop in cases_by_client["CL-0001"].open_loops
+        if "question" in loop.summary
+    ]
+    assert not loops
 
 
 def test_repeated_deferral_is_detected_for_both_affected_clients(cases_by_client):

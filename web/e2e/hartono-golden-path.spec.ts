@@ -3,12 +3,15 @@ import { expect, test } from "@playwright/test";
 test("Hartono Queue to Evidence Chain to approved Meeting Brief", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
-  await expect(page.getByText("Demo fixture · partial Book")).toBeVisible();
+  await expect(page.getByText("Generated · attention")).toBeVisible();
+  await expect(page.getByText("20/20")).toBeVisible();
+  await page.getByRole("button", { name: "Hartono", exact: true }).click();
   await expect(page.getByRole("heading", { name: "Hartono Wijaya Kusuma", exact: true })).toBeVisible();
   await expect(page.getByText("Historical — resolved").first()).toBeVisible();
   await page.screenshot({ path: "demo/screenshots/01-priority-queue.png", fullPage: true });
 
-  await page.getByRole("button", { name: "Open evidence E-H-LTV-DEC" }).first().click();
+  await page.getByText(/Evidence · \d+ cited records/).first().click();
+  await page.getByRole("button", { name: /Open evidence .*LTV_2025_12_31/ }).first().click();
   await expect(page.getByRole("heading", { name: "Evidence Chain" })).toBeVisible();
   await expect(page.getByText("credit_facilities.csv").first()).toBeVisible();
   await expect(page.getByText("78.5").first()).toBeVisible();
@@ -17,9 +20,9 @@ test("Hartono Queue to Evidence Chain to approved Meeting Brief", async ({ page 
 
   await page.getByRole("button", { name: "Close work surface" }).click();
   await page.getByRole("button", { name: "Explore supplied collateral what-if" }).click();
-  await page.getByLabel("Supplied scenario").selectOption("H-STRESS-DOWN-15");
+  await page.getByLabel("Supplied scenario").selectOption({ label: "-15% collateral · near" });
   await expect(page.getByText("69.59%")).toBeVisible();
-  await expect(page.getByText("SGD 8,000,000")).toBeVisible();
+  await expect(page.getByText("SGD 8,000,000", { exact: true })).toBeVisible();
   await expect(page.getByText(/not a forecast/i).first()).toBeVisible();
   await page.getByRole("button", { name: "Close work surface" }).click();
   await page.getByRole("button", { name: "prepare conversation", exact: true }).click();
@@ -49,7 +52,8 @@ test("presentation widths have no horizontal page overflow", async ({ page }) =>
     expect(overflow).toBeLessThanOrEqual(0);
     if (viewport.width === 1280) await page.screenshot({ path: "demo/screenshots/04-responsive-1280.png", fullPage: true });
     if (viewport.width === 1000) {
-      await page.getByRole("button", { name: "Open evidence E-H-LTV-DEC" }).first().click();
+      await page.getByRole("button", { name: "Hartono", exact: true }).click();
+      await page.getByRole("button", { name: /Open evidence .*LTV_2025_12_31/ }).first().click();
       const surface = page.locator(".work-surface");
       await expect(surface).toHaveCSS("transform", "matrix(1, 0, 0, 1, 0, 0)");
       const bounds = await surface.boundingBox();
@@ -67,4 +71,51 @@ test("architecture tells the demonstrated-versus-target story", async ({ page })
   await expect(page.getByRole("heading", { name: "Visible in the prototype" })).toBeVisible();
   await expect(page.getByText(/not claimed as present in the prototype/i)).toBeVisible();
   await page.screenshot({ path: "demo/screenshots/06-target-architecture.png", fullPage: true });
+});
+
+test("deep cases preserve client context and reporting language", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  await expect(page.getByText("Generated · attention")).toBeVisible();
+
+  await page.getByRole("button", { name: "Cheung", exact: true }).click();
+  await expect(
+    page.getByRole("heading", { name: "Cheung Kwok Wing", exact: true }),
+  ).toBeVisible();
+  await expect(page.getByText(/rising yields/i).first()).toBeVisible();
+  await page.getByRole("button", { name: "Review Client-Ready View" }).click();
+  await expect(
+    page.getByRole("heading", { name: "Client reporting language · Traditional Chinese" }),
+  ).toBeVisible();
+  await expect(page.getByText(/cached \/ offline mode/i)).toBeVisible();
+  await page.screenshot({ path: "demo/screenshots/07-cheung-client-ready.png", fullPage: true });
+
+  await page.getByRole("button", { name: "Close work surface" }).click();
+  await page.getByRole("button", { name: "Margarethe", exact: true }).click();
+  await expect(
+    page.getByRole("heading", { name: "Margarethe Voss-Brenner", exact: true }),
+  ).toBeVisible();
+  await expect(page.getByText(/EUR 3,400,000|EUR 3\.4m/).first()).toBeVisible();
+  await page.getByRole("button", { name: "Review Client-Ready View" }).click();
+  await expect(
+    page.getByRole("heading", { name: "Client reporting language · German" }),
+  ).toBeVisible();
+  await page.screenshot({ path: "demo/screenshots/08-margarethe-client-ready.png", fullPage: true });
+});
+
+test("core workbench makes no external network requests", async ({ page }) => {
+  const externalRequests: string[] = [];
+  page.on("request", (request) => {
+    const url = new URL(request.url());
+    if (url.protocol.startsWith("http") && url.hostname !== "127.0.0.1") {
+      externalRequests.push(request.url());
+    }
+  });
+
+  await page.goto("/");
+  await expect(page.getByRole("heading", { name: "Priority Queue" })).toBeVisible();
+  await page.getByRole("button", { name: "Cheung", exact: true }).click();
+  await page.getByRole("button", { name: "Review Client-Ready View" }).click();
+  await expect(page.getByText(/cached \/ offline mode/i)).toBeVisible();
+  expect(externalRequests).toEqual([]);
 });

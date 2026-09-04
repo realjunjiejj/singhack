@@ -211,7 +211,7 @@ For each evidence item show label, value, file, record key, and field. For deriv
 
 Clicking a citation focuses the matching item. The Queue and case context stay visible. Offer a “Back to claim” affordance and do not expose filesystem paths or pretend source rows are live bank links.
 
-**Gate:** Hartono’s LTV Evidence Chain visibly uses lending value and SGD; Margarethe’s conflicting totals show both sources.
+**Gate:** Hartono’s LTV Evidence Chain visibly uses lending value and SGD; Margarethe’s evidence shows that the EUR-base and USD totals reconcile after applying the supplied FX rate.
 
 ### 6. Anticipatory Signals, Open Loops, and Governance
 
@@ -334,7 +334,7 @@ Show bond/duration explanation, retired Income objective, USD 1.1m versus USD 1.
 
 ### Margarethe `CL-0003`
 
-Show Conservative profile versus inherited equity exposure, EUR 3.4m inheritance-tax need, widowhood/unfamiliarity as sensitive context, USD 22.18m versus USD 20.31m source conflict, lower Confidence, and German side-by-side draft.
+Show Conservative profile versus inherited equity exposure, EUR 3.4m inheritance-tax need, widowhood/unfamiliarity as sensitive context, the honest EUR 20.31m-to-USD 22.18m FX reconciliation, and a German side-by-side draft.
 
 ## Supporting Book proof
 
@@ -355,7 +355,7 @@ Optimize the product for this 4–5 minute sequence:
 2. **Queue, 30 seconds:** Show the full Book and explain deterministic Urgency versus separate Confidence.
 3. **Hartono, 90 seconds:** Queue rationale → breach timeline → Evidence Chain → hidden concentration/property constraint → scenario → approve brief.
 4. **Cheung, 45 seconds:** Explain the bond loss in his retirement context; reveal the cash-draw conflict and Traditional Chinese preparation.
-5. **Margarethe, 45 seconds:** Reveal suitability mismatch, tax clock, sensitive context, and honest source conflict.
+5. **Margarethe, 45 seconds:** Reveal suitability mismatch, tax clock, sensitive context, and the correctly reconciled cross-currency totals.
 6. **Architecture, 25 seconds:** Show deterministic core, bounded language, RM approval, and target controls.
 7. **Close, 10 seconds:** “JB Clarity helps every RM conversation become more timely, personal, and defensible.”
 
@@ -386,14 +386,14 @@ Implement and polish: loading; compatible fixture; compatible generated artifact
 | Evidence | Every citation opens the correct item/source/formula without losing context. |
 | Hartono | Complete queue-to-approved-brief golden path and scenario selector. |
 | State | Editing approved brief increments revision and invalidates resolution. |
-| Conflicts | Margarethe displays both totals and reduced Confidence. |
+| Reconciliation | Margarethe displays both currency-denominated totals, the applied FX explanation, and no fabricated conflict. |
 | Language | Chinese/German views preserve all financial tokens and citations. |
 | Accessibility | Keyboard path, focus, semantic labels, non-color cues, contrast, reduced motion. |
 | Responsive | Visual check at 1440×900 and 1280×800 plus one narrower width. |
 | Offline | Core demo works with network disabled and no AI key. |
 | Build | Unit/integration tests, Playwright golden path, and production build pass. |
 
-Test behavior rather than component internals or incidental markup. Capture screenshots of Queue, Hartono Evidence Chain, approved Meeting Brief, Cheung bilingual view, Margarethe conflict, and architecture for rehearsal review.
+Test behavior rather than component internals or incidental markup. Capture screenshots of Queue, Hartono Evidence Chain, approved Meeting Brief, Cheung bilingual view, Margarethe reconciliation, and architecture for rehearsal review.
 
 ## Builder 1 integration protocol
 

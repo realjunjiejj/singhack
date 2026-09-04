@@ -41,7 +41,7 @@ export function WorkSurface({
   onResolve: (state: CaseResolutionState, reason?: string) => void;
 }) {
   return (
-    <aside className={`work-surface ${state.rightSurface !== "none" ? "is-open" : ""}`} aria-labelledby="surface-title">
+    <aside className={`work-surface surface-${state.rightSurface} ${state.rightSurface !== "none" ? "is-open" : ""}`} aria-labelledby="surface-title">
       <div className="column-header surface-header">
         <div><p className="eyebrow">Prepare</p><h2 id="surface-title">{titles[state.rightSurface]}</h2></div>
         {state.rightSurface !== "none" && <button type="button" className="icon-button" onClick={onClose} aria-label="Close work surface">×</button>}

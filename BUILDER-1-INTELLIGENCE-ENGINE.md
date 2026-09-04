@@ -273,7 +273,7 @@ Adapt Anthropic’s Meeting Prep output checklist and human-review boundary from
 
 - Conservative profile versus strongly equity-weighted inherited portfolio.
 - Confirmed EUR 3.4m German inheritance-tax instalment before year-end.
-- Preserve about USD 22.18m client/holding totals versus about USD 20.31m portfolio records; reduce Confidence.
+- Reconcile the EUR 20.31m portfolio-base total to about USD 22.18m using the supplied EURUSD rate; explicitly explain that denomination, rather than manufacture a conflict or reduce Confidence.
 - Treat widowhood and unfamiliarity as sensitive conversation context, never scoring points.
 - Provide English and German drafts with identical financial tokens/citations.
 

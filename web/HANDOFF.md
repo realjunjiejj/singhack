@@ -48,14 +48,14 @@ All six were visually inspected. At 1440px and 1280px the three regions remain v
 
 ## Remaining integration evidence
 
-Builder 1 has not published `artifacts/workbench.json` locally or on any current remote branch. Consequently, these final data-dependent checks remain pending and must not be represented as passed:
+The generated `artifacts/workbench.json` is now integrated. The following former integration checks are covered by the generated-data build and browser suite:
 
 - rendering the actual 20-row generated Priority Queue;
-- live inspection of Cheung, Margarethe, CL-0004, CL-0006, CL-0009, and CL-0011;
-- real Traditional Chinese/German token parity against generated drafts (the generic behavior is covered by an automated bilingual test);
-- Margarethe’s real two-source conflict screenshot;
-- Cheung and Margarethe rehearsal screenshots;
-- a timed non-developer Hartono rehearsal under 60 seconds.
+- browser inspection of Cheung and Margarethe with their Traditional Chinese and German drafts;
+- generated-data adoption through the schema-validating adapter;
+- Cheung and Margarethe rehearsal screenshots.
+
+A timed non-developer Hartono rehearsal under 60 seconds remains a presentation exercise, not an automated product check.
 
 No fixture-only case logic is embedded in the components. When Builder 1 publishes a compatible artifact, `npm run sync-data` will adopt it through the same adapter. Missing Evidence Packets, foreign packets, or unresolved citation IDs are treated as contract defects and block adoption.
 

@@ -50,7 +50,7 @@ _QUESTION = re.compile(
 # evidence that the loop is still open.
 _RESOLUTION = re.compile(
     r"(?<!she )(?<!he )(?<!not )(?<!not yet )"
-    r"\b(replied|responded|resolved|executed|completed|signed|"
+    r"\b(replied|responded|resolved|executed|completed|signed|discussed|"
     r"subscribed|explained|sent a (short )?note|waiver on file|proceeded)\b",
     re.IGNORECASE,
 )
@@ -158,7 +158,7 @@ def detect(context) -> tuple[list[OpenLoop], DetectedSignal | None]:
         return [], None
 
     loops: list[OpenLoop] = []
-    item_ids: list[str] = []
+    emitted: dict[str, tuple[RmNote, LoopPattern]] = {}
 
     for category in (
         UNANSWERED_QUESTION,
@@ -181,6 +181,12 @@ def detect(context) -> tuple[list[OpenLoop], DetectedSignal | None]:
             and _resolved_after_question(note.note)
         )
 
+        # A recorded answer or execution is a closed thread, not an Open Loop.
+        # Keeping it as a low-confidence candidate still creates a false task
+        # for the RM and incorrectly adds relationship-urgency points.
+        if resolved_in_note:
+            continue
+
         quoted = excerpt_around(note.note, pattern.pattern)
         item_id = builder.item(
             f"note-{note.note_id}-{category}",
@@ -190,7 +196,7 @@ def detect(context) -> tuple[list[OpenLoop], DetectedSignal | None]:
             record_key=note.note_id,
             field_name="note",
         )
-        item_ids.append(item_id)
+        emitted[category] = (note, pattern)
 
         score = 85.0 if pattern.explicit else 70.0
         reasons = [
@@ -198,11 +204,6 @@ def detect(context) -> tuple[list[OpenLoop], DetectedSignal | None]:
             f"{note.note_date.isoformat()}.",
             "Requires RM confirmation before it becomes a tracked commitment.",
         ]
-        if resolved_in_note:
-            score -= 20.0
-            reasons.append(
-                "The same note records action taken, so this may already be closed."
-            )
         if later_notes:
             score -= 5.0
             reasons.append(
@@ -237,6 +238,9 @@ def detect(context) -> tuple[list[OpenLoop], DetectedSignal | None]:
             [item_id],
         )
 
+    if not emitted:
+        return [], None
+
     builder.deduct_confidence(
         "Relationship signals are interpretations of free-text notes awaiting RM "
         "confirmation.",
@@ -252,17 +256,21 @@ def detect(context) -> tuple[list[OpenLoop], DetectedSignal | None]:
             UNRESOLVED_COMMITMENT,
             CLIENT_CONSTRAINT,
         )
-        if category in found
+        if category in emitted
     )
     points = float(settings[_CATEGORY_POINTS[best_category]])
     bonus = float(context.config["urgency"]["additionalContributionBonus"])
-    points = min(points + bonus * (len(found) - 1), float(settings["max"]))
+    points = min(points + bonus * (len(emitted) - 1), float(settings["max"]))
     builder.score(
         ScoringFactor.RELATIONSHIP_SIGNAL,
         points,
         f"The most recent {best_category} is recorded in the "
-        f"{found[best_category][0].note_date.isoformat()} note"
-        + (f", with {len(found) - 1} other open relationship signal(s)." if len(found) > 1 else "."),
+        f"{emitted[best_category][0].note_date.isoformat()} note"
+        + (
+            f", with {len(emitted) - 1} other open relationship signal(s)."
+            if len(emitted) > 1
+            else "."
+        ),
     )
 
     signal = builder.finish(

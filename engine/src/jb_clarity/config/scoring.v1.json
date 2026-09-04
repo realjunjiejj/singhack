@@ -106,6 +106,9 @@
     "sourceOfWealthSharePct": 15.0,
     "materialRestrictedSharePct": 10.0
   },
+  "eventExplanations": {
+    "fixedIncomeDeclinePct": 3.0
+  },
   "queue": {
     "ordering": [
       "safety override first",
