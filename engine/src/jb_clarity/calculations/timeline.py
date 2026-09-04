@@ -95,20 +95,15 @@ class EventLink:
     severity: str
     matched_channels: tuple[str, ...]
     matched_instruments: tuple[tuple[str, str, float], ...]
+    # Which holdings each individual channel reached. Keeping this split
+    # matters: a single-stock energy position can match a generic
+    # "concentrated equity" channel, and reporting it under a technology
+    # event's headline would be indefensible in front of a client.
+    matches_by_channel: tuple[tuple[str, tuple[tuple[str, str, float], ...]], ...] = ()
 
     @property
     def matched_value_usd(self) -> float:
         return sum(value for _, _, value in self.matched_instruments)
-
-    @property
-    def rationale(self) -> str:
-        names = ", ".join(name for _, name, _ in self.matched_instruments[:3])
-        return (
-            f"event_log.csv records this on {self.event_date} with transmission "
-            f"channels '{self.primary_transmission}'. The client holds "
-            f"{names}, which sit in the "
-            f"{', '.join(self.matched_channels)} channel."
-        )
 
 
 def build_client_timeline(data: ChallengeData, client_id: str) -> ClientTimeline:
@@ -172,14 +167,15 @@ def link_events(
 
     links: list[EventLink] = []
     for index, event in data.events.iterrows():
-        transmission = str(event["primary_transmission"]).lower()
+        transmission = str(event["primary_transmission"])
         channels = [c.strip() for c in transmission.split(",") if c.strip()]
 
         matched_channels: list[str] = []
         matched: dict[str, tuple[str, str, float]] = {}
+        by_channel: list[tuple[str, tuple[tuple[str, str, float], ...]]] = []
 
         for channel in channels:
-            rule = _CHANNEL_RULES.get(channel)
+            rule = _CHANNEL_RULES.get(channel.lower())
             if rule is None:
                 continue
             channel_hits = []
@@ -193,6 +189,8 @@ def link_events(
                     )
             if channel_hits:
                 matched_channels.append(channel)
+                channel_hits.sort(key=lambda hit: -hit[2])
+                by_channel.append((channel, tuple(channel_hits)))
                 for hit in channel_hits:
                     matched[hit[0]] = hit
 
@@ -215,6 +213,7 @@ def link_events(
                 matched_instruments=tuple(
                     sorted(matched.values(), key=lambda item: -item[2])
                 ),
+                matches_by_channel=tuple(by_channel),
             )
         )
 

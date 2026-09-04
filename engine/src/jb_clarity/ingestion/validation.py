@@ -14,6 +14,7 @@ from jb_clarity.calculations.fx import FxTable
 from jb_clarity.domain.enums import IssueSeverity
 from jb_clarity.domain.models import DataQualityIssue, SourceReference
 from jb_clarity.ingestion.loader import ChallengeData
+from jb_clarity.phrasing import count_noun, count_verb
 
 # Relative difference above which two totals for the same thing are treated as
 # a real disagreement rather than presentation rounding.
@@ -235,7 +236,8 @@ def _check_stale_valuations(
                 id="DQ-STALE-VALUATION",
                 severity=IssueSeverity.WARNING,
                 summary=(
-                    f"{len(report.stale_valuations)} current holding(s) are carried at a "
+                    f"{count_noun(len(report.stale_valuations), 'current holding')} "
+                    f"{count_verb(len(report.stale_valuations), 'is', 'are')} carried at a "
                     "valuation date earlier than the snapshot date. Private markets "
                     "report on a lag, so this is expected, but any conclusion drawn "
                     "from the value is limited by its age."
@@ -312,7 +314,7 @@ def _reconcile_totals(
                 id="DQ-TOTALS-DISAGREE",
                 severity=IssueSeverity.MATERIAL,
                 summary=(
-                    f"{len(material)} client(s) where the holdings, client and portfolio "
+                    f"{count_noun(len(material), 'client')} where the holdings, client and portfolio "
                     "records state materially different totals in the same currency."
                 ),
                 source_references=[

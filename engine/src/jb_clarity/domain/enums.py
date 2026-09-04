@@ -87,7 +87,6 @@ class SignalType(StrEnum):
     GOVERNANCE = "governance"
     RELATIONSHIP = "relationship"
     EXPLANATION = "explanation"
-    TIMELINE = "timeline"
     DATA_CONFLICT = "data-conflict"
 
 

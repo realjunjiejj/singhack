@@ -16,6 +16,7 @@ from jb_clarity.calculations.fx import FxTable
 from jb_clarity.calculations.ltv import stress_scenarios
 from jb_clarity.config import load_scoring_config
 from jb_clarity.detectors import build_client_context, detect_all
+from jb_clarity.detectors import explanation as explanation_detector
 from jb_clarity.detectors import governance as governance_detector
 from jb_clarity.detectors import open_loops as open_loops_detector
 from jb_clarity.domain.enums import (
@@ -63,6 +64,7 @@ DEFAULT_AS_OF = date(2026, 8, 26)
 # context rather than the headline, while a compliance breach leads even when
 # other conditions look larger.
 _FAMILY_LEAD_BONUS = {
+    SignalType.EXPLANATION: -15,
     SignalType.EXCLUSION: 30,
     SignalType.CREDIT: 25,
     SignalType.SUITABILITY: 15,
@@ -71,8 +73,6 @@ _FAMILY_LEAD_BONUS = {
     SignalType.CONCENTRATION: 8,
     SignalType.LIQUIDITY_RESTRICTION: 5,
     SignalType.RELATIONSHIP: -5,
-    SignalType.EXPLANATION: -15,
-    SignalType.TIMELINE: -100,
     SignalType.GOVERNANCE: -10,
     SignalType.DATA_CONFLICT: -20,
 }
@@ -338,7 +338,7 @@ def _build_case(
         ],
         open_loops=loops,
         governance_clocks=clocks,
-        timeline=_timeline(context, available_items),
+        timeline=_timeline(context, signals),
         evidence_packet_ids=[p.packet_id for p in client_packets],
         allowed_guided_actions=actions,
         meeting_brief=brief,
@@ -361,6 +361,15 @@ def _narrative(context, signals, lead, clocks) -> tuple[str, str]:
         for s in signals
         if s.signal_id != lead.signal_id and s.severity_rank >= 45
     ][:2]
+    explanation = next(
+        (s for s in signals if s.signal_type == SignalType.EXPLANATION), None
+    )
+    if (
+        explanation is not None
+        and explanation.signal_id != lead.signal_id
+        and context.timeline.change_pct < 0
+    ):
+        others = [explanation, *[s for s in others if s != explanation]][:2]
     conclusion = _sentence(lead.summary)
     if others:
         conclusion += " " + " ".join(_sentence(s.summary) for s in others)
@@ -419,22 +428,21 @@ def _priority_rationale(case: ClientCase, urgency_result) -> str:
     return " ".join(f"{c.reason}" for c in top)
 
 
-def _timeline(context, available_items: set[str]) -> list[TimelinePoint]:
+def _timeline(context, signals: list[DetectedSignal]) -> list[TimelinePoint]:
     points: list[TimelinePoint] = []
     baseline = context.timeline.first.total_usd
     facility = context.facilities[0] if context.facilities else None
     ltv_by_date = (
         {s.snapshot_date: s for s in facility.snapshots} if facility is not None else {}
     )
+    # Every number on the timeline must open its own evidence, so the items are
+    # looked up by the label their detector gave them rather than rebuilt from
+    # a guessed identifier.
+    items_by_label = {
+        item.label: item.id for signal in signals for item in signal.items
+    }
 
     for index, point in enumerate(context.timeline.points):
-        evidence_item_ids = [
-            ids.evidence_item_id(
-                context.client_id,
-                SignalType.TIMELINE,
-                f"snapshot-{point.snapshot_date}",
-            )
-        ]
         metrics = {
             "totalValue": Measure(
                 value=round(point.total_usd, 2), unit="currency", currency="USD"
@@ -449,17 +457,17 @@ def _timeline(context, available_items: set[str]) -> list[TimelinePoint]:
                 f"{'Up' if change >= 0 else 'Down'} {abs(change):.1f}% on baseline"
             )
 
+        evidence_ids = [
+            items_by_label.get(explanation_detector.snapshot_item_label(point.snapshot_date))
+        ]
+
         snapshot = ltv_by_date.get(point.snapshot_date)
         if snapshot is not None and snapshot.lending_value_usable:
-            credit_item_id = ids.evidence_item_id(
-                context.client_id,
-                SignalType.CREDIT,
-                f"{facility.facility_id}-ltv-{point.snapshot_date}",
-            )
-            if credit_item_id in available_items:
-                evidence_item_ids.append(credit_item_id)
             metrics["loanToValue"] = Measure(
                 value=round(snapshot.ltv_pct, 2), unit="percent"
+            )
+            evidence_ids.append(
+                items_by_label.get(f"Loan-to-value at {point.snapshot_date}")
             )
             if snapshot.breached:
                 label_parts.append(
@@ -473,7 +481,7 @@ def _timeline(context, available_items: set[str]) -> list[TimelinePoint]:
                 date=date.fromisoformat(point.snapshot_date),
                 label="; ".join(label_parts) or point.snapshot_date,
                 metrics=metrics,
-                evidence_item_ids=evidence_item_ids,
+                evidence_item_ids=[i for i in evidence_ids if i],
             )
         )
     return points
@@ -545,6 +553,12 @@ def _meeting_brief(
     specialist = _SPECIALISTS.get(lead_type)
 
     evidence_ids: list[str] = []
+    # The brief quotes the client's objectives and profile verbatim, so that
+    # quotation opens its own source record like every other claim.
+    for signal in signals:
+        for item in signal.items:
+            if item.label == explanation_detector.PROFILE_ITEM_LABEL:
+                evidence_ids.append(item.id)
     for signal in signals[:4]:
         evidence_ids.extend(signal.item_ids[:4])
 

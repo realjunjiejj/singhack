@@ -185,10 +185,11 @@ def test_cheung_decline_has_a_grounded_duration_explanation(
 ):
     case = cases_by_client["CL-0012"]
     text = _claims(case).lower()
-    assert "rising yields" in text
+    assert "yield rises" in text or "yield reaches" in text
     assert "duration" in text
-    assert "sole cause" in text
+    assert "not a measured attribution" in text
     assert "rising yields" in case.conclusion.lower()
+    assert "duration" in case.conclusion.lower()
 
     packets = {p.signal_type: p for p in packets_by_client["CL-0012"]}
     packet = packets["explanation"]

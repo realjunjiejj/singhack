@@ -127,21 +127,19 @@ def detect_all(context: ClientContext) -> list[DetectedSignal]:
         concentration,
         credit,
         evidence_conflicts,
-        event_explanations,
+        explanation,
         liquidity_restrictions,
         mandate,
         suitability,
-        timeline_evidence,
     )
 
     signals: list[DetectedSignal] = []
+    signals.extend(explanation.detect(context))
     signals.extend(credit.detect(context))
     signals.extend(cash_needs.detect(context))
     signals.extend(liquidity_restrictions.detect(context))
     signals.extend(mandate.detect(context))
     signals.extend(concentration.detect(context))
     signals.extend(suitability.detect(context))
-    signals.extend(event_explanations.detect(context))
-    signals.extend(timeline_evidence.detect(context))
     signals.extend(evidence_conflicts.detect(context))
     return sorted(signals, key=lambda s: (-s.severity_rank, s.signal_id))

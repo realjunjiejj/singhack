@@ -12,6 +12,7 @@ from jb_clarity.domain.enums import (
 from jb_clarity.domain.models import Measure
 from jb_clarity.evidence.claims import DetectedSignal, SignalBuilder
 from jb_clarity.ingestion.normalization import CashNeedOccurrence
+from jb_clarity.phrasing import count_noun
 
 NEEDS_FILE = "planned_cash_needs.csv"
 COMMITMENTS_FILE = "commitments.csv"
@@ -298,7 +299,7 @@ def _commitments_signal(context) -> DetectedSignal | None:
     builder.fact(
         "uncalled",
         f"{currency} {total_uncalled:,.0f} of private-markets commitments remain "
-        f"uncalled across {len(commitments)} fund(s).",
+        f"uncalled across {count_noun(len(commitments), 'fund')}.",
         item_ids,
     )
     builder.assumption(
