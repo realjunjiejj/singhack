@@ -1,4 +1,4 @@
-"""What the portfolio did across the five snapshots, and what explains it.
+"""What the portfolio did across the supplied snapshots, and what explains it.
 
 This is the evidence behind the timeline. It also carries the only claims in
 the engine that mention a 2026 world event, and each of those cites a row of
@@ -121,9 +121,13 @@ def detect(context) -> list[DetectedSignal]:
     _explain_asset_classes(context, builder, snapshot_items)
     links = _explain_events(context, builder, snapshot_items)
 
+    # The count comes from the Book, not from the demonstration dataset: a
+    # three-snapshot Book must not be told it has five.
     summary = (
-        f"Wealth {direction} {abs(timeline.change_pct):.2f}% across the five supplied "
-        f"snapshots (USD {abs(timeline.change_usd):,.0f})."
+        f"Wealth {direction} {abs(timeline.change_pct):.2f}% between "
+        f"{timeline.first.snapshot_date} and {timeline.last.snapshot_date} "
+        f"(USD {abs(timeline.change_usd):,.0f}), across "
+        f"{count_noun(len(timeline.points), 'supplied snapshot')}."
     )
     largest_decline = min(
         (
@@ -270,8 +274,11 @@ def _explain_events(context, builder: SignalBuilder, snapshot_items) -> list[Eve
         builder.uncertainty(
             "attribution-limits",
             "Linking an event to a holding is not performance attribution. The dataset "
-            "supplies five dated snapshots, not a return series, so the engine does not "
-            "claim how much of any change a given event caused.",
+            f"supplies "
+            f"{count_noun(len(context.timeline.points), 'dated snapshot')} between "
+            f"{context.timeline.first.snapshot_date} and "
+            f"{context.timeline.last.snapshot_date}, not a return series, so the "
+            "engine does not claim how much of any change a given event caused.",
             snapshot_items,
         )
     return material

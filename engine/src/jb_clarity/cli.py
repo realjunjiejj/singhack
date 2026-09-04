@@ -62,7 +62,98 @@ def _parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Write the artifact without validating it against the schema.",
     )
+
+    check = subparsers.add_parser(
+        "validate-data",
+        help="Check a dataset against the canonical source contract without "
+        "writing an artifact.",
+    )
+    check.add_argument("--data", required=True, type=Path, help="Dataset directory.")
+    check.add_argument(
+        "--as-of",
+        type=date.fromisoformat,
+        default=None,
+        help="As-of date. Defaults to the latest supplied snapshot.",
+    )
     return parser
+
+
+def _validate_data(args: argparse.Namespace) -> int:
+    """Report whether a dataset can produce a Workbench artifact, and why not.
+
+    Deliberately prints counts and capability names only. Relationship-manager
+    notes and client record contents never appear in validation output.
+    """
+    from jb_clarity.ingestion import source_contract
+    from jb_clarity.ingestion.loader import load_challenge_data
+    from jb_clarity.ingestion.validation import validate
+
+    print(f"Canonical source contract : v{source_contract.CONTRACT_VERSION}")
+    print(f"Dataset directory         : {args.data}")
+
+    try:
+        data = load_challenge_data(args.data)
+    except (FileNotFoundError, source_contract.SourceContractError) as error:
+        print(f"\nBLOCKED: {error}", file=sys.stderr)
+        return 1
+
+    try:
+        snapshots = data.snapshot_dates
+    except source_contract.SourceContractError as error:
+        print(f"\nBLOCKED: {error}", file=sys.stderr)
+        return 1
+
+    as_of = args.as_of or date.fromisoformat(snapshots[-1])
+    rm_ids = sorted({str(value) for value in data.clients["rm_id"].dropna().unique()})
+
+    print("\nResolved source files:")
+    for contract in source_contract.TABLES.values():
+        path = Path(args.data) / contract.default_filename
+        marker = "present" if path.exists() else "MISSING"
+        print(f"  {contract.canonical_name:<20} {contract.default_filename:<26} {marker}")
+
+    print("\nBook:")
+    print(f"  relationship manager    : {', '.join(rm_ids) or 'none recorded'}")
+    print(f"  clients                 : {len(data.clients)}")
+    print(f"  portfolios              : {len(data.portfolios)}")
+    print(f"  holdings                : {len(data.holdings)}")
+    print(f"  snapshots               : {len(snapshots)} ({snapshots[0]} to {snapshots[-1]})")
+    print(f"  as-of date              : {as_of.isoformat()}")
+
+    capabilities = {
+        "credit and collateral stress test": not data.facilities.empty,
+        "uncalled commitments": not data.commitments.empty,
+        "planned obligations": not data.cash_needs.empty,
+        "event-grounded explanation": not data.events.empty,
+        "open loops from RM notes": bool(data.notes),
+    }
+    print("\nCapabilities:")
+    for name, available in capabilities.items():
+        print(f"  {'enabled ' if available else 'UNAVAILABLE'} {name}")
+
+    report = validate(data)
+    blocking = [i for i in report.issues if i.severity == "material"]
+    warnings = [i for i in report.issues if i.severity != "material"]
+
+    print(f"\nData quality: {report.status}")
+    for issue in blocking:
+        print(f"  BLOCKING  {issue.id}: {issue.summary}")
+    for issue in warnings:
+        print(f"  warning   {issue.id}: {issue.summary}")
+    if not report.issues:
+        print("  no issues found")
+
+    if len(rm_ids) > 1:
+        print(
+            "\nBLOCKED: this dataset contains more than one relationship manager "
+            f"({', '.join(rm_ids)}). Building a Book across several RMs is not "
+            "supported; supply a dataset filtered to one RM.",
+            file=sys.stderr,
+        )
+        return 1
+
+    print("\nGeneration may proceed.")
+    return 0
 
 
 def _validate(payload: dict, schema_path: Path) -> None:
@@ -75,6 +166,8 @@ def _validate(payload: dict, schema_path: Path) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
+    if args.command == "validate-data":
+        return _validate_data(args)
     if args.command != "build":  # pragma: no cover - argparse enforces this
         return 2
 

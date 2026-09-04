@@ -1,0 +1,25 @@
+mandate_code,mandate_name,asset_class,min_pct,target_pct,max_pct,max_single_position_pct,mandate_notes
+MW-CONS,Conservative,Cash and Equivalents,5,10,25,10.0,Capital preservation. Max 10% in any single position.
+MW-CONS,Conservative,Fixed Income,45,60,75,10.0,Capital preservation. Max 10% in any single position.
+MW-CONS,Conservative,Equity,10,20,30,10.0,Capital preservation. Max 10% in any single position.
+MW-CONS,Conservative,Alternatives,0,5,15,10.0,Capital preservation. Max 10% in any single position.
+MW-CONS,Conservative,Commodities,0,5,10,10.0,Capital preservation. Max 10% in any single position.
+MW-CONS,Conservative,Structured Products,0,0,10,10.0,Capital preservation. Max 10% in any single position.
+MW-SUS,Sustainable Balanced,Cash and Equivalents,2,7,18,12.0,"Balanced allocation with binding exclusions: tobacco, thermal coal and controversial weapons."
+MW-SUS,Sustainable Balanced,Fixed Income,25,35,50,12.0,"Balanced allocation with binding exclusions: tobacco, thermal coal and controversial weapons."
+MW-SUS,Sustainable Balanced,Equity,30,40,55,12.0,"Balanced allocation with binding exclusions: tobacco, thermal coal and controversial weapons."
+MW-SUS,Sustainable Balanced,Alternatives,0,10,20,12.0,"Balanced allocation with binding exclusions: tobacco, thermal coal and controversial weapons."
+MW-SUS,Sustainable Balanced,Commodities,0,3,10,12.0,"Balanced allocation with binding exclusions: tobacco, thermal coal and controversial weapons."
+MW-SUS,Sustainable Balanced,Structured Products,0,5,15,12.0,"Balanced allocation with binding exclusions: tobacco, thermal coal and controversial weapons."
+MW-GROW,Growth,Cash and Equivalents,1,4,12,15.0,Long-horizon capital appreciation.
+MW-GROW,Growth,Fixed Income,5,12,25,15.0,Long-horizon capital appreciation.
+MW-GROW,Growth,Equity,50,62,78,15.0,Long-horizon capital appreciation.
+MW-GROW,Growth,Alternatives,0,17,30,15.0,Long-horizon capital appreciation.
+MW-GROW,Growth,Commodities,0,2,8,15.0,Long-horizon capital appreciation.
+MW-GROW,Growth,Structured Products,0,3,15,15.0,Long-horizon capital appreciation.
+MW-INC,Income,Cash and Equivalents,3,8,20,10.0,Yield generation with moderate capital risk.
+MW-INC,Income,Fixed Income,40,55,70,10.0,Yield generation with moderate capital risk.
+MW-INC,Income,Equity,15,25,35,10.0,Yield generation with moderate capital risk.
+MW-INC,Income,Alternatives,0,7,15,10.0,Yield generation with moderate capital risk.
+MW-INC,Income,Commodities,0,2,8,10.0,Yield generation with moderate capital risk.
+MW-INC,Income,Structured Products,0,3,12,10.0,Yield generation with moderate capital risk.

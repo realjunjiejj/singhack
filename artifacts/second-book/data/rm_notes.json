@@ -1,0 +1,29 @@
+[
+  {
+    "note_id": "MW-MEMO-001",
+    "client_id": "MW-C-300",
+    "note_date": "2026-03-10",
+    "rm_id": "RM-ZH-401",
+    "rm_name": "Ingrid Solberg",
+    "channel": "Email",
+    "note": "Client asked whether we can raise the facility limit before the funding round closes. Have not yet replied. Needs a proper conversation about what the collateral will support."
+  },
+  {
+    "note_id": "MW-MEMO-002",
+    "client_id": "MW-C-200",
+    "note_date": "2026-02-18",
+    "rm_id": "RM-ZH-401",
+    "rm_name": "Ingrid Solberg",
+    "channel": "Meeting",
+    "note": "Client asked why the Nordkap position still sits in the sustainable mandate. Explained that it predates the 2023 policy and that it is on the review list."
+  },
+  {
+    "note_id": "MW-MEMO-003",
+    "client_id": "MW-C-100",
+    "note_date": "2026-01-15",
+    "rm_id": "RM-ZH-401",
+    "rm_name": "Ingrid Solberg",
+    "channel": "Meeting",
+    "note": "Annual review in Zurich. Client does not want to sell the family engineering stake under any circumstances."
+  }
+]

@@ -1,0 +1,2 @@
+commitment_id,client_id,portfolio_id,fund_name,currency,committed,called_to_date,uncalled,expected_call_window
+MW-PL-400,MW-C-400,MW-P-400,Alpine Private Credit Fund II,USD,3000000,1800000,1200000,2026 Q3 to 2027 Q2

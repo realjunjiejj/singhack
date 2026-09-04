@@ -10,6 +10,7 @@ from __future__ import annotations
 from jb_clarity.domain.enums import CaseStatus, ScoringFactor, SignalType
 from jb_clarity.domain.models import Measure
 from jb_clarity.evidence.claims import DetectedSignal, SignalBuilder
+from jb_clarity.phrasing import count_noun
 
 CLIENTS_FILE = "clients.csv"
 GROWTH_ASSET_CLASSES = ("Equity", "Structured Products")
@@ -205,9 +206,12 @@ def _income_sustainability(context, builder, settings, contributions, summaries)
     )
     builder.uncertainty(
         "draw-horizon",
-        "The engine compares the draw with five supplied snapshots. It makes no "
-        "projection of how long the portfolio can sustain the draw and no assumption "
-        "about the client's circumstances.",
+        f"The engine compares the draw with "
+        f"{count_noun(len(context.timeline.points), 'supplied snapshot')} between "
+        f"{context.timeline.first.snapshot_date} and "
+        f"{context.timeline.last.snapshot_date}. It makes no projection of how long "
+        "the portfolio can sustain the draw and no assumption about the client's "
+        "circumstances.",
         [need_item, timeline_item],
     )
     contributions.append(
