@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "schemaVersion": "1.0.0",
+    "artifactKind": "fixture",
+    "asOfDate": "2026-08-26",
+    "generatedAt": "2026-09-04T00:00:00Z",
+    "sourceSnapshotDates": ["2025-12-31", "2026-02-27", "2026-03-31", "2026-06-30", "2026-08-26"],
+    "dataQuality": { "status": "clear", "issues": [] }
+  },
+  "book": {
+    "rm": { "id": "RM-SG-014", "name": "Priscilla Ong" },
+    "clientCount": 20,
+    "portfolioCount": 24,
+    "summary": { "critical": 0, "high": 1, "watch": 0 },
+    "filters": {
+      "signalTypes": ["credit", "concentration", "cash-need", "open-loop"],
+      "bookingCentres": ["Singapore", "Hong Kong"],
+      "urgencyTiers": ["Critical", "High", "Watch"],
+      "confidenceLevels": ["High", "Medium", "Low"]
+    },
+    "priorityQueue": [
+      {
+        "rank": 1,
+        "caseId": "CASE-CL-0001",
+        "clientId": "CL-0001",
+        "clientName": "Hartono Wijaya Kusuma",
+        "bookingCentre": "Singapore",
+        "reportingLanguage": "English",
+        "urgency": { "tier": "High", "score": 82, "safetyOverride": null },
+        "confidence": { "level": "High", "score": 91, "reasons": ["Facility snapshots and collateral values agree"] },
+        "priorityRationale": "A resolved historical LTV breach combines with concentrated energy exposure, a future property need, and a family constraint.",
+        "factorContributions": [
+          { "factor": "historical breach", "points": 40, "reason": "Two snapshots exceeded the 70% trigger", "evidenceItemIds": ["E-H-LTV-DEC", "E-H-LTV-FEB"] },
+          { "factor": "concentration", "points": 24, "reason": "Direct and structured energy exposure compound family-wealth concentration", "evidenceItemIds": ["E-H-ENERGY"] },
+          { "factor": "future liquidity", "points": 18, "reason": "SGD 9m property need is recorded for 2027", "evidenceItemIds": ["E-H-PROPERTY"] }
+        ],
+        "status": "historical-resolved",
+        "signalSummaries": ["LTV breach resolved through higher collateral value", "Energy exposure remains concentrated", "Property funding need remains open"],
+        "openLoopCount": 1,
+        "governanceClockCount": 0
+      }
+    ]
+  },
+  "clientCases": [
+    {
+      "caseId": "CASE-CL-0001",
+      "clientId": "CL-0001",
+      "clientName": "Hartono Wijaya Kusuma",
+      "reportingLanguage": "English",
+      "conclusion": "The margin breach is historical and resolved, but the way it resolved leaves concentration and future-liquidity questions worth addressing.",
+      "whyNow": "The facility is currently below its trigger, while a 2027 property need and a constraint on selling the legacy stake narrow future choices.",
+      "status": "historical-resolved",
+      "urgency": { "tier": "High", "score": 82, "safetyOverride": null },
+      "confidence": { "level": "High", "score": 91, "reasons": ["Facility history is complete", "Family constraint comes from RM notes and needs confirmation"] },
+      "facts": [
+        { "id": "F-H-1", "statement": "CF-0005 exceeded its 70% trigger in December 2025 and February 2026.", "evidenceItemIds": ["E-H-LTV-DEC", "E-H-LTV-FEB"] },
+        { "id": "F-H-2", "statement": "The drawn balance remained SGD 8m while the lending value from the collateral portfolio increased.", "evidenceItemIds": ["E-H-DRAWN", "E-H-COLLATERAL"] }
+      ],
+      "interpretations": [
+        { "id": "I-H-1", "statement": "The breach cured through collateral appreciation rather than a recorded reduction in borrowing.", "evidenceItemIds": ["E-H-DRAWN", "E-H-COLLATERAL", "E-H-LTV-MAR"] }
+      ],
+      "uncertainties": [
+        { "id": "U-H-1", "statement": "The RM note indicates a family constraint; the client should confirm whether it remains binding.", "evidenceItemIds": ["E-H-FAMILY"] }
+      ],
+      "factorContributions": [
+        { "factor": "historical breach", "points": 40, "reason": "Two snapshots exceeded the trigger", "evidenceItemIds": ["E-H-LTV-DEC", "E-H-LTV-FEB"] }
+      ],
+      "anticipatorySignals": [
+        { "id": "S-H-CREDIT", "type": "credit", "status": "historical-resolved", "summary": "Current LTV is safe, but the facility breached twice in the supplied history.", "timeHorizon": "historical and current", "evidenceItemIds": ["E-H-LTV-DEC", "E-H-LTV-FEB", "E-H-LTV-MAR"] }
+      ],
+      "openLoops": [
+        {
+          "id": "OL-H-FAMILY",
+          "summary": "Confirm how the family constraint affects funding choices",
+          "noteDate": "2026-01-08",
+          "sourceExcerpt": "Did not want to discuss reducing the legacy shareholding, said it would be read as a signal by his uncles.",
+          "whyOpen": "The constraint affects options for the property need and has no recorded resolution.",
+          "confidence": { "level": "Medium", "score": 70, "reasons": ["Source is a dated RM note", "Current client confirmation is required"] },
+          "confirmationRequired": true,
+          "state": "candidate",
+          "evidenceItemIds": ["E-H-FAMILY"]
+        }
+      ],
+      "governanceClocks": [],
+      "timeline": [
+        { "date": "2025-12-31", "label": "Trigger breached", "metrics": { "ltv": { "value": 78.5, "unit": "percent" } }, "evidenceItemIds": ["E-H-LTV-DEC"] },
+        { "date": "2026-02-27", "label": "Breach persisted", "metrics": { "ltv": { "value": 75.68, "unit": "percent" } }, "evidenceItemIds": ["E-H-LTV-FEB"] },
+        { "date": "2026-03-31", "label": "Breach resolved", "metrics": { "ltv": { "value": 58.86, "unit": "percent" } }, "evidenceItemIds": ["E-H-LTV-MAR"] },
+        { "date": "2026-08-26", "label": "Current safe status", "metrics": { "ltv": { "value": 59.15, "unit": "percent" } }, "evidenceItemIds": ["E-H-LTV-AUG"] }
+      ],
+      "evidencePacketIds": ["PACKET-H-CREDIT"],
+      "allowedGuidedActions": ["explain", "show-evidence", "prepare-conversation", "request-information", "involve-specialist", "confirm-open-loop", "defer-open-loop", "dismiss-case"],
+      "meetingBrief": {
+        "whatChanged": "The facility breached its trigger twice and later returned below it as collateral value increased.",
+        "whyItMatters": "Concentration, a planned SGD 9m property purchase, and the family constraint may leave less room if collateral falls again.",
+        "uncertainties": ["Confirm whether the family constraint remains binding", "Confirm the timing of the property deposit"],
+        "openingQuestion": "Could we revisit how you want to preserve the family stake while keeping enough flexibility for the property purchase?",
+        "discussionOptions": ["Review the facility buffer", "Map property funding sources", "Discuss concentration with the family constraint explicitly recorded"],
+        "specialistSuggestion": "Consider involving a lending specialist after the client's constraints are confirmed.",
+        "openLoopIds": ["OL-H-FAMILY"],
+        "governanceClockIds": [],
+        "evidenceItemIds": ["E-H-LTV-DEC", "E-H-LTV-FEB", "E-H-LTV-MAR", "E-H-PROPERTY", "E-H-FAMILY"]
+      },
+      "clientReadyDrafts": [
+        { "language": "English", "canonicalLanguage": "English", "status": "draft", "content": "I would like to review the lending buffer and the planned SGD 9m property funding with your family constraints in mind.", "evidenceItemIds": ["E-H-PROPERTY", "E-H-FAMILY"] }
+      ],
+      "collateralStressTest": {
+        "label": "Illustrative collateral what-if — not a forecast",
+        "forecast": false,
+        "scenarios": [
+          { "id": "H-STRESS-BASE", "collateralChangePct": 0, "collateralValue": { "amount": 26618144.28, "currency": "SGD" }, "lendingValue": { "amount": 13525392.14, "currency": "SGD" }, "drawnAmount": { "amount": 8000000, "currency": "SGD" }, "ltvPct": 59.15, "triggerPct": 70, "distanceToTriggerPctPoints": 10.85, "status": "normal" },
+          { "id": "H-STRESS-DOWN-15", "collateralChangePct": -15, "collateralValue": { "amount": 22625422.64, "currency": "SGD" }, "lendingValue": { "amount": 11496583.32, "currency": "SGD" }, "drawnAmount": { "amount": 8000000, "currency": "SGD" }, "ltvPct": 69.59, "triggerPct": 70, "distanceToTriggerPctPoints": 0.41, "status": "near" }
+        ]
+      }
+    }
+  ],
+  "evidencePackets": [
+    {
+      "packetId": "PACKET-H-CREDIT",
+      "caseId": "CASE-CL-0001",
+      "clientId": "CL-0001",
+      "asOfDate": "2026-08-26",
+      "signalType": "credit",
+      "status": "historical-resolved",
+      "facts": [
+        { "id": "F-H-1", "statement": "CF-0005 exceeded its trigger twice.", "evidenceItemIds": ["E-H-LTV-DEC", "E-H-LTV-FEB"] }
+      ],
+      "interpretations": [
+        { "id": "I-H-1", "statement": "The breach cured through higher collateral value.", "evidenceItemIds": ["E-H-DRAWN", "E-H-COLLATERAL"] }
+      ],
+      "uncertainties": [],
+      "conflicts": [],
+      "assumptions": [
+        { "id": "A-H-1", "statement": "Stress scenarios vary collateral value only and hold borrowing constant.", "evidenceItemIds": ["E-H-DRAWN"] }
+      ],
+      "urgencyInputs": [
+        { "factor": "historical breach", "points": 40, "reason": "Two snapshots exceeded the 70% trigger", "evidenceItemIds": ["E-H-LTV-DEC", "E-H-LTV-FEB"] }
+      ],
+      "confidenceInputs": ["Complete facility snapshots", "Consistent drawn balance"],
+      "derivedMetrics": [
+        { "id": "M-H-LTV-AUG", "name": "Current LTV", "formula": "drawn amount / lending value × 100", "inputs": { "drawnAmountSgd": 8000000, "lendingValueSgd": 13525392.14 }, "result": { "value": 59.15, "unit": "percent" }, "snapshotDate": "2026-08-26" }
+      ],
+      "items": [
+        { "id": "E-H-LTV-DEC", "label": "December 2025 LTV", "value": 78.5, "sourceReference": { "file": "credit_facilities.csv", "recordKey": "CF-0005", "field": "ltv_pct_2025-12-31" } },
+        { "id": "E-H-LTV-FEB", "label": "February 2026 LTV", "value": 75.68, "sourceReference": { "file": "credit_facilities.csv", "recordKey": "CF-0005", "field": "ltv_pct_2026-02-27" } },
+        { "id": "E-H-LTV-MAR", "label": "March 2026 LTV", "value": 58.86, "sourceReference": { "file": "credit_facilities.csv", "recordKey": "CF-0005", "field": "ltv_pct_2026-03-31" } },
+        { "id": "E-H-LTV-AUG", "label": "August 2026 LTV", "value": 59.15, "sourceReference": { "file": "credit_facilities.csv", "recordKey": "CF-0005", "field": "ltv_pct_2026-08-26" } },
+        { "id": "E-H-DRAWN", "label": "Drawn amount", "value": { "amount": 8000000, "currency": "SGD" }, "sourceReference": { "file": "credit_facilities.csv", "recordKey": "CF-0005", "field": "drawn_2026-08-26" } },
+        { "id": "E-H-COLLATERAL", "label": "Collateral market and lending values", "value": { "collateralMarketValue": { "amount": 26618144.28, "currency": "SGD" }, "lendingValue": { "amount": 13525392.14, "currency": "SGD" } }, "sourceReference": { "file": "credit_facilities.csv", "recordKey": "CF-0005", "field": "collateral_market_value_2026-08-26|lending_value_2026-08-26" } },
+        { "id": "E-H-ENERGY", "label": "Energy concentration", "value": "Direct family stake plus energy-linked FCN look-through", "sourceReference": { "file": "holdings.csv", "recordKey": "CL-0001|2026-08-26" } },
+        { "id": "E-H-PROPERTY", "label": "Property need", "value": { "amount": 9000000, "currency": "SGD" }, "sourceReference": { "file": "planned_cash_needs.csv", "recordKey": "CN-001" } },
+        { "id": "E-H-FAMILY", "label": "Family constraint", "value": "Reducing the legacy shareholding may be read as a signal by family members", "sourceReference": { "file": "rm_notes.json", "recordKey": "N-001", "field": "note" } }
+      ],
+      "allowedGuidedActions": ["explain", "show-evidence", "prepare-conversation", "request-information", "involve-specialist"]
+    }
+  ]
+}

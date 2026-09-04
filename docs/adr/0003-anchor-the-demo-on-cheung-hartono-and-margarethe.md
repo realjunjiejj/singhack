@@ -1,0 +1,3 @@
+# Anchor the demo on Cheung, Hartono, and Margarethe
+
+The three fully developed Client Cases will be Cheung Kwok Wing, Hartono Wijaya Kusuma, and Margarethe Voss-Brenner. Cheung provides a judge-legible portfolio explanation tied to retirement income; Hartono combines a historical collateral breach, hidden energy concentration, future liquidity, and family constraints; Margarethe combines an inherited suitability mismatch, a confirmed tax liability, and a sensitive human conversation. Together they demonstrate explanation, proactive risk detection, and RM-controlled action while leaving less developed cases visible in the full-book Priority Queue.

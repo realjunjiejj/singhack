@@ -1,0 +1,3 @@
+# Reserve Critical for auditable safety conditions
+
+Critical Urgency will be assigned only by a Safety Override: an active collateral breach, a confirmed cash need within 90 days with insufficient Eligible Liquidity, or an unwaived binding exclusion or compliance breach. For other Client Cases, the most severe Advisory Insight establishes base priority and additional independent signals add capped escalation points; signals are never averaged in a way that can dilute a severe condition. The prototype supports reviewable Case Resolutions but excludes trade execution and automatic client contact.

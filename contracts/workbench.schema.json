@@ -1,0 +1,368 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jb-clarity.local/contracts/workbench.schema.json",
+  "title": "JB Clarity Workbench Model",
+  "description": "Versioned boundary between deterministic wealth intelligence and the RM Workbench.",
+  "type": "object",
+  "required": ["meta", "book", "clientCases", "evidencePackets"],
+  "properties": {
+    "meta": { "$ref": "#/$defs/meta" },
+    "book": { "$ref": "#/$defs/book" },
+    "clientCases": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/clientCase" }
+    },
+    "evidencePackets": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidencePacket" }
+    }
+  },
+  "$defs": {
+    "meta": {
+      "type": "object",
+      "required": ["schemaVersion", "artifactKind", "asOfDate", "generatedAt", "sourceSnapshotDates", "dataQuality"],
+      "properties": {
+        "schemaVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "artifactKind": { "type": "string", "enum": ["fixture", "generated"] },
+        "asOfDate": { "type": "string", "format": "date" },
+        "generatedAt": { "type": "string", "format": "date-time" },
+        "sourceSnapshotDates": {
+          "type": "array",
+          "items": { "type": "string", "format": "date" },
+          "uniqueItems": true
+        },
+        "dataQuality": {
+          "type": "object",
+          "required": ["status", "issues"],
+          "properties": {
+            "status": { "type": "string", "enum": ["clear", "attention", "blocked"] },
+            "issues": { "type": "array", "items": { "$ref": "#/$defs/dataQualityIssue" } }
+          }
+        }
+      }
+    },
+    "dataQualityIssue": {
+      "type": "object",
+      "required": ["id", "severity", "summary", "sourceReferences"],
+      "properties": {
+        "id": { "type": "string" },
+        "severity": { "type": "string", "enum": ["info", "warning", "material"] },
+        "summary": { "type": "string" },
+        "sourceReferences": { "type": "array", "items": { "$ref": "#/$defs/sourceReference" } }
+      }
+    },
+    "book": {
+      "type": "object",
+      "required": ["rm", "clientCount", "portfolioCount", "summary", "filters", "priorityQueue"],
+      "properties": {
+        "rm": {
+          "type": "object",
+          "required": ["id", "name"],
+          "properties": {
+            "id": { "type": "string" },
+            "name": { "type": "string" }
+          }
+        },
+        "clientCount": { "type": "integer", "minimum": 0 },
+        "portfolioCount": { "type": "integer", "minimum": 0 },
+        "summary": {
+          "type": "object",
+          "required": ["critical", "high", "watch"],
+          "properties": {
+            "critical": { "type": "integer", "minimum": 0 },
+            "high": { "type": "integer", "minimum": 0 },
+            "watch": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "filters": {
+          "type": "object",
+          "required": ["signalTypes", "bookingCentres", "urgencyTiers", "confidenceLevels"],
+          "properties": {
+            "signalTypes": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+            "bookingCentres": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+            "urgencyTiers": { "type": "array", "items": { "$ref": "#/$defs/urgencyTier" }, "uniqueItems": true },
+            "confidenceLevels": { "type": "array", "items": { "$ref": "#/$defs/confidenceLevel" }, "uniqueItems": true }
+          }
+        },
+        "priorityQueue": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/priorityQueueItem" }
+        }
+      }
+    },
+    "priorityQueueItem": {
+      "type": "object",
+      "required": ["rank", "caseId", "clientId", "clientName", "bookingCentre", "reportingLanguage", "urgency", "confidence", "priorityRationale", "factorContributions", "status", "signalSummaries", "openLoopCount", "governanceClockCount"],
+      "properties": {
+        "rank": { "type": "integer", "minimum": 1 },
+        "caseId": { "type": "string" },
+        "clientId": { "type": "string" },
+        "clientName": { "type": "string" },
+        "bookingCentre": { "type": "string" },
+        "reportingLanguage": { "type": "string" },
+        "urgency": { "$ref": "#/$defs/urgency" },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "priorityRationale": { "type": "string" },
+        "factorContributions": { "type": "array", "items": { "$ref": "#/$defs/factorContribution" } },
+        "status": { "$ref": "#/$defs/caseStatus" },
+        "signalSummaries": { "type": "array", "items": { "type": "string" } },
+        "openLoopCount": { "type": "integer", "minimum": 0 },
+        "governanceClockCount": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "urgency": {
+      "type": "object",
+      "required": ["tier", "score", "safetyOverride"],
+      "properties": {
+        "tier": { "$ref": "#/$defs/urgencyTier" },
+        "score": { "type": "number", "minimum": 0, "maximum": 100 },
+        "safetyOverride": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": ["ruleId", "reason"],
+              "properties": {
+                "ruleId": { "type": "string" },
+                "reason": { "type": "string" }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "urgencyTier": { "type": "string", "enum": ["Critical", "High", "Watch"] },
+    "confidence": {
+      "type": "object",
+      "required": ["level", "score", "reasons"],
+      "properties": {
+        "level": { "$ref": "#/$defs/confidenceLevel" },
+        "score": { "type": "number", "minimum": 0, "maximum": 100 },
+        "reasons": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "confidenceLevel": { "type": "string", "enum": ["High", "Medium", "Low"] },
+    "factorContribution": {
+      "type": "object",
+      "required": ["factor", "points", "reason", "evidenceItemIds"],
+      "properties": {
+        "factor": { "type": "string" },
+        "points": { "type": "number" },
+        "reason": { "type": "string" },
+        "evidenceItemIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    },
+    "caseStatus": { "type": "string", "enum": ["active", "near", "historical-resolved", "normal"] },
+    "clientCase": {
+      "type": "object",
+      "required": ["caseId", "clientId", "clientName", "reportingLanguage", "conclusion", "whyNow", "status", "urgency", "confidence", "facts", "interpretations", "uncertainties", "factorContributions", "anticipatorySignals", "openLoops", "governanceClocks", "timeline", "evidencePacketIds", "allowedGuidedActions", "meetingBrief"],
+      "properties": {
+        "caseId": { "type": "string" },
+        "clientId": { "type": "string" },
+        "clientName": { "type": "string" },
+        "reportingLanguage": { "type": "string" },
+        "conclusion": { "type": "string" },
+        "whyNow": { "type": "string" },
+        "status": { "$ref": "#/$defs/caseStatus" },
+        "urgency": { "$ref": "#/$defs/urgency" },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "facts": { "type": "array", "items": { "$ref": "#/$defs/claim" } },
+        "interpretations": { "type": "array", "items": { "$ref": "#/$defs/claim" } },
+        "uncertainties": { "type": "array", "items": { "$ref": "#/$defs/claim" } },
+        "factorContributions": { "type": "array", "items": { "$ref": "#/$defs/factorContribution" } },
+        "anticipatorySignals": { "type": "array", "items": { "$ref": "#/$defs/anticipatorySignal" } },
+        "openLoops": { "type": "array", "items": { "$ref": "#/$defs/openLoop" } },
+        "governanceClocks": { "type": "array", "items": { "$ref": "#/$defs/governanceClock" } },
+        "timeline": { "type": "array", "items": { "$ref": "#/$defs/timelinePoint" } },
+        "evidencePacketIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "allowedGuidedActions": { "type": "array", "items": { "$ref": "#/$defs/guidedAction" }, "uniqueItems": true },
+        "meetingBrief": { "$ref": "#/$defs/meetingBrief" },
+        "clientReadyDrafts": { "type": "array", "items": { "$ref": "#/$defs/clientReadyDraft" } },
+        "collateralStressTest": { "$ref": "#/$defs/collateralStressTest" }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "required": ["id", "statement", "evidenceItemIds"],
+      "properties": {
+        "id": { "type": "string" },
+        "statement": { "type": "string" },
+        "evidenceItemIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    },
+    "anticipatorySignal": {
+      "type": "object",
+      "required": ["id", "type", "status", "summary", "timeHorizon", "evidenceItemIds"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "status": { "$ref": "#/$defs/caseStatus" },
+        "summary": { "type": "string" },
+        "timeHorizon": { "type": "string" },
+        "evidenceItemIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    },
+    "openLoop": {
+      "type": "object",
+      "required": ["id", "summary", "noteDate", "sourceExcerpt", "whyOpen", "confidence", "confirmationRequired", "state", "evidenceItemIds"],
+      "properties": {
+        "id": { "type": "string" },
+        "summary": { "type": "string" },
+        "noteDate": { "type": "string", "format": "date" },
+        "sourceExcerpt": { "type": "string" },
+        "whyOpen": { "type": "string" },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "confirmationRequired": { "const": true },
+        "state": { "type": "string", "enum": ["candidate", "confirmed", "deferred", "assigned", "dismissed"] },
+        "evidenceItemIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    },
+    "governanceClock": {
+      "type": "object",
+      "required": ["id", "type", "dueDate", "daysRemaining", "status", "summary", "evidenceItemIds"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "dueDate": { "type": "string", "format": "date" },
+        "daysRemaining": { "type": "integer" },
+        "status": { "type": "string", "enum": ["due-soon", "due-today", "overdue", "future"] },
+        "summary": { "type": "string" },
+        "evidenceItemIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    },
+    "timelinePoint": {
+      "type": "object",
+      "required": ["date", "label", "metrics", "evidenceItemIds"],
+      "properties": {
+        "date": { "type": "string", "format": "date" },
+        "label": { "type": "string" },
+        "metrics": { "type": "object", "additionalProperties": { "$ref": "#/$defs/measure" } },
+        "evidenceItemIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    },
+    "measure": {
+      "type": "object",
+      "required": ["value", "unit"],
+      "properties": {
+        "value": { "type": "number" },
+        "unit": { "type": "string" },
+        "currency": { "type": "string", "pattern": "^[A-Z]{3}$" }
+      }
+    },
+    "guidedAction": {
+      "type": "string",
+      "enum": ["explain", "show-evidence", "prepare-conversation", "request-information", "involve-specialist", "confirm-open-loop", "defer-open-loop", "assign-open-loop", "dismiss-open-loop", "dismiss-case"]
+    },
+    "meetingBrief": {
+      "type": "object",
+      "required": ["whatChanged", "whyItMatters", "uncertainties", "openingQuestion", "discussionOptions", "specialistSuggestion", "openLoopIds", "governanceClockIds", "evidenceItemIds"],
+      "properties": {
+        "whatChanged": { "type": "string" },
+        "whyItMatters": { "type": "string" },
+        "uncertainties": { "type": "array", "items": { "type": "string" } },
+        "openingQuestion": { "type": "string" },
+        "discussionOptions": { "type": "array", "items": { "type": "string" } },
+        "specialistSuggestion": { "type": ["string", "null"] },
+        "openLoopIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "governanceClockIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "evidenceItemIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    },
+    "clientReadyDraft": {
+      "type": "object",
+      "required": ["language", "canonicalLanguage", "status", "content", "evidenceItemIds"],
+      "properties": {
+        "language": { "type": "string" },
+        "canonicalLanguage": { "type": "string" },
+        "status": { "const": "draft" },
+        "content": { "type": "string" },
+        "evidenceItemIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    },
+    "collateralStressTest": {
+      "type": "object",
+      "required": ["label", "forecast", "scenarios"],
+      "properties": {
+        "label": { "type": "string" },
+        "forecast": { "const": false },
+        "scenarios": { "type": "array", "items": { "$ref": "#/$defs/stressScenario" } }
+      }
+    },
+    "stressScenario": {
+      "type": "object",
+      "required": ["id", "collateralChangePct", "collateralValue", "lendingValue", "drawnAmount", "ltvPct", "triggerPct", "distanceToTriggerPctPoints", "status"],
+      "properties": {
+        "id": { "type": "string" },
+        "collateralChangePct": { "type": "number" },
+        "collateralValue": { "$ref": "#/$defs/money" },
+        "lendingValue": { "$ref": "#/$defs/money" },
+        "drawnAmount": { "$ref": "#/$defs/money" },
+        "ltvPct": { "type": "number" },
+        "triggerPct": { "type": "number" },
+        "distanceToTriggerPctPoints": { "type": "number" },
+        "status": { "$ref": "#/$defs/caseStatus" }
+      }
+    },
+    "money": {
+      "type": "object",
+      "required": ["amount", "currency"],
+      "properties": {
+        "amount": { "type": "number" },
+        "currency": { "type": "string", "pattern": "^[A-Z]{3}$" }
+      }
+    },
+    "evidencePacket": {
+      "type": "object",
+      "required": ["packetId", "caseId", "clientId", "asOfDate", "signalType", "status", "facts", "interpretations", "uncertainties", "conflicts", "assumptions", "urgencyInputs", "confidenceInputs", "derivedMetrics", "items", "allowedGuidedActions"],
+      "properties": {
+        "packetId": { "type": "string" },
+        "caseId": { "type": "string" },
+        "clientId": { "type": "string" },
+        "asOfDate": { "type": "string", "format": "date" },
+        "signalType": { "type": "string" },
+        "status": { "$ref": "#/$defs/caseStatus" },
+        "facts": { "type": "array", "items": { "$ref": "#/$defs/claim" } },
+        "interpretations": { "type": "array", "items": { "$ref": "#/$defs/claim" } },
+        "uncertainties": { "type": "array", "items": { "$ref": "#/$defs/claim" } },
+        "conflicts": { "type": "array", "items": { "$ref": "#/$defs/claim" } },
+        "assumptions": { "type": "array", "items": { "$ref": "#/$defs/claim" } },
+        "urgencyInputs": { "type": "array", "items": { "$ref": "#/$defs/factorContribution" } },
+        "confidenceInputs": { "type": "array", "items": { "type": "string" } },
+        "derivedMetrics": { "type": "array", "items": { "$ref": "#/$defs/derivedMetric" } },
+        "items": { "type": "array", "items": { "$ref": "#/$defs/evidenceItem" } },
+        "allowedGuidedActions": { "type": "array", "items": { "$ref": "#/$defs/guidedAction" }, "uniqueItems": true }
+      }
+    },
+    "derivedMetric": {
+      "type": "object",
+      "required": ["id", "name", "formula", "inputs", "result", "snapshotDate"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "formula": { "type": "string" },
+        "inputs": { "type": "object" },
+        "result": { "$ref": "#/$defs/measure" },
+        "snapshotDate": { "type": "string", "format": "date" }
+      }
+    },
+    "evidenceItem": {
+      "type": "object",
+      "required": ["id", "label", "value", "sourceReference"],
+      "properties": {
+        "id": { "type": "string" },
+        "label": { "type": "string" },
+        "value": {},
+        "sourceReference": { "$ref": "#/$defs/sourceReference" }
+      }
+    },
+    "sourceReference": {
+      "type": "object",
+      "required": ["file", "recordKey"],
+      "properties": {
+        "file": { "type": "string" },
+        "recordKey": { "type": "string" },
+        "field": { "type": "string" }
+      }
+    }
+  }
+}
