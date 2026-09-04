@@ -17,7 +17,7 @@
         {
           "id": "DQ-STALE-VALUATION",
           "severity": "warning",
-          "summary": "1 current holding(s) are carried at a valuation date earlier than the snapshot date. Private markets report on a lag, so this is expected, but any conclusion drawn from the value is limited by its age.",
+          "summary": "1 current holding is carried at a valuation date earlier than the snapshot date. Private markets report on a lag, so this is expected, but any conclusion drawn from the value is limited by its age.",
           "sourceReferences": [
             {
               "file": "holdings.csv",
@@ -83,7 +83,7 @@
           "score": 78.0,
           "safetyOverride": {
             "ruleId": "SO-3-UNWAIVED-BINDING-EXCLUSION",
-            "reason": "2 holding(s) fall inside the SUSBAL mandate's binding exclusions with no evidenced waiver."
+            "reason": "2 holdings fall inside the SUSBAL mandate's binding exclusions with no evidenced waiver."
           }
         },
         "confidence": {
@@ -93,12 +93,12 @@
             "Relationship signals are interpretations of free-text notes awaiting RM confirmation."
           ]
         },
-        "priorityRationale": "Critical by Safety Override SO-3-UNWAIVED-BINDING-EXCLUSION: 2 holding(s) fall inside the SUSBAL mandate's binding exclusions with no evidenced waiver.",
+        "priorityRationale": "Critical by Safety Override SO-3-UNWAIVED-BINDING-EXCLUSION: 2 holdings fall inside the SUSBAL mandate's binding exclusions with no evidenced waiver.",
         "factorContributions": [
           {
             "factor": "threshold or historical breach",
             "points": 30.0,
-            "reason": "2 unwaived holding(s) inside a binding mandate exclusion. A further 1 independent signal(s) in this factor add capped points.",
+            "reason": "2 unwaived holdings inside a binding mandate exclusion. A further 1 independent signal in this factor adds capped points.",
             "evidenceItemIds": [
               "EV-CL-0005-EXCLUSION-EXCLUDED_SYN_EQ_0008",
               "EV-CL-0005-EXCLUSION-EXCLUDED_SYN_ST_0105",
@@ -167,12 +167,12 @@
             "Relationship signals are interpretations of free-text notes awaiting RM confirmation."
           ]
         },
-        "priorityRationale": "Equity in PF-0005 is 41.46 percentage points outside its mandate band. A further 2 breach(es) add capped points. CN-004 is confirmed and falls due within 90 days (36 days).",
+        "priorityRationale": "Equity in PF-0005 is 41.46 percentage points outside its mandate band. A further 2 breaches adds capped points. CN-004 is confirmed and falls due within 90 days (36 days).",
         "factorContributions": [
           {
             "factor": "threshold or historical breach",
             "points": 35.0,
-            "reason": "Equity in PF-0005 is 41.46 percentage points outside its mandate band. A further 2 breach(es) add capped points.",
+            "reason": "Equity in PF-0005 is 41.46 percentage points outside its mandate band. A further 2 breaches adds capped points.",
             "evidenceItemIds": [
               "EV-CL-0003-MANDATE-BAND_PF_0005_EQUITY",
               "EV-CL-0003-MANDATE-BAND_PF_0005_FIXED_INCOME",
@@ -241,12 +241,12 @@
             "Look-through exposure is read from free-text underlying references without component weights."
           ]
         },
-        "priorityRationale": "CF-0002 is 0.59 percentage points below its 70% trigger. A further 1 independent signal(s) in this factor add capped points. CN-013 is confirmed and falls due within 90 days (67 days). A further 1 independent signal(s) in this factor add capped points.",
+        "priorityRationale": "CF-0002 is 0.59 percentage points below its 70% trigger. A further 1 independent signal in this factor adds capped points. CN-013 is confirmed and falls due within 90 days (67 days). A further 1 independent signal in this factor adds capped points.",
         "factorContributions": [
           {
             "factor": "threshold or historical breach",
             "points": 35.0,
-            "reason": "CF-0002 is 0.59 percentage points below its 70% trigger. A further 1 independent signal(s) in this factor add capped points.",
+            "reason": "CF-0002 is 0.59 percentage points below its 70% trigger. A further 1 independent signal in this factor adds capped points.",
             "evidenceItemIds": [
               "EV-CL-0014-CREDIT-CF_0002_COLLATERAL",
               "EV-CL-0014-CREDIT-CF_0002_DRAWN",
@@ -265,7 +265,7 @@
           {
             "factor": "time urgency",
             "points": 30.0,
-            "reason": "CN-013 is confirmed and falls due within 90 days (67 days). A further 1 independent signal(s) in this factor add capped points.",
+            "reason": "CN-013 is confirmed and falls due within 90 days (67 days). A further 1 independent signal in this factor adds capped points.",
             "evidenceItemIds": [
               "EV-CL-0014-CASH_NEED-CN_013_ELIGIBLE",
               "EV-CL-0014-CASH_NEED-CN_013_NEED",
@@ -275,7 +275,7 @@
           {
             "factor": "suitability or objective mismatch",
             "points": 17.0,
-            "reason": "Portfolio real estate exposure of 49.03% repeats the client's recorded source of wealth. A further 1 independent signal(s) in this factor add capped points.",
+            "reason": "Portfolio real estate exposure of 49.03% repeats the client's recorded source of wealth. A further 1 independent signal in this factor adds capped points.",
             "evidenceItemIds": [
               "EV-CL-0014-CONCENTRATION-SOURCE_OF_WEALTH",
               "EV-CL-0014-CONCENTRATION-THEME_DIRECT_GOLD_AND_PRECIOUS_METALS",
@@ -323,12 +323,12 @@
             "Relationship signals are interpretations of free-text notes awaiting RM confirmation."
           ]
         },
-        "priorityRationale": "CF-0001 is 1.29 percentage points below its 75% trigger. It also breached the trigger earlier in the supplied history. A further 1 independent signal(s) in this factor add capped points. CN-003 is likely and falls due within 90 days (67 days). A likely need carries 70% of the confirmed weighting.",
+        "priorityRationale": "CF-0001 is 1.29 percentage points below its 75% trigger. It also breached the trigger earlier in the supplied history. A further 1 independent signal in this factor adds capped points. CN-003 is likely and falls due within 90 days (67 days). A likely need carries 70% of the confirmed weighting.",
         "factorContributions": [
           {
             "factor": "threshold or historical breach",
             "points": 35.0,
-            "reason": "CF-0001 is 1.29 percentage points below its 75% trigger. It also breached the trigger earlier in the supplied history. A further 1 independent signal(s) in this factor add capped points.",
+            "reason": "CF-0001 is 1.29 percentage points below its 75% trigger. It also breached the trigger earlier in the supplied history. A further 1 independent signal in this factor adds capped points.",
             "evidenceItemIds": [
               "EV-CL-0002-CREDIT-CF_0001_COLLATERAL",
               "EV-CL-0002-CREDIT-CF_0001_DRAWN",
@@ -353,7 +353,7 @@
           {
             "factor": "suitability or objective mismatch",
             "points": 17.0,
-            "reason": "Portfolio technology exposure of 88.56% repeats the client's recorded source of wealth. A further 1 independent signal(s) in this factor add capped points.",
+            "reason": "Portfolio technology exposure of 88.56% repeats the client's recorded source of wealth. A further 1 independent signal in this factor adds capped points.",
             "evidenceItemIds": [
               "EV-CL-0002-CONCENTRATION-LARGEST_POSITION",
               "EV-CL-0002-CONCENTRATION-SOURCE_OF_WEALTH",
@@ -407,12 +407,12 @@
             "Relationship signals are interpretations of free-text notes awaiting RM confirmation."
           ]
         },
-        "priorityRationale": "Alternatives in PF-0013 is 32.28 percentage points outside its mandate band. A further 3 breach(es) add capped points. CN-011 is likely and falls due within 180 days (97 days). A likely need carries 70% of the confirmed weighting. A further 1 independent signal(s) in this factor add capped points.",
+        "priorityRationale": "Alternatives in PF-0013 is 32.28 percentage points outside its mandate band. A further 3 breaches adds capped points. CN-011 is likely and falls due within 180 days (97 days). A likely need carries 70% of the confirmed weighting. A further 1 independent signal in this factor adds capped points.",
         "factorContributions": [
           {
             "factor": "threshold or historical breach",
             "points": 35.0,
-            "reason": "Alternatives in PF-0013 is 32.28 percentage points outside its mandate band. A further 3 breach(es) add capped points.",
+            "reason": "Alternatives in PF-0013 is 32.28 percentage points outside its mandate band. A further 3 breaches adds capped points.",
             "evidenceItemIds": [
               "EV-CL-0011-MANDATE-BAND_PF_0013_ALTERNATIVES",
               "EV-CL-0011-MANDATE-BAND_PF_0013_FIXED_INCOME",
@@ -423,7 +423,7 @@
           {
             "factor": "time urgency",
             "points": 15.5,
-            "reason": "CN-011 is likely and falls due within 180 days (97 days). A likely need carries 70% of the confirmed weighting. A further 1 independent signal(s) in this factor add capped points.",
+            "reason": "CN-011 is likely and falls due within 180 days (97 days). A likely need carries 70% of the confirmed weighting. A further 1 independent signal in this factor adds capped points.",
             "evidenceItemIds": [
               "EV-CL-0011-CASH_NEED-CN_011_ELIGIBLE",
               "EV-CL-0011-CASH_NEED-CN_011_NEED",
@@ -484,12 +484,12 @@
             "Relationship signals are interpretations of free-text notes awaiting RM confirmation."
           ]
         },
-        "priorityRationale": "CN-015 is confirmed and falls due within 30 days (6 days). A further 1 independent signal(s) in this factor add capped points. Meridian Private Equity Fund VII exceeds the 25% single-position limit in PF-0020. A further 2 breach(es) add capped points.",
+        "priorityRationale": "CN-015 is confirmed and falls due within 30 days (6 days). A further 1 independent signal in this factor adds capped points. Meridian Private Equity Fund VII exceeds the 25% single-position limit in PF-0020. A further 2 breaches adds capped points.",
         "factorContributions": [
           {
             "factor": "threshold or historical breach",
             "points": 23.15,
-            "reason": "Meridian Private Equity Fund VII exceeds the 25% single-position limit in PF-0020. A further 2 breach(es) add capped points.",
+            "reason": "Meridian Private Equity Fund VII exceeds the 25% single-position limit in PF-0020. A further 2 breaches adds capped points.",
             "evidenceItemIds": [
               "EV-CL-0017-MANDATE-BAND_PF_0019_EQUITY",
               "EV-CL-0017-MANDATE-POSITION_PF_0020_SYN_AL_0301",
@@ -499,7 +499,7 @@
           {
             "factor": "time urgency",
             "points": 30.0,
-            "reason": "CN-015 is confirmed and falls due within 30 days (6 days). A further 1 independent signal(s) in this factor add capped points.",
+            "reason": "CN-015 is confirmed and falls due within 30 days (6 days). A further 1 independent signal in this factor adds capped points.",
             "evidenceItemIds": [
               "EV-CL-0017-CASH_NEED-CN_015_ELIGIBLE",
               "EV-CL-0017-CASH_NEED-CN_015_NEED",
@@ -510,7 +510,7 @@
           {
             "factor": "relationship signal",
             "points": 10.0,
-            "reason": "The most recent unanswered question is recorded in the 2026-02-10 note, with 1 other open relationship signal(s).",
+            "reason": "The most recent unanswered question is recorded in the 2026-02-10 note, with 1 other open relationship signal.",
             "evidenceItemIds": [
               "EV-CL-0017-RELATIONSHIP-NOTE_N_022_UNANSWERED_QUESTION",
               "EV-CL-0017-RELATIONSHIP-NOTE_N_022_UNRESOLVED_COMMITMENT"
@@ -553,7 +553,7 @@
             "Relationship signals are interpretations of free-text notes awaiting RM confirmation."
           ]
         },
-        "priorityRationale": "CF-0005 breached its trigger at 2025-12-31, 2026-02-27 and is now below it. Portfolio energy exposure of 44.99% repeats the client's recorded source of wealth. A further 1 independent signal(s) in this factor add capped points.",
+        "priorityRationale": "CF-0005 breached its trigger at 2025-12-31, 2026-02-27 and is now below it. Portfolio energy exposure of 44.99% repeats the client's recorded source of wealth. A further 1 independent signal in this factor adds capped points.",
         "factorContributions": [
           {
             "factor": "threshold or historical breach",
@@ -582,7 +582,7 @@
           {
             "factor": "suitability or objective mismatch",
             "points": 17.0,
-            "reason": "Portfolio energy exposure of 44.99% repeats the client's recorded source of wealth. A further 1 independent signal(s) in this factor add capped points.",
+            "reason": "Portfolio energy exposure of 44.99% repeats the client's recorded source of wealth. A further 1 independent signal in this factor adds capped points.",
             "evidenceItemIds": [
               "EV-CL-0001-CONCENTRATION-LARGEST_POSITION",
               "EV-CL-0001-CONCENTRATION-SOURCE_OF_WEALTH",
@@ -594,7 +594,7 @@
           {
             "factor": "relationship signal",
             "points": 10.0,
-            "reason": "The most recent unanswered question is recorded in the 2026-04-14 note, with 1 other open relationship signal(s).",
+            "reason": "The most recent unanswered question is recorded in the 2026-04-14 note, with 1 other open relationship signal.",
             "evidenceItemIds": [
               "EV-CL-0001-RELATIONSHIP-NOTE_N_001_CLIENT_CONSTRAINT",
               "EV-CL-0001-RELATIONSHIP-NOTE_N_002_UNANSWERED_QUESTION"
@@ -612,7 +612,7 @@
           "The trigger was breached at 2025-12-31, 2026-02-27, and the current loan-to-value of 59.15% is back below it.",
           "A SGD obligation sits against mostly non-SGD sellable assets.",
           "Bara Nusantara Energy Tbk is 41.4% of total wealth; energy exposure is 45.0%.",
-          "2 Open Loop candidate(s) from dated RM notes."
+          "2 Open Loop candidates from dated RM notes."
         ],
         "openLoopCount": 2,
         "governanceClockCount": 1
@@ -636,12 +636,12 @@
             "Relationship signals are interpretations of free-text notes awaiting RM confirmation."
           ]
         },
-        "priorityRationale": "Equity in PF-0018 is 12.72 percentage points outside its mandate band. A further 2 breach(es) add capped points. CN-014 is confirmed and falls due within 180 days (128 days).",
+        "priorityRationale": "Equity in PF-0018 is 12.72 percentage points outside its mandate band. A further 2 breaches adds capped points. CN-014 is confirmed and falls due within 180 days (128 days).",
         "factorContributions": [
           {
             "factor": "threshold or historical breach",
             "points": 25.09,
-            "reason": "Equity in PF-0018 is 12.72 percentage points outside its mandate band. A further 2 breach(es) add capped points.",
+            "reason": "Equity in PF-0018 is 12.72 percentage points outside its mandate band. A further 2 breaches adds capped points.",
             "evidenceItemIds": [
               "EV-CL-0016-MANDATE-BAND_PF_0018_EQUITY",
               "EV-CL-0016-MANDATE-BAND_PF_0018_FIXED_INCOME",
@@ -685,7 +685,7 @@
           "Managed portfolios show 2 allocation band breaks and 1 single-position limit break.",
           "A JPY obligation sits against mostly non-JPY sellable assets.",
           "Kanto Pharma Holdings KK is 20.1% of total wealth.",
-          "1 Open Loop candidate(s) from dated RM notes."
+          "1 Open Loop candidate from dated RM notes."
         ],
         "openLoopCount": 1,
         "governanceClockCount": 1
@@ -709,12 +709,12 @@
             "Relationship signals are interpretations of free-text notes awaiting RM confirmation."
           ]
         },
-        "priorityRationale": "Cash and Equivalents in PF-0011 is 26.98 percentage points outside its mandate band. A further 2 breach(es) add capped points. The most recent repeated deferral is recorded in the 2026-03-02 note, with 1 other open relationship signal(s).",
+        "priorityRationale": "Cash and Equivalents in PF-0011 is 26.98 percentage points outside its mandate band. A further 2 breaches adds capped points. The most recent repeated deferral is recorded in the 2026-03-02 note, with 1 other open relationship signal.",
         "factorContributions": [
           {
             "factor": "threshold or historical breach",
             "points": 30.79,
-            "reason": "Cash and Equivalents in PF-0011 is 26.98 percentage points outside its mandate band. A further 2 breach(es) add capped points.",
+            "reason": "Cash and Equivalents in PF-0011 is 26.98 percentage points outside its mandate band. A further 2 breaches adds capped points.",
             "evidenceItemIds": [
               "EV-CL-0009-MANDATE-BAND_PF_0011_CASH_AND_EQUIVALENTS",
               "EV-CL-0009-MANDATE-BAND_PF_0011_FIXED_INCOME",
@@ -724,7 +724,7 @@
           {
             "factor": "relationship signal",
             "points": 10.0,
-            "reason": "The most recent repeated deferral is recorded in the 2026-03-02 note, with 1 other open relationship signal(s).",
+            "reason": "The most recent repeated deferral is recorded in the 2026-03-02 note, with 1 other open relationship signal.",
             "evidenceItemIds": [
               "EV-CL-0009-RELATIONSHIP-NOTE_N_013_CLIENT_CONSTRAINT",
               "EV-CL-0009-RELATIONSHIP-NOTE_N_013_REPEATED_DEFERRAL"
@@ -741,7 +741,7 @@
         "signalSummaries": [
           "Managed portfolios show 2 allocation band breaks and 1 single-position limit break.",
           "EUR Call Deposit is 33.9% of total wealth.",
-          "2 Open Loop candidate(s) from dated RM notes.",
+          "2 Open Loop candidates from dated RM notes.",
           "USD 1,100,000 of uncalled private-markets commitments may be called inside their stated windows."
         ],
         "openLoopCount": 2,
@@ -767,12 +767,12 @@
             "A redemption request is recorded with no settled amount or date, so how much will actually be received is unknown."
           ]
         },
-        "priorityRationale": "CN-007 is confirmed and falls due within 30 days (6 days). A further 1 independent signal(s) in this factor add capped points. A confirmed recurring draw of 27.67% of wealth sits against a portfolio that fell 6.09% over the supplied period.",
+        "priorityRationale": "CN-007 is confirmed and falls due within 30 days (6 days). A further 1 independent signal in this factor adds capped points. A confirmed recurring draw of 27.67% of wealth sits against a portfolio that fell 6.09% over the supplied period.",
         "factorContributions": [
           {
             "factor": "time urgency",
             "points": 30.0,
-            "reason": "CN-007 is confirmed and falls due within 30 days (6 days). A further 1 independent signal(s) in this factor add capped points.",
+            "reason": "CN-007 is confirmed and falls due within 30 days (6 days). A further 1 independent signal in this factor adds capped points.",
             "evidenceItemIds": [
               "EV-CL-0006-CASH_NEED-CN_007_ELIGIBLE",
               "EV-CL-0006-CASH_NEED-CN_007_NEED",
@@ -852,7 +852,7 @@
           {
             "factor": "relationship signal",
             "points": 10.0,
-            "reason": "The most recent unanswered question is recorded in the 2026-07-16 note, with 1 other open relationship signal(s).",
+            "reason": "The most recent unanswered question is recorded in the 2026-07-16 note, with 1 other open relationship signal.",
             "evidenceItemIds": [
               "EV-CL-0012-RELATIONSHIP-NOTE_N_016_CLIENT_CONSTRAINT",
               "EV-CL-0012-RELATIONSHIP-NOTE_N_016_UNANSWERED_QUESTION"
@@ -894,7 +894,7 @@
             "Relationship signals are interpretations of free-text notes awaiting RM confirmation."
           ]
         },
-        "priorityRationale": "A confirmed recurring draw of 4.33% of wealth sits against a portfolio that fell 6.61% over the supplied period. The most recent unanswered question is recorded in the 2026-08-19 note, with 1 other open relationship signal(s).",
+        "priorityRationale": "A confirmed recurring draw of 4.33% of wealth sits against a portfolio that fell 6.61% over the supplied period. The most recent unanswered question is recorded in the 2026-08-19 note, with 1 other open relationship signal.",
         "factorContributions": [
           {
             "factor": "threshold or historical breach",
@@ -926,7 +926,7 @@
           {
             "factor": "relationship signal",
             "points": 10.0,
-            "reason": "The most recent unanswered question is recorded in the 2026-08-19 note, with 1 other open relationship signal(s).",
+            "reason": "The most recent unanswered question is recorded in the 2026-08-19 note, with 1 other open relationship signal.",
             "evidenceItemIds": [
               "EV-CL-0004-RELATIONSHIP-NOTE_N_028_UNANSWERED_QUESTION",
               "EV-CL-0004-RELATIONSHIP-NOTE_N_028_UNRESOLVED_COMMITMENT"
@@ -944,7 +944,7 @@
           "A recurring draw of 4.3% of wealth runs against a portfolio down 6.6%.",
           "Managed portfolios show 1 single-position limit break.",
           "Gated or illiquid holdings are 5.4% of this client's wealth.",
-          "2 Open Loop candidate(s) from dated RM notes."
+          "2 Open Loop candidates from dated RM notes."
         ],
         "openLoopCount": 2,
         "governanceClockCount": 1
@@ -1008,7 +1008,7 @@
         "status": "active",
         "signalSummaries": [
           "shipping and marine exposure is 33.2%.",
-          "1 Open Loop candidate(s) from dated RM notes.",
+          "1 Open Loop candidate from dated RM notes.",
           "Seed capital for Singapore family office entity: USD 5,000,000 likely, due in 128 days, fully covered by assets that can settle in time.",
           "Gated or illiquid holdings are 12.9% of this client's wealth."
         ],
@@ -1034,12 +1034,12 @@
             "Every claim resolves to a supplied source record, and no source disagrees with another."
           ]
         },
-        "priorityRationale": "Commodities in PF-0022 is 4.04 percentage points outside its mandate band. A further 1 breach(es) add capped points. Portfolio luxury and consumer exposure of 16.28% repeats the client's recorded source of wealth.",
+        "priorityRationale": "Commodities in PF-0022 is 4.04 percentage points outside its mandate band. A further 1 breach adds capped points. Portfolio luxury and consumer exposure of 16.28% repeats the client's recorded source of wealth.",
         "factorContributions": [
           {
             "factor": "threshold or historical breach",
             "points": 16.62,
-            "reason": "Commodities in PF-0022 is 4.04 percentage points outside its mandate band. A further 1 breach(es) add capped points.",
+            "reason": "Commodities in PF-0022 is 4.04 percentage points outside its mandate band. A further 1 breach adds capped points.",
             "evidenceItemIds": [
               "EV-CL-0018-MANDATE-BAND_PF_0022_COMMODITIES",
               "EV-CL-0018-MANDATE-BAND_PF_0022_FIXED_INCOME"
@@ -1074,7 +1074,7 @@
           "Managed portfolios show 2 allocation band breaks.",
           "Concentration reviewed.",
           "Italian succession planning and notarial costs: EUR 850,000 likely, due in 279 days, fully covered by assets that can settle in time.",
-          "Wealth fell 3.99% across the five supplied snapshots (USD 939,313). 4 recorded event(s) reach holdings this client owns."
+          "Wealth fell 3.99% across the five supplied snapshots (USD 939,313). 4 recorded events reach holdings this client owns."
         ],
         "openLoopCount": 0,
         "governanceClockCount": 1
@@ -1098,12 +1098,12 @@
             "Every claim resolves to a supplied source record, and no source disagrees with another."
           ]
         },
-        "priorityRationale": "CN-010 is confirmed and falls due within 180 days (128 days). A further 1 independent signal(s) in this factor add capped points. CN-010 is a SGD obligation while only 49.2% of sellable assets are in that currency.",
+        "priorityRationale": "CN-010 is confirmed and falls due within 180 days (128 days). A further 1 independent signal in this factor adds capped points. CN-010 is a SGD obligation while only 49.2% of sellable assets are in that currency.",
         "factorContributions": [
           {
             "factor": "time urgency",
             "points": 20.0,
-            "reason": "CN-010 is confirmed and falls due within 180 days (128 days). A further 1 independent signal(s) in this factor add capped points.",
+            "reason": "CN-010 is confirmed and falls due within 180 days (128 days). A further 1 independent signal in this factor adds capped points.",
             "evidenceItemIds": [
               "EV-CL-0008-CASH_NEED-CN_010_ELIGIBLE",
               "EV-CL-0008-CASH_NEED-CN_010_NEED",
@@ -1130,7 +1130,7 @@
           "A SGD obligation sits against mostly non-SGD sellable assets.",
           "The KYC review is due on 2026-09-11, in 16 days.",
           "University fees, two children: SGD 420,000 confirmed, due in 128 days, fully covered by assets that can settle in time.",
-          "Wealth fell 1.54% across the five supplied snapshots (USD 187,147). 4 recorded event(s) reach holdings this client owns."
+          "Wealth fell 1.54% across the five supplied snapshots (USD 187,147). 4 recorded events reach holdings this client owns."
         ],
         "openLoopCount": 0,
         "governanceClockCount": 1
@@ -1193,9 +1193,9 @@
         "status": "active",
         "signalSummaries": [
           "Managed portfolios show 1 allocation band break.",
-          "1 Open Loop candidate(s) from dated RM notes.",
+          "1 Open Loop candidate from dated RM notes.",
           "Initial endowment of charitable foundation: USD 12,000,000 likely, due in 128 days, fully covered by assets that can settle in time.",
-          "Wealth rose 7.84% across the five supplied snapshots (USD 2,908,908). 4 recorded event(s) reach holdings this client owns."
+          "Wealth rose 7.84% across the five supplied snapshots (USD 2,908,908). 4 recorded events reach holdings this client owns."
         ],
         "openLoopCount": 1,
         "governanceClockCount": 1
@@ -1241,7 +1241,7 @@
           "Managed portfolios show 1 single-position limit break.",
           "US Technology Leaders Fund is 22.4% of total wealth; technology exposure is 57.1%.",
           "Gated or illiquid holdings are 13.6% of this client's wealth.",
-          "Wealth rose 18.57% across the five supplied snapshots (USD 5,786,691). 2 recorded event(s) reach holdings this client owns."
+          "Wealth rose 18.57% across the five supplied snapshots (USD 5,786,691). 2 recorded events reach holdings this client owns."
         ],
         "openLoopCount": 0,
         "governanceClockCount": 1
@@ -1286,9 +1286,9 @@
         "status": "active",
         "signalSummaries": [
           "technology exposure is 42.6%.",
-          "1 Open Loop candidate(s) from dated RM notes.",
+          "1 Open Loop candidate from dated RM notes.",
           "Gated or illiquid holdings are 12.8% of this client's wealth.",
-          "Wealth rose 25.25% across the five supplied snapshots (USD 3,021,410). 3 recorded event(s) reach holdings this client owns."
+          "Wealth rose 25.25% across the five supplied snapshots (USD 3,021,410). 3 recorded events reach holdings this client owns."
         ],
         "openLoopCount": 1,
         "governanceClockCount": 1
@@ -1334,7 +1334,7 @@
         "signalSummaries": [
           "USD 900,000 of uncalled private-markets commitments may be called inside their stated windows.",
           "Hong Kong property purchase: USD 3,600,000 likely, due in 218 days, fully covered by assets that can settle in time.",
-          "Wealth rose 5.51% across the five supplied snapshots (USD 996,108). 3 recorded event(s) reach holdings this client owns.",
+          "Wealth rose 5.51% across the five supplied snapshots (USD 996,108). 3 recorded events reach holdings this client owns.",
           "The KYC review is due on 2027-02-08, in 166 days."
         ],
         "openLoopCount": 0,
@@ -1372,7 +1372,7 @@
         "signalSummaries": [
           "Singapore Government Securities 2.75% due 2036 is 21.6% of total wealth.",
           "Gated or illiquid holdings are 7.3% of this client's wealth.",
-          "Wealth rose 1.11% across the five supplied snapshots (USD 90,200). 4 recorded event(s) reach holdings this client owns.",
+          "Wealth rose 1.11% across the five supplied snapshots (USD 90,200). 4 recorded events reach holdings this client owns.",
           "Totals reconcile across all three sources once base-currency columns are converted."
         ],
         "openLoopCount": 0,
@@ -1394,7 +1394,7 @@
         "score": 78.0,
         "safetyOverride": {
           "ruleId": "SO-3-UNWAIVED-BINDING-EXCLUSION",
-          "reason": "2 holding(s) fall inside the SUSBAL mandate's binding exclusions with no evidenced waiver."
+          "reason": "2 holdings fall inside the SUSBAL mandate's binding exclusions with no evidenced waiver."
         }
       },
       "confidence": {
@@ -1583,7 +1583,7 @@
         {
           "factor": "threshold or historical breach",
           "points": 30.0,
-          "reason": "2 unwaived holding(s) inside a binding mandate exclusion. A further 1 independent signal(s) in this factor add capped points.",
+          "reason": "2 unwaived holdings inside a binding mandate exclusion. A further 1 independent signal in this factor adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0005-EXCLUSION-EXCLUDED_SYN_EQ_0008",
             "EV-CL-0005-EXCLUSION-EXCLUDED_SYN_ST_0105",
@@ -1671,7 +1671,7 @@
           "id": "SIG-CL-0005-RELATIONSHIP",
           "type": "relationship",
           "status": "active",
-          "summary": "1 Open Loop candidate(s) from dated RM notes.",
+          "summary": "1 Open Loop candidate from dated RM notes.",
           "timeHorizon": "since the note date",
           "evidenceItemIds": [
             "EV-CL-0005-RELATIONSHIP-NOTE_N_008_CLIENT_CONSTRAINT"
@@ -1681,7 +1681,7 @@
           "id": "SIG-CL-0005-EXPLANATION",
           "type": "explanation",
           "status": "normal",
-          "summary": "Wealth rose 2.92% across the five supplied snapshots (USD 551,097). 4 recorded event(s) reach holdings this client owns.",
+          "summary": "Wealth rose 2.92% across the five supplied snapshots (USD 551,097). 4 recorded events reach holdings this client owns.",
           "timeHorizon": "2025-12-31 to 2026-08-26",
           "evidenceItemIds": [
             "EV-CL-0005-EXPLANATION-PROFILE",
@@ -2109,7 +2109,7 @@
         {
           "factor": "threshold or historical breach",
           "points": 35.0,
-          "reason": "Equity in PF-0005 is 41.46 percentage points outside its mandate band. A further 2 breach(es) add capped points.",
+          "reason": "Equity in PF-0005 is 41.46 percentage points outside its mandate band. A further 2 breaches adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0003-MANDATE-BAND_PF_0005_EQUITY",
             "EV-CL-0003-MANDATE-BAND_PF_0005_FIXED_INCOME",
@@ -2199,7 +2199,7 @@
           "id": "SIG-CL-0003-RELATIONSHIP",
           "type": "relationship",
           "status": "active",
-          "summary": "1 Open Loop candidate(s) from dated RM notes.",
+          "summary": "1 Open Loop candidate from dated RM notes.",
           "timeHorizon": "since the note date",
           "evidenceItemIds": [
             "EV-CL-0003-RELATIONSHIP-NOTE_N_006_UNANSWERED_QUESTION"
@@ -2209,7 +2209,7 @@
           "id": "SIG-CL-0003-EXPLANATION",
           "type": "explanation",
           "status": "normal",
-          "summary": "Wealth fell 5.68% across the five supplied snapshots (USD 1,335,842). 4 recorded event(s) reach holdings this client owns.",
+          "summary": "Wealth fell 5.68% across the five supplied snapshots (USD 1,335,842). 4 recorded events reach holdings this client owns.",
           "timeHorizon": "2025-12-31 to 2026-08-26",
           "evidenceItemIds": [
             "EV-CL-0003-EXPLANATION-PROFILE",
@@ -2682,7 +2682,7 @@
         {
           "factor": "threshold or historical breach",
           "points": 35.0,
-          "reason": "CF-0002 is 0.59 percentage points below its 70% trigger. A further 1 independent signal(s) in this factor add capped points.",
+          "reason": "CF-0002 is 0.59 percentage points below its 70% trigger. A further 1 independent signal in this factor adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0014-CREDIT-CF_0002_COLLATERAL",
             "EV-CL-0014-CREDIT-CF_0002_DRAWN",
@@ -2701,7 +2701,7 @@
         {
           "factor": "time urgency",
           "points": 30.0,
-          "reason": "CN-013 is confirmed and falls due within 90 days (67 days). A further 1 independent signal(s) in this factor add capped points.",
+          "reason": "CN-013 is confirmed and falls due within 90 days (67 days). A further 1 independent signal in this factor adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0014-CASH_NEED-CN_013_ELIGIBLE",
             "EV-CL-0014-CASH_NEED-CN_013_NEED",
@@ -2711,7 +2711,7 @@
         {
           "factor": "suitability or objective mismatch",
           "points": 17.0,
-          "reason": "Portfolio real estate exposure of 49.03% repeats the client's recorded source of wealth. A further 1 independent signal(s) in this factor add capped points.",
+          "reason": "Portfolio real estate exposure of 49.03% repeats the client's recorded source of wealth. A further 1 independent signal in this factor adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0014-CONCENTRATION-SOURCE_OF_WEALTH",
             "EV-CL-0014-CONCENTRATION-THEME_DIRECT_GOLD_AND_PRECIOUS_METALS",
@@ -2819,7 +2819,7 @@
           "id": "SIG-CL-0014-EXPLANATION",
           "type": "explanation",
           "status": "normal",
-          "summary": "Wealth fell 6.01% across the five supplied snapshots (USD 1,692,845). 4 recorded event(s) reach holdings this client owns.",
+          "summary": "Wealth fell 6.01% across the five supplied snapshots (USD 1,692,845). 4 recorded events reach holdings this client owns.",
           "timeHorizon": "2025-12-31 to 2026-08-26",
           "evidenceItemIds": [
             "EV-CL-0014-EXPLANATION-PROFILE",
@@ -3283,7 +3283,7 @@
         {
           "factor": "threshold or historical breach",
           "points": 35.0,
-          "reason": "CF-0001 is 1.29 percentage points below its 75% trigger. It also breached the trigger earlier in the supplied history. A further 1 independent signal(s) in this factor add capped points.",
+          "reason": "CF-0001 is 1.29 percentage points below its 75% trigger. It also breached the trigger earlier in the supplied history. A further 1 independent signal in this factor adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0002-CREDIT-CF_0001_COLLATERAL",
             "EV-CL-0002-CREDIT-CF_0001_DRAWN",
@@ -3308,7 +3308,7 @@
         {
           "factor": "suitability or objective mismatch",
           "points": 17.0,
-          "reason": "Portfolio technology exposure of 88.56% repeats the client's recorded source of wealth. A further 1 independent signal(s) in this factor add capped points.",
+          "reason": "Portfolio technology exposure of 88.56% repeats the client's recorded source of wealth. A further 1 independent signal in this factor adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0002-CONCENTRATION-LARGEST_POSITION",
             "EV-CL-0002-CONCENTRATION-SOURCE_OF_WEALTH",
@@ -3398,7 +3398,7 @@
           "id": "SIG-CL-0002-RELATIONSHIP",
           "type": "relationship",
           "status": "active",
-          "summary": "1 Open Loop candidate(s) from dated RM notes.",
+          "summary": "1 Open Loop candidate from dated RM notes.",
           "timeHorizon": "since the note date",
           "evidenceItemIds": [
             "EV-CL-0002-RELATIONSHIP-NOTE_N_004_UNRESOLVED_COMMITMENT"
@@ -3429,7 +3429,7 @@
           "id": "SIG-CL-0002-EXPLANATION",
           "type": "explanation",
           "status": "normal",
-          "summary": "Wealth rose 6.63% across the five supplied snapshots (USD 2,902,700). 2 recorded event(s) reach holdings this client owns.",
+          "summary": "Wealth rose 6.63% across the five supplied snapshots (USD 2,902,700). 2 recorded events reach holdings this client owns.",
           "timeHorizon": "2025-12-31 to 2026-08-26",
           "evidenceItemIds": [
             "EV-CL-0002-EXPLANATION-PROFILE",
@@ -3953,7 +3953,7 @@
         {
           "factor": "threshold or historical breach",
           "points": 35.0,
-          "reason": "Alternatives in PF-0013 is 32.28 percentage points outside its mandate band. A further 3 breach(es) add capped points.",
+          "reason": "Alternatives in PF-0013 is 32.28 percentage points outside its mandate band. A further 3 breaches adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0011-MANDATE-BAND_PF_0013_ALTERNATIVES",
             "EV-CL-0011-MANDATE-BAND_PF_0013_FIXED_INCOME",
@@ -3964,7 +3964,7 @@
         {
           "factor": "time urgency",
           "points": 15.5,
-          "reason": "CN-011 is likely and falls due within 180 days (97 days). A likely need carries 70% of the confirmed weighting. A further 1 independent signal(s) in this factor add capped points.",
+          "reason": "CN-011 is likely and falls due within 180 days (97 days). A likely need carries 70% of the confirmed weighting. A further 1 independent signal in this factor adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0011-CASH_NEED-CN_011_ELIGIBLE",
             "EV-CL-0011-CASH_NEED-CN_011_NEED",
@@ -4049,7 +4049,7 @@
           "id": "SIG-CL-0011-RELATIONSHIP",
           "type": "relationship",
           "status": "active",
-          "summary": "1 Open Loop candidate(s) from dated RM notes.",
+          "summary": "1 Open Loop candidate from dated RM notes.",
           "timeHorizon": "since the note date",
           "evidenceItemIds": [
             "EV-CL-0011-RELATIONSHIP-NOTE_N_015_REPEATED_DEFERRAL"
@@ -4070,7 +4070,7 @@
           "id": "SIG-CL-0011-EXPLANATION",
           "type": "explanation",
           "status": "normal",
-          "summary": "Wealth fell 6.73% across the five supplied snapshots (USD 2,551,080). 4 recorded event(s) reach holdings this client owns.",
+          "summary": "Wealth fell 6.73% across the five supplied snapshots (USD 2,551,080). 4 recorded events reach holdings this client owns.",
           "timeHorizon": "2025-12-31 to 2026-08-26",
           "evidenceItemIds": [
             "EV-CL-0011-EXPLANATION-PROFILE",
@@ -4429,7 +4429,7 @@
         },
         {
           "id": "F-CL-0017-CASH_NEED-F_COMMITMENTS_UNCALLED",
-          "statement": "USD 15,800,000 of private-markets commitments remain uncalled across 2 fund(s).",
+          "statement": "USD 15,800,000 of private-markets commitments remain uncalled across 2 funds.",
           "evidenceItemIds": [
             "EV-CL-0017-CASH_NEED-COMMITMENTS_COM_001",
             "EV-CL-0017-CASH_NEED-COMMITMENTS_COM_002"
@@ -4611,7 +4611,7 @@
         {
           "factor": "threshold or historical breach",
           "points": 23.15,
-          "reason": "Meridian Private Equity Fund VII exceeds the 25% single-position limit in PF-0020. A further 2 breach(es) add capped points.",
+          "reason": "Meridian Private Equity Fund VII exceeds the 25% single-position limit in PF-0020. A further 2 breaches adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0017-MANDATE-BAND_PF_0019_EQUITY",
             "EV-CL-0017-MANDATE-POSITION_PF_0020_SYN_AL_0301",
@@ -4621,7 +4621,7 @@
         {
           "factor": "time urgency",
           "points": 30.0,
-          "reason": "CN-015 is confirmed and falls due within 30 days (6 days). A further 1 independent signal(s) in this factor add capped points.",
+          "reason": "CN-015 is confirmed and falls due within 30 days (6 days). A further 1 independent signal in this factor adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0017-CASH_NEED-CN_015_ELIGIBLE",
             "EV-CL-0017-CASH_NEED-CN_015_NEED",
@@ -4632,7 +4632,7 @@
         {
           "factor": "relationship signal",
           "points": 10.0,
-          "reason": "The most recent unanswered question is recorded in the 2026-02-10 note, with 1 other open relationship signal(s).",
+          "reason": "The most recent unanswered question is recorded in the 2026-02-10 note, with 1 other open relationship signal.",
           "evidenceItemIds": [
             "EV-CL-0017-RELATIONSHIP-NOTE_N_022_UNANSWERED_QUESTION",
             "EV-CL-0017-RELATIONSHIP-NOTE_N_022_UNRESOLVED_COMMITMENT"
@@ -4696,7 +4696,7 @@
           "id": "SIG-CL-0017-RELATIONSHIP",
           "type": "relationship",
           "status": "active",
-          "summary": "2 Open Loop candidate(s) from dated RM notes.",
+          "summary": "2 Open Loop candidates from dated RM notes.",
           "timeHorizon": "since the note date",
           "evidenceItemIds": [
             "EV-CL-0017-RELATIONSHIP-NOTE_N_022_UNANSWERED_QUESTION",
@@ -4718,7 +4718,7 @@
           "id": "SIG-CL-0017-EXPLANATION",
           "type": "explanation",
           "status": "normal",
-          "summary": "Wealth rose 2.81% across the five supplied snapshots (USD 2,402,140). 4 recorded event(s) reach holdings this client owns.",
+          "summary": "Wealth rose 2.81% across the five supplied snapshots (USD 2,402,140). 4 recorded events reach holdings this client owns.",
           "timeHorizon": "2025-12-31 to 2026-08-26",
           "evidenceItemIds": [
             "EV-CL-0017-EXPLANATION-PROFILE",
@@ -4759,7 +4759,7 @@
             "reasons": [
               "Read from a dated email note of 2026-02-10.",
               "Requires RM confirmation before it becomes a tracked commitment.",
-              "1 later note(s) exist with no recorded outcome for this."
+              "1 later note exists with no recorded outcome for this."
             ]
           },
           "confirmationRequired": true,
@@ -4780,7 +4780,7 @@
             "reasons": [
               "Read from a dated email note of 2026-02-10.",
               "Requires RM confirmation before it becomes a tracked commitment.",
-              "1 later note(s) exist with no recorded outcome for this."
+              "1 later note exists with no recorded outcome for this."
             ]
           },
           "confirmationRequired": true,
@@ -5214,7 +5214,7 @@
         {
           "factor": "suitability or objective mismatch",
           "points": 17.0,
-          "reason": "Portfolio energy exposure of 44.99% repeats the client's recorded source of wealth. A further 1 independent signal(s) in this factor add capped points.",
+          "reason": "Portfolio energy exposure of 44.99% repeats the client's recorded source of wealth. A further 1 independent signal in this factor adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0001-CONCENTRATION-LARGEST_POSITION",
             "EV-CL-0001-CONCENTRATION-SOURCE_OF_WEALTH",
@@ -5226,7 +5226,7 @@
         {
           "factor": "relationship signal",
           "points": 10.0,
-          "reason": "The most recent unanswered question is recorded in the 2026-04-14 note, with 1 other open relationship signal(s).",
+          "reason": "The most recent unanswered question is recorded in the 2026-04-14 note, with 1 other open relationship signal.",
           "evidenceItemIds": [
             "EV-CL-0001-RELATIONSHIP-NOTE_N_001_CLIENT_CONSTRAINT",
             "EV-CL-0001-RELATIONSHIP-NOTE_N_002_UNANSWERED_QUESTION"
@@ -5284,7 +5284,7 @@
           "id": "SIG-CL-0001-RELATIONSHIP",
           "type": "relationship",
           "status": "active",
-          "summary": "2 Open Loop candidate(s) from dated RM notes.",
+          "summary": "2 Open Loop candidates from dated RM notes.",
           "timeHorizon": "since the note date",
           "evidenceItemIds": [
             "EV-CL-0001-RELATIONSHIP-NOTE_N_002_UNANSWERED_QUESTION",
@@ -5306,7 +5306,7 @@
           "id": "SIG-CL-0001-EXPLANATION",
           "type": "explanation",
           "status": "normal",
-          "summary": "Wealth rose 17.71% across the five supplied snapshots (USD 7,005,973). 4 recorded event(s) reach holdings this client owns.",
+          "summary": "Wealth rose 17.71% across the five supplied snapshots (USD 7,005,973). 4 recorded events reach holdings this client owns.",
           "timeHorizon": "2025-12-31 to 2026-08-26",
           "evidenceItemIds": [
             "EV-CL-0001-EXPLANATION-PROFILE",
@@ -5380,7 +5380,7 @@
             "reasons": [
               "Read from a dated meeting note of 2026-01-08.",
               "Requires RM confirmation before it becomes a tracked commitment.",
-              "1 later note(s) exist with no recorded outcome for this."
+              "1 later note exists with no recorded outcome for this."
             ]
           },
           "confirmationRequired": true,
@@ -5794,7 +5794,7 @@
         {
           "factor": "threshold or historical breach",
           "points": 25.09,
-          "reason": "Equity in PF-0018 is 12.72 percentage points outside its mandate band. A further 2 breach(es) add capped points.",
+          "reason": "Equity in PF-0018 is 12.72 percentage points outside its mandate band. A further 2 breaches adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0016-MANDATE-BAND_PF_0018_EQUITY",
             "EV-CL-0016-MANDATE-BAND_PF_0018_FIXED_INCOME",
@@ -5870,7 +5870,7 @@
           "id": "SIG-CL-0016-RELATIONSHIP",
           "type": "relationship",
           "status": "active",
-          "summary": "1 Open Loop candidate(s) from dated RM notes.",
+          "summary": "1 Open Loop candidate from dated RM notes.",
           "timeHorizon": "since the note date",
           "evidenceItemIds": [
             "EV-CL-0016-RELATIONSHIP-NOTE_N_021_CLIENT_CONSTRAINT"
@@ -5891,7 +5891,7 @@
           "id": "SIG-CL-0016-EXPLANATION",
           "type": "explanation",
           "status": "normal",
-          "summary": "Wealth rose 2.80% across the five supplied snapshots (USD 394,824). 2 recorded event(s) reach holdings this client owns.",
+          "summary": "Wealth rose 2.80% across the five supplied snapshots (USD 394,824). 2 recorded events reach holdings this client owns.",
           "timeHorizon": "2025-12-31 to 2026-08-26",
           "evidenceItemIds": [
             "EV-CL-0016-EXPLANATION-PROFILE",
@@ -6130,7 +6130,7 @@
       "facts": [
         {
           "id": "F-CL-0009-CASH_NEED-F_COMMITMENTS_UNCALLED",
-          "statement": "USD 1,100,000 of private-markets commitments remain uncalled across 1 fund(s).",
+          "statement": "USD 1,100,000 of private-markets commitments remain uncalled across 1 fund.",
           "evidenceItemIds": [
             "EV-CL-0009-CASH_NEED-COMMITMENTS_COM_004"
           ]
@@ -6267,7 +6267,7 @@
         {
           "factor": "threshold or historical breach",
           "points": 30.79,
-          "reason": "Cash and Equivalents in PF-0011 is 26.98 percentage points outside its mandate band. A further 2 breach(es) add capped points.",
+          "reason": "Cash and Equivalents in PF-0011 is 26.98 percentage points outside its mandate band. A further 2 breaches adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0009-MANDATE-BAND_PF_0011_CASH_AND_EQUIVALENTS",
             "EV-CL-0009-MANDATE-BAND_PF_0011_FIXED_INCOME",
@@ -6277,7 +6277,7 @@
         {
           "factor": "relationship signal",
           "points": 10.0,
-          "reason": "The most recent repeated deferral is recorded in the 2026-03-02 note, with 1 other open relationship signal(s).",
+          "reason": "The most recent repeated deferral is recorded in the 2026-03-02 note, with 1 other open relationship signal.",
           "evidenceItemIds": [
             "EV-CL-0009-RELATIONSHIP-NOTE_N_013_CLIENT_CONSTRAINT",
             "EV-CL-0009-RELATIONSHIP-NOTE_N_013_REPEATED_DEFERRAL"
@@ -6317,7 +6317,7 @@
           "id": "SIG-CL-0009-RELATIONSHIP",
           "type": "relationship",
           "status": "active",
-          "summary": "2 Open Loop candidate(s) from dated RM notes.",
+          "summary": "2 Open Loop candidates from dated RM notes.",
           "timeHorizon": "since the note date",
           "evidenceItemIds": [
             "EV-CL-0009-RELATIONSHIP-NOTE_N_013_REPEATED_DEFERRAL",
@@ -6338,7 +6338,7 @@
           "id": "SIG-CL-0009-EXPLANATION",
           "type": "explanation",
           "status": "normal",
-          "summary": "Wealth fell 4.02% across the five supplied snapshots (USD 1,322,519). 3 recorded event(s) reach holdings this client owns.",
+          "summary": "Wealth fell 4.02% across the five supplied snapshots (USD 1,322,519). 3 recorded events reach holdings this client owns.",
           "timeHorizon": "2025-12-31 to 2026-08-26",
           "evidenceItemIds": [
             "EV-CL-0009-EXPLANATION-PROFILE",
@@ -6632,7 +6632,7 @@
         },
         {
           "id": "F-CL-0006-CASH_NEED-F_COMMITMENTS_UNCALLED",
-          "statement": "USD 3,000,000 of private-markets commitments remain uncalled across 1 fund(s).",
+          "statement": "USD 3,000,000 of private-markets commitments remain uncalled across 1 fund.",
           "evidenceItemIds": [
             "EV-CL-0006-CASH_NEED-COMMITMENTS_COM_003"
           ]
@@ -6875,7 +6875,7 @@
         {
           "factor": "time urgency",
           "points": 30.0,
-          "reason": "CN-007 is confirmed and falls due within 30 days (6 days). A further 1 independent signal(s) in this factor add capped points.",
+          "reason": "CN-007 is confirmed and falls due within 30 days (6 days). A further 1 independent signal in this factor adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0006-CASH_NEED-CN_007_ELIGIBLE",
             "EV-CL-0006-CASH_NEED-CN_007_NEED",
@@ -6985,7 +6985,7 @@
           "id": "SIG-CL-0006-EXPLANATION",
           "type": "explanation",
           "status": "normal",
-          "summary": "Wealth fell 6.09% across the five supplied snapshots (USD 1,172,997). 4 recorded event(s) reach holdings this client owns.",
+          "summary": "Wealth fell 6.09% across the five supplied snapshots (USD 1,172,997). 4 recorded events reach holdings this client owns.",
           "timeHorizon": "2025-12-31 to 2026-08-26",
           "evidenceItemIds": [
             "EV-CL-0006-EXPLANATION-PROFILE",
@@ -7404,7 +7404,7 @@
         {
           "factor": "relationship signal",
           "points": 10.0,
-          "reason": "The most recent unanswered question is recorded in the 2026-07-16 note, with 1 other open relationship signal(s).",
+          "reason": "The most recent unanswered question is recorded in the 2026-07-16 note, with 1 other open relationship signal.",
           "evidenceItemIds": [
             "EV-CL-0012-RELATIONSHIP-NOTE_N_016_CLIENT_CONSTRAINT",
             "EV-CL-0012-RELATIONSHIP-NOTE_N_016_UNANSWERED_QUESTION"
@@ -7465,7 +7465,7 @@
           "id": "SIG-CL-0012-RELATIONSHIP",
           "type": "relationship",
           "status": "active",
-          "summary": "2 Open Loop candidate(s) from dated RM notes.",
+          "summary": "2 Open Loop candidates from dated RM notes.",
           "timeHorizon": "since the note date",
           "evidenceItemIds": [
             "EV-CL-0012-RELATIONSHIP-NOTE_N_016_UNANSWERED_QUESTION",
@@ -7487,7 +7487,7 @@
           "id": "SIG-CL-0012-EXPLANATION",
           "type": "explanation",
           "status": "normal",
-          "summary": "Wealth fell 6.98% across the five supplied snapshots (USD 2,102,157). 4 recorded event(s) reach holdings this client owns.",
+          "summary": "Wealth fell 6.98% across the five supplied snapshots (USD 2,102,157). 4 recorded events reach holdings this client owns.",
           "timeHorizon": "2025-12-31 to 2026-08-26",
           "evidenceItemIds": [
             "EV-CL-0012-EXPLANATION-PROFILE",
@@ -7946,7 +7946,7 @@
         {
           "factor": "relationship signal",
           "points": 10.0,
-          "reason": "The most recent unanswered question is recorded in the 2026-08-19 note, with 1 other open relationship signal(s).",
+          "reason": "The most recent unanswered question is recorded in the 2026-08-19 note, with 1 other open relationship signal.",
           "evidenceItemIds": [
             "EV-CL-0004-RELATIONSHIP-NOTE_N_028_UNANSWERED_QUESTION",
             "EV-CL-0004-RELATIONSHIP-NOTE_N_028_UNRESOLVED_COMMITMENT"
@@ -7996,7 +7996,7 @@
           "id": "SIG-CL-0004-RELATIONSHIP",
           "type": "relationship",
           "status": "active",
-          "summary": "2 Open Loop candidate(s) from dated RM notes.",
+          "summary": "2 Open Loop candidates from dated RM notes.",
           "timeHorizon": "since the note date",
           "evidenceItemIds": [
             "EV-CL-0004-RELATIONSHIP-NOTE_N_028_UNANSWERED_QUESTION",
@@ -8018,7 +8018,7 @@
           "id": "SIG-CL-0004-EXPLANATION",
           "type": "explanation",
           "status": "normal",
-          "summary": "Wealth fell 6.61% across the five supplied snapshots (USD 2,366,564). 4 recorded event(s) reach holdings this client owns.",
+          "summary": "Wealth fell 6.61% across the five supplied snapshots (USD 2,366,564). 4 recorded events reach holdings this client owns.",
           "timeHorizon": "2025-12-31 to 2026-08-26",
           "evidenceItemIds": [
             "EV-CL-0004-EXPLANATION-PROFILE",
@@ -8458,7 +8458,7 @@
           "id": "SIG-CL-0019-RELATIONSHIP",
           "type": "relationship",
           "status": "active",
-          "summary": "1 Open Loop candidate(s) from dated RM notes.",
+          "summary": "1 Open Loop candidate from dated RM notes.",
           "timeHorizon": "since the note date",
           "evidenceItemIds": [
             "EV-CL-0019-RELATIONSHIP-NOTE_N_026_UNANSWERED_QUESTION"
@@ -8489,7 +8489,7 @@
           "id": "SIG-CL-0019-EXPLANATION",
           "type": "explanation",
           "status": "normal",
-          "summary": "Wealth rose 25.92% across the five supplied snapshots (USD 6,631,055). 4 recorded event(s) reach holdings this client owns.",
+          "summary": "Wealth rose 25.92% across the five supplied snapshots (USD 6,631,055). 4 recorded events reach holdings this client owns.",
           "timeHorizon": "2025-12-31 to 2026-08-26",
           "evidenceItemIds": [
             "EV-CL-0019-EXPLANATION-PROFILE",
@@ -8849,7 +8849,7 @@
         {
           "factor": "threshold or historical breach",
           "points": 16.62,
-          "reason": "Commodities in PF-0022 is 4.04 percentage points outside its mandate band. A further 1 breach(es) add capped points.",
+          "reason": "Commodities in PF-0022 is 4.04 percentage points outside its mandate band. A further 1 breach adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0018-MANDATE-BAND_PF_0022_COMMODITIES",
             "EV-CL-0018-MANDATE-BAND_PF_0022_FIXED_INCOME"
@@ -8916,7 +8916,7 @@
           "id": "SIG-CL-0018-EXPLANATION",
           "type": "explanation",
           "status": "normal",
-          "summary": "Wealth fell 3.99% across the five supplied snapshots (USD 939,313). 4 recorded event(s) reach holdings this client owns.",
+          "summary": "Wealth fell 3.99% across the five supplied snapshots (USD 939,313). 4 recorded events reach holdings this client owns.",
           "timeHorizon": "2025-12-31 to 2026-08-26",
           "evidenceItemIds": [
             "EV-CL-0018-EXPLANATION-PROFILE",
@@ -9254,7 +9254,7 @@
         {
           "factor": "time urgency",
           "points": 20.0,
-          "reason": "CN-010 is confirmed and falls due within 180 days (128 days). A further 1 independent signal(s) in this factor add capped points.",
+          "reason": "CN-010 is confirmed and falls due within 180 days (128 days). A further 1 independent signal in this factor adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0008-CASH_NEED-CN_010_ELIGIBLE",
             "EV-CL-0008-CASH_NEED-CN_010_NEED",
@@ -9312,7 +9312,7 @@
           "id": "SIG-CL-0008-EXPLANATION",
           "type": "explanation",
           "status": "normal",
-          "summary": "Wealth fell 1.54% across the five supplied snapshots (USD 187,147). 4 recorded event(s) reach holdings this client owns.",
+          "summary": "Wealth fell 1.54% across the five supplied snapshots (USD 187,147). 4 recorded events reach holdings this client owns.",
           "timeHorizon": "2025-12-31 to 2026-08-26",
           "evidenceItemIds": [
             "EV-CL-0008-EXPLANATION-PROFILE",
@@ -9682,7 +9682,7 @@
           "id": "SIG-CL-0007-RELATIONSHIP",
           "type": "relationship",
           "status": "active",
-          "summary": "1 Open Loop candidate(s) from dated RM notes.",
+          "summary": "1 Open Loop candidate from dated RM notes.",
           "timeHorizon": "since the note date",
           "evidenceItemIds": [
             "EV-CL-0007-RELATIONSHIP-NOTE_N_011_UNRESOLVED_COMMITMENT"
@@ -9703,7 +9703,7 @@
           "id": "SIG-CL-0007-EXPLANATION",
           "type": "explanation",
           "status": "normal",
-          "summary": "Wealth rose 7.84% across the five supplied snapshots (USD 2,908,908). 4 recorded event(s) reach holdings this client owns.",
+          "summary": "Wealth rose 7.84% across the five supplied snapshots (USD 2,908,908). 4 recorded events reach holdings this client owns.",
           "timeHorizon": "2025-12-31 to 2026-08-26",
           "evidenceItemIds": [
             "EV-CL-0007-EXPLANATION-PROFILE",
@@ -10091,7 +10091,7 @@
           "id": "SIG-CL-0013-EXPLANATION",
           "type": "explanation",
           "status": "normal",
-          "summary": "Wealth rose 18.57% across the five supplied snapshots (USD 5,786,691). 2 recorded event(s) reach holdings this client owns.",
+          "summary": "Wealth rose 18.57% across the five supplied snapshots (USD 5,786,691). 2 recorded events reach holdings this client owns.",
           "timeHorizon": "2025-12-31 to 2026-08-26",
           "evidenceItemIds": [
             "EV-CL-0013-EXPLANATION-PROFILE",
@@ -10509,7 +10509,7 @@
           "id": "SIG-CL-0015-RELATIONSHIP",
           "type": "relationship",
           "status": "active",
-          "summary": "1 Open Loop candidate(s) from dated RM notes.",
+          "summary": "1 Open Loop candidate from dated RM notes.",
           "timeHorizon": "since the note date",
           "evidenceItemIds": [
             "EV-CL-0015-RELATIONSHIP-NOTE_N_020_UNANSWERED_QUESTION"
@@ -10529,7 +10529,7 @@
           "id": "SIG-CL-0015-EXPLANATION",
           "type": "explanation",
           "status": "normal",
-          "summary": "Wealth rose 25.25% across the five supplied snapshots (USD 3,021,410). 3 recorded event(s) reach holdings this client owns.",
+          "summary": "Wealth rose 25.25% across the five supplied snapshots (USD 3,021,410). 3 recorded events reach holdings this client owns.",
           "timeHorizon": "2025-12-31 to 2026-08-26",
           "evidenceItemIds": [
             "EV-CL-0015-EXPLANATION-PROFILE",
@@ -10771,7 +10771,7 @@
         },
         {
           "id": "F-CL-0020-CASH_NEED-F_COMMITMENTS_UNCALLED",
-          "statement": "USD 900,000 of private-markets commitments remain uncalled across 1 fund(s).",
+          "statement": "USD 900,000 of private-markets commitments remain uncalled across 1 fund.",
           "evidenceItemIds": [
             "EV-CL-0020-CASH_NEED-COMMITMENTS_COM_005"
           ]
@@ -10895,7 +10895,7 @@
           "id": "SIG-CL-0020-EXPLANATION",
           "type": "explanation",
           "status": "normal",
-          "summary": "Wealth rose 5.51% across the five supplied snapshots (USD 996,108). 3 recorded event(s) reach holdings this client owns.",
+          "summary": "Wealth rose 5.51% across the five supplied snapshots (USD 996,108). 3 recorded events reach holdings this client owns.",
           "timeHorizon": "2025-12-31 to 2026-08-26",
           "evidenceItemIds": [
             "EV-CL-0020-EXPLANATION-PROFILE",
@@ -11237,7 +11237,7 @@
           "id": "SIG-CL-0010-EXPLANATION",
           "type": "explanation",
           "status": "normal",
-          "summary": "Wealth rose 1.11% across the five supplied snapshots (USD 90,200). 4 recorded event(s) reach holdings this client owns.",
+          "summary": "Wealth rose 1.11% across the five supplied snapshots (USD 90,200). 4 recorded events reach holdings this client owns.",
           "timeHorizon": "2025-12-31 to 2026-08-26",
           "evidenceItemIds": [
             "EV-CL-0010-EXPLANATION-PROFILE",
@@ -12576,7 +12576,7 @@
         {
           "factor": "relationship signal",
           "points": 10.0,
-          "reason": "The most recent unanswered question is recorded in the 2026-04-14 note, with 1 other open relationship signal(s).",
+          "reason": "The most recent unanswered question is recorded in the 2026-04-14 note, with 1 other open relationship signal.",
           "evidenceItemIds": [
             "EV-CL-0001-RELATIONSHIP-NOTE_N_002_UNANSWERED_QUESTION",
             "EV-CL-0001-RELATIONSHIP-NOTE_N_001_CLIENT_CONSTRAINT"
@@ -14811,7 +14811,7 @@
         {
           "factor": "threshold or historical breach",
           "points": 35.0,
-          "reason": "Equity in PF-0005 is 41.46 percentage points outside its mandate band. A further 2 breach(es) add capped points.",
+          "reason": "Equity in PF-0005 is 41.46 percentage points outside its mandate band. A further 2 breaches adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0003-MANDATE-BAND_PF_0005_FIXED_INCOME",
             "EV-CL-0003-MANDATE-BAND_PF_0005_EQUITY",
@@ -15863,7 +15863,7 @@
         {
           "factor": "relationship signal",
           "points": 10.0,
-          "reason": "The most recent unanswered question is recorded in the 2026-08-19 note, with 1 other open relationship signal(s).",
+          "reason": "The most recent unanswered question is recorded in the 2026-08-19 note, with 1 other open relationship signal.",
           "evidenceItemIds": [
             "EV-CL-0004-RELATIONSHIP-NOTE_N_028_UNANSWERED_QUESTION",
             "EV-CL-0004-RELATIONSHIP-NOTE_N_028_UNRESOLVED_COMMITMENT"
@@ -16326,7 +16326,7 @@
         {
           "factor": "threshold or historical breach",
           "points": 25.0,
-          "reason": "2 unwaived holding(s) inside a binding mandate exclusion.",
+          "reason": "2 unwaived holdings inside a binding mandate exclusion.",
           "evidenceItemIds": [
             "EV-CL-0005-EXCLUSION-EXCLUDED_SYN_EQ_0008",
             "EV-CL-0005-EXCLUSION-EXCLUDED_SYN_ST_0105",
@@ -17106,7 +17106,7 @@
         },
         {
           "id": "F-CL-0006-CASH_NEED-F_COMMITMENTS_UNCALLED",
-          "statement": "USD 3,000,000 of private-markets commitments remain uncalled across 1 fund(s).",
+          "statement": "USD 3,000,000 of private-markets commitments remain uncalled across 1 fund.",
           "evidenceItemIds": [
             "EV-CL-0006-CASH_NEED-COMMITMENTS_COM_003"
           ]
@@ -20034,7 +20034,7 @@
       "facts": [
         {
           "id": "F-CL-0009-CASH_NEED-F_COMMITMENTS_UNCALLED",
-          "statement": "USD 1,100,000 of private-markets commitments remain uncalled across 1 fund(s).",
+          "statement": "USD 1,100,000 of private-markets commitments remain uncalled across 1 fund.",
           "evidenceItemIds": [
             "EV-CL-0009-CASH_NEED-COMMITMENTS_COM_004"
           ]
@@ -20750,7 +20750,7 @@
         {
           "factor": "threshold or historical breach",
           "points": 30.79,
-          "reason": "Cash and Equivalents in PF-0011 is 26.98 percentage points outside its mandate band. A further 2 breach(es) add capped points.",
+          "reason": "Cash and Equivalents in PF-0011 is 26.98 percentage points outside its mandate band. A further 2 breaches adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0009-MANDATE-BAND_PF_0011_CASH_AND_EQUIVALENTS",
             "EV-CL-0009-MANDATE-BAND_PF_0011_FIXED_INCOME",
@@ -20887,7 +20887,7 @@
         {
           "factor": "relationship signal",
           "points": 10.0,
-          "reason": "The most recent repeated deferral is recorded in the 2026-03-02 note, with 1 other open relationship signal(s).",
+          "reason": "The most recent repeated deferral is recorded in the 2026-03-02 note, with 1 other open relationship signal.",
           "evidenceItemIds": [
             "EV-CL-0009-RELATIONSHIP-NOTE_N_013_REPEATED_DEFERRAL",
             "EV-CL-0009-RELATIONSHIP-NOTE_N_013_CLIENT_CONSTRAINT"
@@ -22859,7 +22859,7 @@
         {
           "factor": "threshold or historical breach",
           "points": 35.0,
-          "reason": "Alternatives in PF-0013 is 32.28 percentage points outside its mandate band. A further 3 breach(es) add capped points.",
+          "reason": "Alternatives in PF-0013 is 32.28 percentage points outside its mandate band. A further 3 breaches adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0011-MANDATE-BAND_PF_0013_FIXED_INCOME",
             "EV-CL-0011-MANDATE-BAND_PF_0013_ALTERNATIVES",
@@ -23929,7 +23929,7 @@
         {
           "factor": "relationship signal",
           "points": 10.0,
-          "reason": "The most recent unanswered question is recorded in the 2026-07-16 note, with 1 other open relationship signal(s).",
+          "reason": "The most recent unanswered question is recorded in the 2026-07-16 note, with 1 other open relationship signal.",
           "evidenceItemIds": [
             "EV-CL-0012-RELATIONSHIP-NOTE_N_016_UNANSWERED_QUESTION",
             "EV-CL-0012-RELATIONSHIP-NOTE_N_016_CLIENT_CONSTRAINT"
@@ -26175,7 +26175,7 @@
         {
           "factor": "threshold or historical breach",
           "points": 27.65,
-          "reason": "Equity in PF-0016 is 6.61 percentage points outside its mandate band. A further 3 breach(es) add capped points.",
+          "reason": "Equity in PF-0016 is 6.61 percentage points outside its mandate band. A further 3 breaches adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0014-MANDATE-BAND_PF_0016_EQUITY",
             "EV-CL-0014-MANDATE-POSITION_PF_0016_SYN_FI_0207",
@@ -27707,7 +27707,7 @@
         {
           "factor": "threshold or historical breach",
           "points": 25.09,
-          "reason": "Equity in PF-0018 is 12.72 percentage points outside its mandate band. A further 2 breach(es) add capped points.",
+          "reason": "Equity in PF-0018 is 12.72 percentage points outside its mandate band. A further 2 breaches adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0016-MANDATE-BAND_PF_0018_FIXED_INCOME",
             "EV-CL-0016-MANDATE-BAND_PF_0018_EQUITY",
@@ -27976,7 +27976,7 @@
         },
         {
           "id": "F-CL-0017-CASH_NEED-F_COMMITMENTS_UNCALLED",
-          "statement": "USD 15,800,000 of private-markets commitments remain uncalled across 2 fund(s).",
+          "statement": "USD 15,800,000 of private-markets commitments remain uncalled across 2 funds.",
           "evidenceItemIds": [
             "EV-CL-0017-CASH_NEED-COMMITMENTS_COM_001",
             "EV-CL-0017-CASH_NEED-COMMITMENTS_COM_002"
@@ -28894,7 +28894,7 @@
         {
           "factor": "threshold or historical breach",
           "points": 23.15,
-          "reason": "Meridian Private Equity Fund VII exceeds the 25% single-position limit in PF-0020. A further 2 breach(es) add capped points.",
+          "reason": "Meridian Private Equity Fund VII exceeds the 25% single-position limit in PF-0020. A further 2 breaches adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0017-MANDATE-BAND_PF_0019_EQUITY",
             "EV-CL-0017-MANDATE-POSITION_PF_0020_SYN_AL_0301",
@@ -29015,7 +29015,7 @@
         {
           "factor": "relationship signal",
           "points": 10.0,
-          "reason": "The most recent unanswered question is recorded in the 2026-02-10 note, with 1 other open relationship signal(s).",
+          "reason": "The most recent unanswered question is recorded in the 2026-02-10 note, with 1 other open relationship signal.",
           "evidenceItemIds": [
             "EV-CL-0017-RELATIONSHIP-NOTE_N_022_UNANSWERED_QUESTION",
             "EV-CL-0017-RELATIONSHIP-NOTE_N_022_UNRESOLVED_COMMITMENT"
@@ -29923,7 +29923,7 @@
         {
           "factor": "threshold or historical breach",
           "points": 16.62,
-          "reason": "Commodities in PF-0022 is 4.04 percentage points outside its mandate band. A further 1 breach(es) add capped points.",
+          "reason": "Commodities in PF-0022 is 4.04 percentage points outside its mandate band. A further 1 breach adds capped points.",
           "evidenceItemIds": [
             "EV-CL-0018-MANDATE-BAND_PF_0022_FIXED_INCOME",
             "EV-CL-0018-MANDATE-BAND_PF_0022_COMMODITIES"
@@ -30949,7 +30949,7 @@
         },
         {
           "id": "F-CL-0020-CASH_NEED-F_COMMITMENTS_UNCALLED",
-          "statement": "USD 900,000 of private-markets commitments remain uncalled across 1 fund(s).",
+          "statement": "USD 900,000 of private-markets commitments remain uncalled across 1 fund.",
           "evidenceItemIds": [
             "EV-CL-0020-CASH_NEED-COMMITMENTS_COM_005"
           ]

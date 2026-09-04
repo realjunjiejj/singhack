@@ -13,6 +13,7 @@ from jb_clarity.calculations.timeline import EventLink
 from jb_clarity.domain.enums import CaseStatus, SignalType
 from jb_clarity.domain.models import Measure
 from jb_clarity.evidence.claims import DetectedSignal, SignalBuilder
+from jb_clarity.phrasing import count_noun, count_verb
 
 HOLDINGS_FILE = "holdings.csv"
 EVENTS_FILE = "event_log.csv"
@@ -125,7 +126,10 @@ def detect(context) -> list[DetectedSignal]:
         f"snapshots (USD {abs(timeline.change_usd):,.0f})."
     )
     if links:
-        summary += f" {len(links)} recorded event(s) reach holdings this client owns."
+        summary += (
+            f" {count_noun(len(links), 'recorded event')} "
+            f"{count_verb(len(links), 'reaches', 'reach')} holdings this client owns."
+        )
 
     return [
         builder.finish(

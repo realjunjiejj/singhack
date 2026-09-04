@@ -22,6 +22,7 @@ from jb_clarity.evidence import ids
 from jb_clarity.evidence.claims import DetectedSignal, SignalBuilder
 from jb_clarity.ingestion.loader import RmNote
 from jb_clarity.ingestion.normalization import excerpt_around
+from jb_clarity.phrasing import count_noun, count_verb
 
 NOTES_FILE = "rm_notes.json"
 
@@ -206,7 +207,9 @@ def detect(context) -> tuple[list[OpenLoop], DetectedSignal | None]:
         if later_notes:
             score -= 5.0
             reasons.append(
-                f"{len(later_notes)} later note(s) exist with no recorded outcome for this."
+                f"{count_noun(len(later_notes), 'later note')} "
+                f"{count_verb(len(later_notes), 'exists', 'exist')} with no recorded "
+                "outcome for this."
             )
 
         level = (
@@ -262,11 +265,15 @@ def detect(context) -> tuple[list[OpenLoop], DetectedSignal | None]:
         points,
         f"The most recent {best_category} is recorded in the "
         f"{found[best_category][0].note_date.isoformat()} note"
-        + (f", with {len(found) - 1} other open relationship signal(s)." if len(found) > 1 else "."),
+        + (
+            f", with {count_noun(len(found) - 1, 'other open relationship signal')}."
+            if len(found) > 1
+            else "."
+        ),
     )
 
     signal = builder.finish(
-        summary=f"{len(loops)} Open Loop candidate(s) from dated RM notes.",
+        summary=f"{count_noun(len(loops), 'Open Loop candidate')} from dated RM notes.",
         time_horizon="since the note date",
         severity_rank=35,
     )

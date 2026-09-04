@@ -20,6 +20,7 @@ from jb_clarity.domain.models import Measure
 from jb_clarity.evidence.claims import DetectedSignal, SignalBuilder
 from jb_clarity.ingestion.loader import RmNote
 from jb_clarity.ingestion.normalization import excerpt
+from jb_clarity.phrasing import count_noun
 
 MANDATES_FILE = "mandates.csv"
 NOTES_FILE = "rm_notes.json"
@@ -252,14 +253,16 @@ def _exclusion_signal(context, breaches: list[ExclusionBreach]) -> DetectedSigna
             "rather than allocation drift.",
             item_ids + [mandate_item],
         )
+        plural = "holding falls" if len(breaches) == 1 else "holdings fall"
         builder.override(
             SafetyOverrideRuleId.UNWAIVED_BINDING_EXCLUSION,
-            f"{len(breaches)} holding(s) fall inside the {breaches[0].mandate_code} "
+            f"{len(breaches)} {plural} inside the {breaches[0].mandate_code} "
             "mandate's binding exclusions with no evidenced waiver.",
         )
         points = float(settings["bindingExclusion"])
         reason = (
-            f"{len(breaches)} unwaived holding(s) inside a binding mandate exclusion."
+            f"{count_noun(len(breaches), 'unwaived holding')} inside a binding "
+            "mandate exclusion."
         )
     else:
         waiver_item = builder.item(
@@ -313,5 +316,8 @@ def _combine(
     total = min(total, float(settings["max"]))
     reason = contributions[0][1]
     if len(contributions) > 1:
-        reason += f" A further {len(contributions) - 1} breach(es) add capped points."
+        reason += (
+            f" A further {count_noun(len(contributions) - 1, 'breach', 'breaches')} "
+            "adds capped points."
+        )
     return total, reason

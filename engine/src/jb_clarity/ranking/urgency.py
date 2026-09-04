@@ -12,6 +12,7 @@ from dataclasses import dataclass
 from jb_clarity.domain.enums import ScoringFactor, UrgencyTier
 from jb_clarity.domain.models import FactorContribution, SafetyOverride, Urgency
 from jb_clarity.evidence.claims import DetectedSignal
+from jb_clarity.phrasing import count_noun
 
 FACTOR_ORDER = (
     ScoringFactor.THRESHOLD_HISTORY,
@@ -78,8 +79,8 @@ def score_client(
         reason = members[0].points_reason
         if len(members) > 1:
             reason += (
-                f" A further {len(members) - 1} independent signal(s) in this factor add "
-                "capped points."
+                f" A further {count_noun(len(members) - 1, 'independent signal')} "
+                "in this factor adds capped points."
             )
         contributions.append(
             FactorContribution(
