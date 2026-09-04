@@ -2,10 +2,10 @@
 
 **Branch:** `builder-2/rm-workbench`  
 **Verification date:** 2026-09-04  
-**Artifact adopted:** `artifacts/workbench.fixture.json`  
-**Artifact kind:** `fixture`  
+**Artifact adopted:** `artifacts/workbench.json`
+**Artifact kind:** `generated`
 **Schema version:** `1.0.0`  
-**Data-quality status:** `clear`
+**Data-quality status:** `attention` — one disclosed lagged private-market valuation
 
 ## Delivered
 
@@ -26,10 +26,10 @@ Run from `web/`:
 
 | Command | Result |
 | --- | --- |
-| `npm run sync-data` | Pass — fixture selected, schema `1.0.0`, kind `fixture` |
+| `npm run sync-data` | Pass — generated 20-client artifact selected, schema `1.0.0` |
 | `npx tsc --noEmit` | Pass |
-| `npm test` | Pass — 6 files, 21 tests |
-| `npm run test:e2e` | Pass — 3 Playwright tests |
+| `npm test` | Pass — 6 files, 22 tests |
+| `npm run test:e2e` | Pass — 5 Playwright tests |
 | `npm run build` | Pass — `/` and `/architecture` statically generated |
 | `npm audit --omit=dev --audit-level=high` | Pass — 0 vulnerabilities |
 
@@ -43,8 +43,10 @@ The Playwright suite verifies the Hartono Queue → Evidence Chain → supplied 
 - `demo/screenshots/04-responsive-1280.png`
 - `demo/screenshots/05-responsive-1000-drawer.png`
 - `demo/screenshots/06-target-architecture.png`
+- `demo/screenshots/07-cheung-client-ready.png`
+- `demo/screenshots/08-margarethe-client-ready.png`
 
-All six were visually inspected. At 1440px and 1280px the three regions remain visible. At 1000px the work surface becomes a contained right-side drawer while the Queue remains usable.
+All eight were visually inspected. At 1440px and 1280px the three regions remain visible. At 1000px the work surface becomes a contained right-side drawer while the Queue remains usable.
 
 ## Remaining integration evidence
 
@@ -57,7 +59,7 @@ The generated `artifacts/workbench.json` is now integrated. The following former
 
 A timed non-developer Hartono rehearsal under 60 seconds remains a presentation exercise, not an automated product check.
 
-No fixture-only case logic is embedded in the components. When Builder 1 publishes a compatible artifact, `npm run sync-data` will adopt it through the same adapter. Missing Evidence Packets, foreign packets, or unresolved citation IDs are treated as contract defects and block adoption.
+No fixture-only case logic is embedded in the components. `npm run sync-data` adopts the generated artifact through the same adapter used for the fallback fixture. Missing Evidence Packets, foreign packets, or unresolved citation IDs are treated as contract defects and block adoption.
 
 ## Attribution
 

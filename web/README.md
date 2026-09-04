@@ -6,10 +6,9 @@ Desktop-first Next.js workbench for Priscilla Ong’s Priority Queue → Client 
 
 From the repository root:
 
-```powershell
+```bash
 cd web
-$env:NODE_OPTIONS='--use-system-ca'
-npm install
+npm ci
 npm run sync-data
 npm run dev
 ```
@@ -20,7 +19,7 @@ Open `http://localhost:3000`. `sync-data` selects `../artifacts/workbench.json` 
 
 Install dependencies once while online. Then disconnect networking and run:
 
-```powershell
+```bash
 cd web
 npm run sync-data
 npm run build
@@ -38,7 +37,7 @@ npm run test:e2e
 npm run build
 ```
 
-Playwright writes rehearsal screenshots to `demo/screenshots/` for the Queue, Hartono Evidence Chain, approved Meeting Brief, and target architecture. Cheung and Margarethe screenshots require Builder 1’s generated 20-client artifact; the fixture intentionally contains Hartono only.
+Playwright writes rehearsal screenshots to `demo/screenshots/` for the Queue, Hartono Evidence Chain, approved Meeting Brief, responsive widths, Cheung and Margarethe bilingual views, and target architecture. The repository includes Builder 1’s generated 20-client artifact; the fixture remains only as a fallback.
 
 ## Demo path
 
