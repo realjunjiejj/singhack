@@ -1,0 +1,28 @@
+:root {
+  --ink-950: #071722;
+  --ink-900: #0d2232;
+  --ink-800: #173247;
+  --ink-700: #28465b;
+  --ink-500: #657785;
+  --paper: #fbfaf6;
+  --paper-warm: #f4f0e8;
+  --mineral-100: #eef0ed;
+  --mineral-200: #dde1dd;
+  --mineral-300: #c7ceca;
+  --copper: #a96132;
+  --copper-dark: #81431f;
+  --copper-soft: #f2e2d5;
+  --critical: #9c3042;
+  --critical-soft: #f7e6e8;
+  --high: #ad641f;
+  --high-soft: #f8ebd7;
+  --watch: #426575;
+  --watch-soft: #e5eef1;
+  --positive: #27654e;
+  --positive-soft: #e4f0ea;
+  --focus: #176c91;
+  --shadow: 0 18px 45px rgb(5 24 36 / 12%);
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 16px;
+}
