@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JB Clarity — Infrastructure State Prototype</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #13263f;
+      --ink-soft: #405168;
+      --paper: #f7f8fa;
+      --sheet: #ffffff;
+      --line: #dce2e9;
+      --accent: #a8612b;
+      --accent-soft: #f5e8dc;
+      --good: #1f6b4f;
+      --good-soft: #e1f1ea;
+      --bad: #9b3342;
+      --bad-soft: #f8e6e9;
+      --muted: #6a7789;
+      --radius: 10px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 40px 0 64px;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin-bottom: 8px; font-size: clamp(28px, 4vw, 42px); letter-spacing: -0.03em; }
+    h2 { margin-bottom: 16px; font-size: 18px; }
+    h3 { margin-bottom: 8px; font-size: 14px; }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .question {
+      max-width: 780px;
+      color: var(--ink-soft);
+      font-size: 17px;
+    }
+
+    .notice {
+      margin: 24px 0;
+      padding: 14px 16px;
+      border-left: 4px solid var(--accent);
+      background: var(--accent-soft);
+      color: #5e391e;
+    }
+
+    .ownership {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: stretch;
+      gap: 12px;
+      margin: 24px 0;
+    }
+
+    .owner, .contract {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--sheet);
+    }
+
+    .contract {
+      align-self: center;
+      background: var(--ink);
+      color: white;
+      text-align: center;
+    }
+
+    .owner ul { margin: 0; padding-left: 18px; color: var(--ink-soft); }
+
+    .state-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .state-card {
+      min-height: 122px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--sheet);
+    }
+
+    .state-card .label {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .state-card .value {
+      display: block;
+      margin: 8px 0 4px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .state-card .detail { color: var(--ink-soft); font-size: 13px; }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status::before {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--muted);
+      content: "";
+    }
+
+    .status.good::before { background: var(--good); }
+    .status.bad::before { background: var(--bad); }
+    .status.attention::before { background: var(--accent); }
+
+    section {
+      margin-top: 28px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 2px);
+      background: var(--sheet);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    button {
+      min-height: 42px;
+      padding: 9px 13px;
+      border: 1px solid #bdc7d3;
+      border-radius: 7px;
+      background: white;
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 600;
+    }
+
+    button:hover { border-color: var(--accent); }
+    button:focus-visible { outline: 3px solid rgba(168, 97, 43, .28); outline-offset: 2px; }
+    button.primary { border-color: var(--ink); background: var(--ink); color: white; }
+    button.danger { border-color: #d9adb4; color: var(--bad); }
+    button[aria-selected="true"] { border-color: var(--accent); background: var(--accent-soft); color: #643b1d; }
+
+    .change {
+      margin: 14px 0 0;
+      padding: 11px 13px;
+      border-radius: 7px;
+      background: #eef2f6;
+      color: var(--ink-soft);
+      font-size: 13px;
+    }
+
+    .change.good { background: var(--good-soft); color: var(--good); }
+    .change.bad { background: var(--bad-soft); color: var(--bad); }
+
+    .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .walkthrough-description { max-width: 760px; color: var(--ink-soft); }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .step {
+      display: flex;
+      min-height: 88px;
+      align-items: flex-start;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .step-number {
+      flex: 0 0 25px;
+      display: grid;
+      width: 25px;
+      height: 25px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .log {
+      max-height: 250px;
+      overflow: auto;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .log li {
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      gap: 12px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+    }
+
+    .log code { color: var(--accent); font-weight: 700; }
+
+    @media (max-width: 820px) {
+      .ownership { grid-template-columns: 1fr; }
+      .state-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 520px) {
+      main { width: min(100% - 20px, 1180px); padding-top: 24px; }
+      .state-grid { grid-template-columns: 1fr; }
+      section { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Throwaway logic prototype</p>
+    <h1>JB Clarity infrastructure hand-off</h1>
+    <p class="question"><strong>Question:</strong> Can two builders work independently through one versioned Workbench contract and still produce a coherent Priority Queue → Client Case → Evidence Chain → approved Meeting Brief flow?</p>
+    <p class="notice">This page validates ownership and state transitions. It is not the production workbench and must not be shipped as product UI.</p>
+
+    <div class="ownership" aria-label="Builder ownership map">
+      <div class="owner">
+        <h2>Builder 1 · Intelligence</h2>
+        <ul>
+          <li>Reads governed source data</li>
+          <li>Calculates and ranks</li>
+          <li>Builds Evidence Packets</li>
+          <li>Publishes the artifact</li>
+        </ul>
+      </div>
+      <div class="contract">
+        <strong>Contract</strong><br>
+        Schema + Workbench JSON
+      </div>
+      <div class="owner">
+        <h2>Builder 2 · Workbench</h2>
+        <ul>
+          <li>Validates and reads the artifact</li>
+          <li>Presents Queue and Cases</li>
+          <li>Manages temporary RM state</li>
+          <li>Never invents financial facts</li>
+        </ul>
+      </div>
+    </div>
+
+    <section aria-labelledby="current-state-title">
+      <h2 id="current-state-title">Current infrastructure state</h2>
+      <div class="state-grid" id="state-grid"></div>
+      <div class="change" id="last-change" role="status" aria-live="polite"></div>
+    </section>
+
+    <section aria-labelledby="free-play-title">
+      <h2 id="free-play-title">Free play</h2>
+      <div class="button-row" id="free-play"></div>
+    </section>
+
+    <section aria-labelledby="walkthrough-title">
+      <h2 id="walkthrough-title">Guided walkthroughs</h2>
+      <div class="tabs" id="scenario-tabs" role="tablist"></div>
+      <div id="scenario-panel" role="tabpanel"></div>
+    </section>
+
+    <section aria-labelledby="log-title">
+      <h2 id="log-title">Decision log</h2>
+      <ul class="log" id="decision-log"></ul>
+    </section>
+  </main>
+
+  <script>
+    // Portable module: no DOM references. This reducer is the decision-rich part
+    // that may be lifted into the production presentation layer.
+    const InfrastructureModel = (() => {
+      const initialState = () => ({
+        contract: { status: "absent", version: null },
+        artifact: { status: "absent", schemaVersion: null },
+        workbench: { source: "none", compatible: false },
+        activeCase: null,
+        rightSurface: "none",
+        meetingBrief: { status: "none", approvedRevision: null, revision: 0 },
+        caseResolution: "unresolved",
+        lastChange: "The builders have not published or consumed anything yet.",
+        lastOutcome: "neutral",
+        log: []
+      });
+
+      const append = (state, action, message, outcome = "good") => ({
+        ...state,
+        lastChange: message,
+        lastOutcome: outcome,
+        log: [{ action, message }, ...state.log].slice(0, 14)
+      });
+
+      const reduce = (state, action) => {
+        switch (action.type) {
+          case "RESET":
+            return initialState();
+
+          case "PUBLISH_CONTRACT_V1":
+            return append({
+              ...state,
+              contract: { status: "published", version: "1.0.0" }
+            }, action.type, "Builder 1 published Workbench contract v1.0.0.");
+
+          case "START_FRONTEND_FIXTURE":
+            return append({
+              ...state,
+              workbench: { source: "fixture-v1", compatible: state.contract.version === "1.0.0" }
+            }, action.type,
+              state.contract.status === "published"
+                ? "Builder 2 started against a v1-compatible fixture."
+                : "Builder 2 started early against the documented v1 shape; integration remains unverified.",
+              state.contract.status === "published" ? "good" : "attention"
+            );
+
+          case "GENERATE_ARTIFACT_V1":
+            if (state.contract.version !== "1.0.0") {
+              return append(state, action.type, "Blocked: Builder 1 must publish contract v1 before generating its artifact.", "bad");
+            }
+            return append({
+              ...state,
+              artifact: { status: "valid", schemaVersion: "1.0.0" }
+            }, action.type, "Builder 1 generated a schema-valid v1 Workbench artifact.");
+
+          case "GENERATE_BREAKING_V2_ARTIFACT":
+            return append({
+              ...state,
+              artifact: { status: "valid", schemaVersion: "2.0.0" }
+            }, action.type, "Builder 1 generated a v2 artifact without publishing a compatible contract.", "attention");
+
+          case "ADOPT_ARTIFACT": {
+            const compatible = state.artifact.status === "valid" && state.artifact.schemaVersion === state.contract.version;
+            if (!compatible) {
+              return append({
+                ...state,
+                workbench: { ...state.workbench, compatible: false }
+              }, action.type, "Blocked: the artifact schema version does not match the published contract.", "bad");
+            }
+            return append({
+              ...state,
+              workbench: { source: "generated-artifact", compatible: true }
+            }, action.type, "Builder 2 adopted the generated artifact through the validated contract.");
+          }
+
+          case "SELECT_HARTONO":
+            if (!state.workbench.compatible) {
+              return append(state, action.type, "Blocked: no compatible Workbench source is loaded.", "bad");
+            }
+            return append({
+              ...state,
+              activeCase: "CL-0001 · Hartono",
+              rightSurface: "case-summary",
+              meetingBrief: { status: "none", approvedRevision: null, revision: 0 },
+              caseResolution: "unresolved"
+            }, action.type, "Priscilla selected Hartono's Client Case.");
+
+          case "OPEN_EVIDENCE":
+            if (!state.activeCase) {
+              return append(state, action.type, "Blocked: select a Client Case before opening its Evidence Chain.", "bad");
+            }
+            return append({ ...state, rightSurface: "evidence-chain" }, action.type, "The Evidence Chain is open without losing the active case.");
+
+          case "PREPARE_BRIEF":
+            if (!state.activeCase) {
+              return append(state, action.type, "Blocked: a Meeting Brief belongs to one selected Client Case.", "bad");
+            }
+            return append({
+              ...state,
+              rightSurface: "meeting-brief",
+              meetingBrief: { status: "draft", approvedRevision: null, revision: 1 }
+            }, action.type, "A cited Meeting Brief draft was prepared for RM review.");
+
+          case "EDIT_BRIEF":
+            if (state.meetingBrief.status === "none") {
+              return append(state, action.type, "Blocked: prepare a Meeting Brief before editing it.", "bad");
+            }
+            return append({
+              ...state,
+              meetingBrief: {
+                status: "edited-draft",
+                approvedRevision: null,
+                revision: state.meetingBrief.revision + 1
+              },
+              caseResolution: "unresolved"
+            }, action.type,
+              state.meetingBrief.status === "approved"
+                ? "The approved brief changed, so approval and Case Resolution were invalidated."
+                : "The RM edited the draft; it still requires approval.",
+              state.meetingBrief.status === "approved" ? "attention" : "good"
+            );
+
+          case "APPROVE_BRIEF":
+            if (!["draft", "edited-draft"].includes(state.meetingBrief.status)) {
+              return append(state, action.type, "Blocked: only a current draft can be approved.", "bad");
+            }
+            return append({
+              ...state,
+              meetingBrief: {
+                ...state.meetingBrief,
+                status: "approved",
+                approvedRevision: state.meetingBrief.revision
+              }
+            }, action.type, `The RM approved Meeting Brief revision ${state.meetingBrief.revision}.`);
+
+          case "RESOLVE_PREPARED":
+            if (state.meetingBrief.status !== "approved") {
+              return append(state, action.type, "Blocked: Case Resolution cannot be 'conversation prepared' without an approved brief.", "bad");
+            }
+            return append({ ...state, caseResolution: "conversation-prepared" }, action.type, "The Client Case is resolved as conversation prepared.");
+
+          default:
+            return append(state, action.type || "UNKNOWN", "Blocked: unknown action.", "bad");
+        }
+      };
+
+      return { initialState, reduce };
+    })();
+
+    const actionDefinitions = [
+      ["PUBLISH_CONTRACT_V1", "Publish contract v1"],
+      ["START_FRONTEND_FIXTURE", "Start UI with fixture"],
+      ["GENERATE_ARTIFACT_V1", "Generate v1 artifact"],
+      ["GENERATE_BREAKING_V2_ARTIFACT", "Generate breaking v2 artifact"],
+      ["ADOPT_ARTIFACT", "Adopt generated artifact"],
+      ["SELECT_HARTONO", "Select Hartono"],
+      ["OPEN_EVIDENCE", "Open Evidence Chain"],
+      ["PREPARE_BRIEF", "Prepare Meeting Brief"],
+      ["EDIT_BRIEF", "Edit brief"],
+      ["APPROVE_BRIEF", "Approve brief"],
+      ["RESOLVE_PREPARED", "Resolve: conversation prepared"]
+    ];
+
+    const scenarios = {
+      parallel: {
+        title: "Parallel happy path",
+        description: "Watch Builder 2 begin from the contract fixture, then switch to Builder 1's generated artifact without changing the RM workflow.",
+        actions: ["PUBLISH_CONTRACT_V1", "START_FRONTEND_FIXTURE", "GENERATE_ARTIFACT_V1", "ADOPT_ARTIFACT", "SELECT_HARTONO", "OPEN_EVIDENCE", "PREPARE_BRIEF", "APPROVE_BRIEF", "RESOLVE_PREPARED"]
+      },
+      mismatch: {
+        title: "Breaking contract mismatch",
+        description: "Watch the boundary reject an artifact whose schema version does not match the published contract. The UI keeps its existing source instead of guessing.",
+        actions: ["PUBLISH_CONTRACT_V1", "START_FRONTEND_FIXTURE", "GENERATE_BREAKING_V2_ARTIFACT", "ADOPT_ARTIFACT"]
+      },
+      control: {
+        title: "Human approval control",
+        description: "Watch an RM edit invalidate a prior approval and Case Resolution. The revised brief must be approved again.",
+        setup: ["PUBLISH_CONTRACT_V1", "GENERATE_ARTIFACT_V1", "ADOPT_ARTIFACT", "SELECT_HARTONO", "PREPARE_BRIEF"],
+        actions: ["APPROVE_BRIEF", "RESOLVE_PREPARED", "EDIT_BRIEF", "APPROVE_BRIEF", "RESOLVE_PREPARED"]
+      },
+      illegal: {
+        title: "Illegal shortcut",
+        description: "Try to approve or resolve before a compatible artifact and selected case exist. The model must block the shortcut and explain why.",
+        actions: ["APPROVE_BRIEF", "RESOLVE_PREPARED", "OPEN_EVIDENCE", "ADOPT_ARTIFACT"]
+      }
+    };
+
+    let state = InfrastructureModel.initialState();
+    let activeScenario = "parallel";
+    let nextStep = 0;
+
+    const dispatch = (type) => {
+      state = InfrastructureModel.reduce(state, { type });
+      render();
+    };
+
+    const startScenario = (key) => {
+      activeScenario = key;
+      nextStep = 0;
+      state = InfrastructureModel.initialState();
+      (scenarios[key].setup || []).forEach(type => {
+        state = InfrastructureModel.reduce(state, { type });
+      });
+      state = { ...state, lastChange: `Walkthrough ready: ${scenarios[key].title}.`, lastOutcome: "neutral" };
+      render();
+    };
+
+    const runStep = (type, index) => {
+      if (index !== nextStep) return;
+      state = InfrastructureModel.reduce(state, { type });
+      nextStep += 1;
+      render();
+    };
+
+    const statusClass = (value, goodValues, badValues = []) => {
+      if (goodValues.includes(value)) return "good";
+      if (badValues.includes(value)) return "bad";
+      return "attention";
+    };
+
+    const render = () => {
+      const cards = [
+        {
+          label: "Contract",
+          value: state.contract.status === "published" ? `Published · v${state.contract.version}` : "Not published",
+          detail: "Builder 1 owns schema versioning",
+          klass: statusClass(state.contract.status, ["published"], ["invalid"])
+        },
+        {
+          label: "Generated artifact",
+          value: state.artifact.status === "valid" ? `Valid · v${state.artifact.schemaVersion}` : "Not generated",
+          detail: "Financial facts and Evidence Packets",
+          klass: statusClass(state.artifact.status, ["valid"], ["invalid"])
+        },
+        {
+          label: "Workbench source",
+          value: state.workbench.source,
+          detail: state.workbench.compatible ? "Contract-compatible" : "Integration unverified or blocked",
+          klass: statusClass(state.workbench.compatible, [true], [false])
+        },
+        {
+          label: "Active Client Case",
+          value: state.activeCase || "None selected",
+          detail: `Right surface: ${state.rightSurface}`,
+          klass: statusClass(Boolean(state.activeCase), [true])
+        },
+        {
+          label: "Meeting Brief",
+          value: state.meetingBrief.status,
+          detail: `Revision ${state.meetingBrief.revision} · approved ${state.meetingBrief.approvedRevision ?? "none"}`,
+          klass: statusClass(state.meetingBrief.status, ["approved"], ["none"])
+        },
+        {
+          label: "Case Resolution",
+          value: state.caseResolution,
+          detail: "Must reflect the current approved revision",
+          klass: statusClass(state.caseResolution, ["conversation-prepared"], ["unresolved"])
+        },
+        {
+          label: "Builder 1 boundary",
+          value: "Facts + calculations",
+          detail: "Ranks, cites, and precomputes scenarios",
+          klass: "good"
+        },
+        {
+          label: "Builder 2 boundary",
+          value: "Presentation + RM state",
+          detail: "Selects, edits, approves, never invents",
+          klass: "good"
+        }
+      ];
+
+      document.getElementById("state-grid").innerHTML = cards.map(card => `
+        <div class="state-card">
+          <span class="label">${card.label}</span>
+          <span class="value status ${card.klass}">${card.value}</span>
+          <span class="detail">${card.detail}</span>
+        </div>
+      `).join("");
+
+      const change = document.getElementById("last-change");
+      change.className = `change ${state.lastOutcome === "neutral" ? "" : state.lastOutcome}`;
+      change.textContent = state.lastChange;
+
+      document.getElementById("free-play").innerHTML = actionDefinitions.map(([type, label]) => `
+        <button type="button" data-action="${type}" class="${type.includes("BREAKING") ? "danger" : ""}">${label}</button>
+      `).join("") + `<button type="button" data-action="RESET">Reset all state</button>`;
+
+      document.querySelectorAll("[data-action]").forEach(button => {
+        button.addEventListener("click", () => dispatch(button.dataset.action));
+      });
+
+      document.getElementById("scenario-tabs").innerHTML = Object.entries(scenarios).map(([key, scenario]) => `
+        <button type="button" role="tab" aria-selected="${key === activeScenario}" data-scenario="${key}">${scenario.title}</button>
+      `).join("");
+
+      document.querySelectorAll("[data-scenario]").forEach(button => {
+        button.addEventListener("click", () => startScenario(button.dataset.scenario));
+      });
+
+      const scenario = scenarios[activeScenario];
+      document.getElementById("scenario-panel").innerHTML = `
+        <p class="walkthrough-description">${scenario.description}</p>
+        <div class="steps">
+          ${scenario.actions.map((type, index) => {
+            const label = actionDefinitions.find(([action]) => action === type)?.[1] || type;
+            const completed = index < nextStep;
+            return `<button type="button" class="step ${index === nextStep ? "primary" : ""}" data-step="${index}" ${index > nextStep ? "disabled" : ""}>
+              <span class="step-number">${completed ? "✓" : index + 1}</span>
+              <span>${label}</span>
+            </button>`;
+          }).join("")}
+        </div>
+      `;
+
+      document.querySelectorAll("[data-step]").forEach(button => {
+        button.addEventListener("click", () => runStep(scenario.actions[Number(button.dataset.step)], Number(button.dataset.step)));
+      });
+
+      document.getElementById("decision-log").innerHTML = state.log.length
+        ? state.log.map(entry => `<li><code>${entry.action}</code><span>${entry.message}</span></li>`).join("")
+        : "<li><code>READY</code><span>No actions taken yet.</span></li>";
+    };
+
+    startScenario("parallel");
+  </script>
+</body>
+</html>
