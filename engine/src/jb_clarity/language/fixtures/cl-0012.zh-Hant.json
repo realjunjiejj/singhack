@@ -1,0 +1,16 @@
+{
+  "clientId": "CL-0012",
+  "language": "Traditional Chinese",
+  "canonicalLanguage": "English",
+  "note": "Reviewed translation of the canonical English Client-Ready draft. Every figure is reproduced exactly as written in the canonical version, including its thousands separators and decimal point, so that no number can change meaning in translation. The build rejects this draft if any figure or citation differs from the canonical version.",
+  "content": "在 2025-12-31 至 2026-08-26 期間，本客戶的財富由 USD 30,130,862 變動至 USD 28,028,705，變動幅度為 -6.98%。相當於財富 4.6% 的經常性提取，正對應一個下跌 7.0% 的投資組合。客戶記錄在案的目標為：每年提取 USD 1.1m 以支應生活費用及醫療照護，並為兩名子女保全資本。客戶風險屬性為收益型，流動性需求為高。記錄在案的目標要求投資組合在支應此項提取的同時保全資本；在所提供的期間內，投資組合在這兩方面的表現均不如該目標所隱含的水準。這是一場關於整體計畫的對話，而非關於任何單一持倉。建議開場：我們可以一起重新檢視您希望這個投資組合承擔的風險水準，並與它目前實際承擔的風險作比較嗎？",
+  "evidenceItemIds": [
+    "EV-CL-0012-DATA_CONFLICT-OBJECTIVE_AMOUNT_OBJECTIVE",
+    "EV-CL-0012-DATA_CONFLICT-OBJECTIVE_AMOUNT_PLANNED_NEED",
+    "EV-CL-0012-SUITABILITY-RECURRING_DRAW",
+    "EV-CL-0012-SUITABILITY-PORTFOLIO_TREND",
+    "EV-CL-0012-SUITABILITY-OBJECTIVES",
+    "EV-CL-0012-CONCENTRATION-LARGEST_POSITION",
+    "EV-CL-0012-LIQUIDITY_RESTRICTION-SYN_AL_0309"
+  ]
+}
