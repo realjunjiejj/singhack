@@ -79,6 +79,7 @@ class SignalType(StrEnum):
 
     CREDIT = "credit"
     CASH_NEED = "cash-need"
+    EXPLANATION = "explanation"
     LIQUIDITY_RESTRICTION = "liquidity-restriction"
     CONCENTRATION = "concentration"
     MANDATE = "mandate"

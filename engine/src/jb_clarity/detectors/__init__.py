@@ -127,12 +127,14 @@ def detect_all(context: ClientContext) -> list[DetectedSignal]:
         concentration,
         credit,
         evidence_conflicts,
+        explanation,
         liquidity_restrictions,
         mandate,
         suitability,
     )
 
     signals: list[DetectedSignal] = []
+    signals.extend(explanation.detect(context))
     signals.extend(credit.detect(context))
     signals.extend(cash_needs.detect(context))
     signals.extend(liquidity_restrictions.detect(context))

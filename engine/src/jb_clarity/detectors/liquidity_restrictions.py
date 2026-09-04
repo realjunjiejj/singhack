@@ -124,7 +124,8 @@ def detect(context) -> list[DetectedSignal]:
     return [
         builder.finish(
             summary=(
-                f"{share_pct:.1f}% of this client's wealth is gated or illiquid"
+                "Gated or illiquid holdings are "
+                f"{share_pct:.1f}% of this client's wealth"
                 + (", and a redemption request is outstanding" if not redemptions.empty else "")
                 + "."
             ),

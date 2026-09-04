@@ -289,10 +289,11 @@ def _exclusion_signal(context, breaches: list[ExclusionBreach]) -> DetectedSigna
     )
     builder.score(ScoringFactor.THRESHOLD_HISTORY, points, reason)
 
+    holdings_phrase = "holding" if len(breaches) == 1 else "holdings"
     return builder.finish(
         summary=(
-            f"{len(breaches)} holding(s) worth {currency} {total:,.0f} sit inside the "
-            f"{breaches[0].mandate_code} mandate's binding exclusions."
+            f"The {breaches[0].mandate_code} mandate's binding exclusions cover "
+            f"{len(breaches)} {holdings_phrase} worth {currency} {total:,.0f}."
         ),
         time_horizon="current",
         severity_rank=95 if waiver is None else 60,
