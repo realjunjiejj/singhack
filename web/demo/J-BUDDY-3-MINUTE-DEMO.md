@@ -1,78 +1,78 @@
-# J Buddy — three people, three minutes
+# J Buddy — two cases, three speakers, three minutes
 
-## Setup (before the timer)
+## Setup
 
-Use one laptop and one browser. Person 2 operates the mouse throughout; the other speakers face the judges. Open `http://127.0.0.1:3000`, reload to clear rehearsal approvals, and leave the full Priority Queue visible. Use the supplied Book, **as of 26 August 2026**, not today's date. Rehearse at 1440 × 900 or the actual projector resolution.
+Use one laptop; Person 2 drives throughout. Open http://127.0.0.1:3000 and reload to clear rehearsal approvals. The demonstration Book is as of **26 August 2026**. The two shortcuts are **#1 Aishah** and **Cheung**. Aishah's number comes from the actual artifact ranking.
 
-The spoken text below is approximately 350 words. Aim for conversational delivery, leaving several seconds per minute for clicks. Bracketed directions are not spoken. Do not improvise investment promises or numerical claims.
+Allow roughly 110–120 spoken words per minute, including click pauses. Bracketed directions are not spoken.
 
-## Person 1 · 0:00–1:00 · The right conversation, not another dashboard
+## Person 1 · 0:00–1:00 · Why Aishah is number one
 
-[0:00: Show the full Priority Queue. Aishah is genuinely first; do not reorder it.]
+[0:00: Click **#1 Aishah**. Keep her first queue row visible.]
 
-“Twenty clients. One relationship manager. The challenge isn't another chart: it's knowing who needs a conversation, why now, and how to begin.
+“Twenty clients. One relationship manager. Who deserves the first call, and can we explain that decision?
 
-J Buddy turns portfolio data and relationship notes into an evidence-backed action list. Aishah ranks first because of an unwaived binding mandate exclusion—not because we selected her for the demo. Urgency and confidence are separate.
+J Buddy puts Aishah first because two holdings conflict with her mandate's binding sustainability exclusions, with no evidenced waiver. That triggers our Critical safety rule.
 
-[0:25: Click **Cheung**. Point to the income conflict under **Confirm before acting**.]
+[0:22: Expand **Show Priority Rationale factors** on Aishah's queue row.]
 
-Cheung shows why context matters. He wants income and capital preservation, but is reluctant to sell bonds at a loss. His stated annual need is 1.1 million US dollars; the recorded obligation is 1.28 million. We show both and ask which is current.
+Her score is seventy-eight. Other clients have higher numerical scores, but this explicit safety condition takes precedence. The ranking is reproducible, and confidence is shown separately.
 
-That changes the conversation from ‘sell your bonds’ to ‘let's clarify your income needs and funding options.’”
+Her children's university fees are also due in six days. The recorded need is one hundred and eighty thousand Singapore dollars, covered by assets that can settle in time.
 
-## Person 2 · 1:00–2:00 · Hidden risk, with proof
+The RM can address the mandate breach promptly while confirming the payment arrangements.”
 
-[1:00: Click **Hartono**. Point to the current/historical distinction and the portfolio charts.]
+## Person 2 · 1:00–2:00 · Evidence and the person behind the portfolio
 
-“Hartono's borrowing ratio has recovered to 59.15 percent. But his eight-million-Singapore-dollar borrowing hasn't fallen: collateral lending value rose.
+[1:00: Open an exclusion evidence citation from Aishah's Priority Rationale.]
 
-Across his portfolios, direct energy holdings and structured-product underlyings reveal overlapping exposure. That's important because his family business is also energy-linked, and he wants diversification and funding for a property purchase.
+“Here is the evidence behind that first call: the mandate condition and the affected holding. J Buddy connects the financial exposure with her sustainability objectives and family education needs. Rebalancing becomes a discussion for the RM to review with her.
 
-[1:25: In the client pulse, expand **Evidence · … cited records**; open the historical LTV record.]
+[1:20: Close the work surface. Click **Cheung**. Point to the portfolio chart, then **Confirm before acting**.]
 
-Here is the source record and calculation. We distinguish an old breach from today's position instead of manufacturing an emergency.
+Cheung needs a different conversation. His portfolio has fallen, he needs living and medical income, and he is reluctant to sell bonds at a loss.
 
-[1:38: Close the work surface. Click **Explore supplied collateral what-if**; select **-15% collateral · near**.]
+His stated annual need is 1.1 million US dollars; the recorded obligation is 1.28 million. Both remain visible.
 
-Under this illustrative fifteen-percent collateral decline, his ratio reaches 69.59 percent, near the seventy-percent trigger. It's a scenario, not a forecast.
+The useful insight is to clarify the cash need and map accessible funding before proposing changes. His notes make that conversation personal.”
 
-The next step is a lending conversation that respects his family's constraints—not an automatic trade.”
+## Person 3 · 2:00–3:00 · Turn insight into an approved conversation
 
-## Person 3 · 2:00–3:00 · Personal, actionable, RM-controlled
+[2:00: On Cheung, click **Review Client-Ready View**. Show English beside Traditional Chinese.]
 
-[2:00: Close the work surface. Click **Margarethe**. Point to the tax obligation and Conservative profile.]
+“Cheung's draft is available in Traditional Chinese alongside the English version, so the RM can review both.
 
-“Margarethe needs a different conversation: an inherited portfolio, conservative goals, and a 3.4-million-euro inheritance-tax obligation. J Buddy connects the deadline, accessible funding and life transition. Tax opportunities require specialist review, not invented relief claims.
+[2:13: Close the work surface. Click **Prepare conversation**, then **Approve**, then **Mark conversation prepared**.]
 
-[2:17: Click **Review Client-Ready View**. Show English alongside German.]
+The RM reviews and approves the meeting brief. If it changes, approval must be renewed.
 
-The conversation draft is available in her reporting language, alongside the canonical version.
+Across these two cases, we connect personalised strategy, rebalancing, life events and whole-Book priority. Tax-aware signals identify matters for specialist review; eligibility and tax advice require additional governed information.
 
-[2:28: Close the work surface. Click **Prepare conversation**, then **Approve**, then **Mark conversation prepared**.]
+The working prototype uses deterministic calculations and cited evidence, with optional Gemini wording. The core demo works offline. Production bank integration is the next stage.
 
-The RM reviews and approves the brief. Changing it invalidates approval. Nothing is sent or traded.
+For Julius Baer, J Buddy helps relationship managers act earlier, explain their judgment, and begin a more personal client conversation.”
 
-Our working prototype separates deterministic analytics, cited evidence and optional Gemini wording. The core demo works offline; production security and integration are explicitly a next stage.
+## Rehearsal cues
 
-For Julius Baer, this means earlier, more personal, defensible conversations across the Book—technology strengthening the relationship manager, not replacing one.”
+- Exactly two demonstrated clients: Aishah and Cheung. Other clients remain accessible in the full queue.
+- Aishah's Critical override is **SO-3-UNWAIVED-BINDING-EXCLUSION**. Her score is 78; confidence is a separate evidence-quality measure. Do not imply that 78 is the Book's highest score.
+- Tuition is **SGD 180,000**, due in six days at the dataset date, and covered by eligible assets. Do not say the money has already been set aside or paid.
+- Aishah's binding exclusions cover **SGD 5,586,103** across two holdings. A potential funding-currency mismatch deserves review; a funding shortfall is not established.
+- Cheung's two supplied income figures conflict. Do not choose between them or repeat the source's misleading percentage wording.
+- By 1:20 switch to Cheung. By 2:15 prepare the brief. If behind, shorten the evidence explanation; retain the ranking rationale and approval sequence.
+- Prepared views sit below the advisory cards. Practise scrolling on the actual projector.
+- Capture a rehearsal of these two cases for fallback. Existing Hartono/Margarethe screenshots document other tested features, not this revised pitch.
 
-## Click discipline and fallback
+## Judge Q&A after the timer
 
-- Rehearse the scroll positions; **Prepared views** is below the advisory cards. Use the browser's find function during rehearsal to locate buttons, not during the pitch.
-- At 1:45, skip the evidence expansion if running late, but keep the what-if and its “not a forecast” statement.
-- At 2:30, move immediately to the approval sequence. End at three minutes; do not add the upload or architecture tour.
-- If the browser fails, use the refreshed screenshots in `screenshots/`: `01`, `02`, `03`, `07`, `08`. Say “This is our captured local run,” not “live.”
-- The tax amount and deadline are supplied data, not a tax calculation. The current artifact says 36 days remaining at its analysis date.
-- Hartono's energy look-through is indicative: component weights are absent. Do not present it as a precise sensitivity or percentage of his entire external wealth.
+**Why is Aishah first despite a lower score?** The explicit unwaived binding-exclusion safety rule gives Critical priority. Within the remaining ranking, deterministic factors explain the order. Demo selection never changes scores.
 
-## After the timer: short answers to likely judge questions
+**Can we upload new data?** Yes, a complete supported CSV/JSON dataset or workbook with canonical sheets. Upload and analyse runs validation, analytics and ranking. Format/mapping issues are reported. Demonstrate this after the timed pitch.
 
-**Can I upload another Book?** “Yes: the complete supported CSV/JSON dataset or an Excel workbook with the required sheets. Upload and analyse runs validation, analytics and ranking. Incomplete or unmapped data is reported, not guessed.” Offer a live upload after the timed story; allow processing time.
+**Is Gemini live?** The last verified local health response had no configured key. Deterministic insights and cached language work locally. Gemini refinement needs a server-side key and a successful live test before claiming it is active.
 
-**Is that live Gemini?** “This local run uses deterministic insights and cached language. Gemini refinement is integrated but requires a server-side API key; it is not enabled on this machine. Model wording is constrained and checked, and still needs RM review.” Do not claim a live model call was tested.
+**What about tax optimisation?** The prototype surfaces gains/losses and tax-related planning needs for specialist review. Household identifiers, tax-lot rules and relief eligibility are not supplied, so it does not calculate household tax savings.
 
-**Why not just ChatGPT?** “Our distinguishing workflow is governed calculations, reproducible ranking, traceable records and approval linked to a draft revision—not an unrestricted chat response.”
+**Is this ready for a bank deployment?** It is a working prototype. Production identity, permissions, durable audit and integration require validation. Use the Target architecture page to explain the next stage.
 
-**Is it production-ready?** “No. We demonstrate the workflow and contract boundary; identity, access controls, durable audit and bank-system integration need production validation.” Open **Target architecture** only if asked.
-
-**How would you measure success?** “A pilot would measure time to prepare an approved brief, missed urgent obligations, and the proportion of suggested conversations the RM accepts. We have not yet measured those outcomes.”
+**How would success be measured?** A pilot would measure approved-brief preparation time, missed urgent obligations and RM acceptance of suggested conversations. These outcomes have not yet been measured.

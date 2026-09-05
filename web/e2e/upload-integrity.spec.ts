@@ -12,7 +12,7 @@ test("adopting a new dataset clears approval and replaces the executive story", 
     status: "completed", deepFocus: [], diagnostics: [], agentReports: [], workbench,
   } }));
   await page.goto("/");
-  await page.getByRole("button", { name: "Hartono", exact: true }).click();
+  await page.getByRole("button", { name: /Hartono Wijaya Kusuma/ }).click();
   await page.getByRole("button", { name: /prepare conversation/i, exact: true }).click();
   await page.getByRole("button", { name: "Approve", exact: true }).click();
   await expect(page.getByText("Approved revision 1")).toBeVisible();
@@ -21,7 +21,7 @@ test("adopting a new dataset clears approval and replaces the executive story", 
   await page.locator('input[type="file"]').setInputFiles({ name: "clients.csv", mimeType: "text/csv", buffer: Buffer.from("mock transport; engine response is intercepted") });
   await page.getByRole("button", { name: "Upload & analyse automatically" }).click();
   await expect(page.getByRole("dialog")).not.toBeAttached();
-  await page.getByRole("button", { name: "Hartono", exact: true }).click();
+  await page.getByRole("button", { name: /Hartono Wijaya Kusuma/ }).click();
   await expect(page.locator(".ai-executive-analysis").getByText(clientCase.meetingBrief.whatChanged)).toBeVisible();
   await page.getByRole("button", { name: /prepare conversation/i, exact: true }).click();
   await expect(page.getByText("Draft · revision 1")).toBeVisible();

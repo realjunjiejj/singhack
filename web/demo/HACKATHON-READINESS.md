@@ -21,7 +21,7 @@ Five requested advisory lenses remain available: personalised discussion options
 - Regenerated the Workbench and intelligence files as a matching pair at a fixed generation timestamp.
 - Reset draft briefs, approvals, resolutions, notes and filters only after successful adoption of a replacement Book. Invalid uploads retain the existing Book.
 - Exposed engine diagnostics on unsuccessful uploads and explained dataset replacement and optional model-provider disclosure.
-- Restored the three specified deep-case shortcuts; underlying queue order is unchanged.
+- Demo shortcuts now feature exactly two cases: #1 Aishah and Cheung. Aishah's label uses her actual artifact rank; underlying queue order is unchanged.
 - Added unit regressions and a browser regression for a same-ID dataset replacement after approval.
 
 ## Local rehearsal
@@ -31,7 +31,7 @@ From `web/`, run `npm.cmd run dev:full`, then open `http://127.0.0.1:3000`. Do n
 Before presenting:
 
 1. Confirm the header says **J Buddy**, **26 Aug 2026**, **Priscilla Ong**, and **20/20**.
-2. Confirm Hartono, Cheung and Margarethe shortcuts work. Aishah remains first in the real queue.
+2. Confirm #1 Aishah and Cheung shortcuts work. Explain Aishah's Critical safety override using her Priority Rationale. Other clients remain accessible in the full queue.
 3. Check allocation charts, one source record, the collateral what-if, both translated drafts and the approval workflow.
 4. Rehearse the [three-minute script](J-BUDDY-3-MINUTE-DEMO.md) twice with the actual display and a timer.
 5. Prepare the screenshot fallback. Avoid running a production build while using the dev server for the presentation.

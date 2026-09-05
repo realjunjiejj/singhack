@@ -59,7 +59,7 @@ test("presentation widths have no horizontal page overflow", async ({ page }) =>
     expect(overflow).toBeLessThanOrEqual(0);
     if (viewport.width === 1280) await page.screenshot({ path: "demo/screenshots/04-responsive-1280.png", fullPage: true });
     if (viewport.width === 1000) {
-      await page.getByRole("button", { name: "Hartono", exact: true }).click();
+      await page.getByRole("button", { name: /Hartono Wijaya Kusuma/ }).click();
       await page.locator(".client-pulse").getByText(/Evidence · \d+ cited records/).first().click();
       await page.getByRole("button", { name: /Open evidence .*LTV_2025_12_31/ }).first().click();
       const surface = page.locator(".work-surface");
@@ -99,7 +99,7 @@ test("deep cases preserve client context and reporting language", async ({ page 
   await page.screenshot({ path: "demo/screenshots/07-cheung-client-ready.png", fullPage: true });
 
   await page.getByRole("button", { name: "Close work surface" }).click();
-  await page.getByRole("button", { name: "Margarethe", exact: true }).click();
+  await page.getByRole("button", { name: /Margarethe Voss-Brenner/ }).click();
   await expect(
     page.getByRole("heading", { name: "Margarethe Voss-Brenner", exact: true }),
   ).toBeVisible();

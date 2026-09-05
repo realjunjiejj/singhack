@@ -1,14 +1,13 @@
 import type { PriorityQueueItem } from "./types";
 
 /**
- * The three SingHacks demonstration clients, in the order the pitch walks them.
+ * The two SingHacks demonstration clients, in the order the pitch walks them.
  * Their presence is what makes an artifact "the demonstration Book"; nothing
  * else in the interface may depend on these identifiers.
  */
 const SINGHACKS_DEMO_CASES = [
-  { clientId: "CL-0001", label: "Hartono" },
+  { clientId: "CL-0005", label: "Aishah" },
   { clientId: "CL-0012", label: "Cheung" },
-  { clientId: "CL-0003", label: "Margarethe" },
 ] as const;
 
 export const MAX_FEATURED_CASES = 3;
@@ -50,7 +49,7 @@ export function selectFeaturedCases(queue: readonly PriorityQueueItem[]): Featur
 
   const demo = SINGHACKS_DEMO_CASES.flatMap(({ clientId, label }) => {
     const item = byClient.get(clientId);
-    return item ? [{ caseId: item.caseId, clientId, label }] : [];
+    return item ? [{ caseId: item.caseId, clientId, label: clientId === "CL-0005" ? `#${item.rank} ${label}` : label }] : [];
   });
 
   if (demo.length === SINGHACKS_DEMO_CASES.length) {
