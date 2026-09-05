@@ -3,7 +3,7 @@ import "@/styles/tokens.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "JB Clarity · RM Intelligence Workbench",
+  title: "AAActual Intelligence · RM Intelligence Workbench",
   description: "Know who to call, why, and how to begin.",
 };
 

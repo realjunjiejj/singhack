@@ -4,7 +4,7 @@ export function ErrorState({ message, receivedVersion }: { message: string; rece
   return (
     <main className="fatal-state" role="alert">
       <p className="eyebrow">Artifact adoption blocked</p>
-      <h1>JB Clarity could not open this Workbench model.</h1>
+      <h1>AAActual Intelligence could not open this Workbench model.</h1>
       <p>{message}</p>
       <dl>
         <div><dt>Expected schema</dt><dd>{SUPPORTED_SCHEMA_VERSION}</dd></div>

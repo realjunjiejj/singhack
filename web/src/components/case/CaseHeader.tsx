@@ -4,28 +4,56 @@ import type { ClientCase } from "@/lib/workbench/types";
 
 import { CitationLink } from "@/components/common/CitationLink";
 
-export function CaseHeader({ clientCase, onEvidence }: { clientCase: ClientCase; onEvidence: (id: string) => void }) {
+export function CaseHeader({
+  clientCase,
+  onEvidence,
+  onPrepare,
+}: {
+  clientCase: ClientCase;
+  onEvidence: (id: string) => void;
+  onPrepare: () => void;
+}) {
   const conclusionEvidence = Array.from(new Set(clientCase.facts.flatMap((claim) => claim.evidenceItemIds)));
   const whyNowEvidence = Array.from(new Set(clientCase.anticipatorySignals.flatMap((signal) => signal.evidenceItemIds)));
   return (
     <header className="case-header">
-      <p className="eyebrow">Client Case · {clientCase.clientId}</p>
-      <h1>{clientCase.clientName}</h1>
-      <div className="case-badges">
-        <UrgencyBadge tier={clientCase.urgency.tier} score={clientCase.urgency.score} />
-        <StatusBadge status={clientCase.status} />
+      <div className="case-identity">
+        <div>
+          <p className="eyebrow">Client Case · {clientCase.clientId}</p>
+          <h1>{clientCase.clientName}</h1>
+        </div>
+        <div className="case-badges">
+          <UrgencyBadge tier={clientCase.urgency.tier} score={clientCase.urgency.score} />
+          <StatusBadge status={clientCase.status} />
+        </div>
       </div>
-      <div className="conclusion-block">
-        <span className="section-kicker">Conclusion</span>
-        <p>{clientCase.conclusion}</p>
+
+      <details className="case-focus">
+        <summary>
+          <span className="section-kicker">What needs attention</span>
+          <span className="case-focus-summary">{clientCase.conclusion}</span>
+          <span className="case-focus-toggle" aria-hidden="true"><span className="when-closed">Full context</span><span className="when-open">Less</span> <i>⌄</i></span>
+        </summary>
+        <div className="case-focus-detail">
+          <span className="section-kicker">Why this matters now</span>
+          <p>{clientCase.whyNow}</p>
+          <CitationLink evidenceIds={whyNowEvidence} onOpen={onEvidence} />
+        </div>
+      </details>
+
+      <div className="case-focus-meta">
         <CitationLink evidenceIds={conclusionEvidence} onOpen={onEvidence} />
-      </div>
-      <div className="why-now">
-        <span className="thread-node" aria-hidden="true">1</span>
-        <div><span className="section-kicker">Why now</span><p>{clientCase.whyNow}</p><CitationLink evidenceIds={whyNowEvidence} onOpen={onEvidence} /></div>
+        <ConfidenceBadge confidence={clientCase.confidence} />
       </div>
       {clientCase.urgency.safetyOverride && <p className="safety-override"><strong>Safety Override · {clientCase.urgency.safetyOverride.ruleId}</strong>{clientCase.urgency.safetyOverride.reason}</p>}
-      <ConfidenceBadge confidence={clientCase.confidence} showReasons />
+
+      <section className="conversation-start" aria-labelledby="conversation-start-title">
+        <div>
+          <span className="section-kicker">How to begin</span>
+          <p id="conversation-start-title">“{clientCase.meetingBrief.openingQuestion}”</p>
+        </div>
+        <button className="primary-button" type="button" onClick={onPrepare}>Prepare conversation</button>
+      </section>
     </header>
   );
 }

@@ -4,6 +4,7 @@ import { FactorBreakdown } from "@/components/queue/FactorBreakdown";
 import type { WorkbenchState } from "@/lib/state/model";
 import type { ClientCase } from "@/lib/workbench/types";
 import { CaseHeader } from "./CaseHeader";
+import { ClientPulse } from "./ClientPulse";
 import { GovernanceClocks } from "./GovernanceClocks";
 import { OpenLoops } from "./OpenLoops";
 import { SignalList } from "./SignalList";
@@ -32,43 +33,51 @@ export function ClientCasePanel({
   ];
   return (
     <main className="case-column" id="active-client-case" tabIndex={-1}>
-      <CaseHeader clientCase={clientCase} onEvidence={onEvidence} />
-      <section className="case-section thread-section" aria-labelledby="case-thread-title">
-        <div className="section-heading"><div><p className="eyebrow">Signal → Evidence → Conversation</p><h2 id="case-thread-title">Case thread</h2></div></div>
-        <div className="claim-grid">
-          {claimGroups.map((group) => (
-            <div className={`claim-group ${group.className}`} key={group.title}>
-              <h3>{group.title}</h3>
-              {group.claims.length === 0 ? <p className="muted">None supplied.</p> : group.claims.map((claim) => (
-                <p key={claim.id}>{claim.statement} <CitationLink evidenceIds={claim.evidenceItemIds} onOpen={onEvidence} /></p>
-              ))}
-            </div>
-          ))}
-        </div>
-      </section>
-      <section className="case-section"><h2>Visible Priority Rationale</h2><FactorBreakdown factors={clientCase.factorContributions} onEvidence={onEvidence} /></section>
-      <SignalList signals={clientCase.anticipatorySignals} onEvidence={onEvidence} />
-      <OpenLoops loops={clientCase.openLoops} states={state.openLoopStates} onEvidence={onEvidence} onDecision={onOpenLoop} />
-      <GovernanceClocks clocks={clientCase.governanceClocks} onEvidence={onEvidence} />
-      <SnapshotComparison timeline={clientCase.timeline} selected={state.selectedSnapshots} onSelect={onSnapshots} onEvidence={onEvidence} />
+      <CaseHeader clientCase={clientCase} onEvidence={onEvidence} onPrepare={() => onGuidedAction("prepare-conversation")} />
+      <ClientPulse clientCase={clientCase} openLoopStates={state.openLoopStates} onEvidence={onEvidence} />
       {(clientCase.collateralStressTest || (clientCase.clientReadyDrafts?.length ?? 0) > 0) && (
         <section className="case-section prepared-views" aria-labelledby="prepared-views-title">
-          <h2 id="prepared-views-title">Prepared views</h2>
+          <p className="eyebrow">Useful before the call</p><h2 id="prepared-views-title">Prepared views</h2>
           <div className="action-row">
             {clientCase.collateralStressTest && <button type="button" onClick={() => onGuidedAction("stress-test")}>Explore supplied collateral what-if</button>}
             {(clientCase.clientReadyDrafts?.length ?? 0) > 0 && <button type="button" onClick={() => onGuidedAction("client-ready")}>Review Client-Ready View</button>}
           </div>
         </section>
       )}
-      <section className="case-section guided-actions" aria-labelledby="guided-actions-title">
-        <p className="eyebrow">Bounded requests</p><h2 id="guided-actions-title">Guided Actions</h2>
+
+      <details className="case-more-actions">
+        <summary><span>More actions</span><small>Requests remain bounded and require RM review</small></summary>
         <div className="action-row">
-          {clientCase.allowedGuidedActions.map((action) => (
+          {clientCase.allowedGuidedActions.filter((action) => action !== "prepare-conversation").map((action) => (
             <button type="button" key={action} onClick={() => onGuidedAction(action)}>{action.replace(/-/g, " ")}</button>
           ))}
         </div>
-        <p className="boundary-note">These actions prepare RM review only. Nothing is sent, traded, scheduled, or persisted.</p>
-      </section>
+        <p className="boundary-note">Nothing is sent, traded, scheduled, or persisted.</p>
+      </details>
+
+      <details className="case-deep-dive">
+        <summary><span>Full analysis</span><small>Reasoning, relationship notes, evidence and history</small></summary>
+        <div className="case-deep-dive-body">
+          <section className="case-section thread-section" aria-labelledby="case-thread-title">
+            <div className="section-heading"><div><p className="eyebrow">Signal → Evidence → Conversation</p><h2 id="case-thread-title">Case thread</h2></div></div>
+            <div className="claim-grid">
+              {claimGroups.map((group) => (
+                <div className={`claim-group ${group.className}`} key={group.title}>
+                  <h3>{group.title}</h3>
+                  {group.claims.length === 0 ? <p className="muted">None supplied.</p> : group.claims.map((claim) => (
+                    <p key={claim.id}>{claim.statement} <CitationLink evidenceIds={claim.evidenceItemIds} onOpen={onEvidence} /></p>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </section>
+          <section className="case-section"><h2>Visible Priority Rationale</h2><FactorBreakdown factors={clientCase.factorContributions} onEvidence={onEvidence} /></section>
+          <SignalList signals={clientCase.anticipatorySignals} onEvidence={onEvidence} />
+          <OpenLoops loops={clientCase.openLoops} states={state.openLoopStates} onEvidence={onEvidence} onDecision={onOpenLoop} />
+          <GovernanceClocks clocks={clientCase.governanceClocks} onEvidence={onEvidence} />
+          <SnapshotComparison timeline={clientCase.timeline} selected={state.selectedSnapshots} onSelect={onSnapshots} onEvidence={onEvidence} />
+        </div>
+      </details>
     </main>
   );
 }

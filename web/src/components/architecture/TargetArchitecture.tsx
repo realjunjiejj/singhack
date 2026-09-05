@@ -28,7 +28,7 @@ export function TargetArchitecture() {
     <main className="architecture-page">
       <p className="eyebrow">Target architecture · 30-second view</p>
       <h1>Trust is a sequence, not a disclaimer.</h1>
-      <p className="architecture-lede">JB Clarity keeps calculations deterministic, language bounded, and the Relationship Manager accountable for the conversation.</p>
+      <p className="architecture-lede">AAActual Intelligence keeps calculations deterministic, language bounded, and the Relationship Manager accountable for the conversation.</p>
       <div className="architecture-flow">
         {stages.map((stage, index) => (
           <article key={stage.number}><span>{stage.number}</span><h2>{stage.title}</h2><p>{stage.body}</p>{index < stages.length - 1 && <i aria-hidden="true">→</i>}</article>
