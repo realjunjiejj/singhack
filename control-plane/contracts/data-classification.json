@@ -1,0 +1,99 @@
+{
+  "version": "1.0.0",
+  "description": "Which data classes may cross which boundary. The projection, telemetry and audit layers all read this file, so a classification decision is made once and enforced everywhere.",
+  "classes": [
+    {
+      "id": "restricted-source",
+      "example": "holdings, RM notes, tax position, client identifiers",
+      "permittedBoundary": "governed ingestion and the authorised deterministic engine only",
+      "mayReachModel": false,
+      "mayReachTelemetry": false,
+      "mayReachAudit": false
+    },
+    {
+      "id": "derived-restricted",
+      "example": "Client Case, Evidence Packet",
+      "permittedBoundary": "authorised server and RM Workbench",
+      "mayReachModel": false,
+      "mayReachTelemetry": false,
+      "mayReachAudit": false
+    },
+    {
+      "id": "model-minimised",
+      "example": "allowlisted packet claims with identifiers tokenised or redacted",
+      "permittedBoundary": "optional bounded language adapter only",
+      "mayReachModel": true,
+      "mayReachTelemetry": false,
+      "mayReachAudit": false
+    },
+    {
+      "id": "generated-draft",
+      "example": "validated explanation or Meeting Brief text",
+      "permittedBoundary": "authorised RM review only",
+      "mayReachModel": false,
+      "mayReachTelemetry": false,
+      "mayReachAudit": false
+    },
+    {
+      "id": "approved-content",
+      "example": "the current RM-approved revision",
+      "permittedBoundary": "advisory channel integration boundary; no send in this slice",
+      "mayReachModel": false,
+      "mayReachTelemetry": false,
+      "mayReachAudit": false
+    },
+    {
+      "id": "audit-metadata",
+      "example": "actor, action, version, hash, correlation id",
+      "permittedBoundary": "audit and compliance stores",
+      "mayReachModel": false,
+      "mayReachTelemetry": false,
+      "mayReachAudit": true
+    },
+    {
+      "id": "operational-telemetry",
+      "example": "latency, status, service name, pseudonymous correlation id",
+      "permittedBoundary": "approved observability pipeline",
+      "mayReachModel": false,
+      "mayReachTelemetry": true,
+      "mayReachAudit": true
+    }
+  ],
+  "modelInputAllowlist": {
+    "description": "The only Evidence Packet fields that may be projected into a language request. Anything absent from this list is dropped, including fields added to the Workbench contract later.",
+    "packetFields": [
+      "packetId",
+      "caseId",
+      "asOfDate",
+      "signalType",
+      "status"
+    ],
+    "claimCollections": [
+      "facts",
+      "interpretations",
+      "uncertainties",
+      "conflicts",
+      "assumptions"
+    ],
+    "claimFields": ["id", "statement", "evidenceItemIds"],
+    "derivedMetricFields": ["id", "name", "formula", "result", "snapshotDate"],
+    "deniedFields": [
+      "items",
+      "urgencyInputs",
+      "confidenceInputs",
+      "allowedGuidedActions"
+    ],
+    "deniedFieldsReason": "Evidence items carry source record keys and raw values, including RM note excerpts. The model is given claims and their citation identifiers, never the underlying records."
+  },
+  "telemetryAttributeAllowlist": [
+    "service.name",
+    "service.version",
+    "http.request.method",
+    "http.response.status_code",
+    "jb.action",
+    "jb.outcome",
+    "jb.policy.decision",
+    "jb.correlation_id",
+    "jb.duration_ms"
+  ]
+}

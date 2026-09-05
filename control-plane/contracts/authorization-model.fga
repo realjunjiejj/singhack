@@ -1,0 +1,52 @@
+model
+  schema 1.1
+
+# Relationship model for the AAActual Intelligence control envelope.
+#
+# This is the model intended for OpenFGA. It is the source of truth for the
+# relationships the control plane enforces. In this slice the decisions are
+# evaluated by `jb_control.authorization`, a local evaluator that mirrors these
+# semantics; moving to a hosted OpenFGA server is a transport change, not a
+# change to who may see what. See control-plane/README.md for what is
+# demonstrated versus targeted.
+
+type user
+
+type team
+  relations
+    define member: [user]
+
+type client
+  # An RM manages assigned clients. A specialist never reaches a client
+  # directly: access is granted per Client Case and only by delegation.
+  relations
+    define assigned_rm: [user, team#member]
+
+type portfolio
+  relations
+    define owner: [client]
+    define reader: assigned_rm from owner
+
+type case
+  # A Client Case belongs to exactly one client. Specialist delegation is
+  # recorded on the case, so revoking it cannot leak through the client.
+  relations
+    define subject: [client]
+    define delegated_specialist: [user]
+    define assigned_rm: assigned_rm from subject
+
+    define view_case: assigned_rm or delegated_specialist
+    define view_evidence: assigned_rm or delegated_specialist
+    define prepare_conversation: assigned_rm or delegated_specialist
+    define edit_brief: assigned_rm
+    define approve_brief: assigned_rm
+    define delegate_specialist: assigned_rm
+    define dismiss_case: assigned_rm
+    define export_client_ready: assigned_rm
+
+type packet
+  # A packet is reachable only through the case that contains it. A packet
+  # identifier from the browser is never sufficient on its own.
+  relations
+    define parent: [case]
+    define view_evidence: view_evidence from parent
