@@ -129,7 +129,8 @@
           "The MW-SUS mandate's binding exclusions cover 1 holding worth USD 792,000.",
           "Managed portfolios show 1 allocation band break and 1 single-position limit break.",
           "Global Equity Index Fund is 38.5% of total wealth.",
-          "Wealth rose 3.16% between 2025-06-30 and 2026-03-31 (USD 214,000), across 4 supplied snapshots. Fixed Income was the largest asset-class decline."
+          "Wealth rose 3.16% between 2025-06-30 and 2026-03-31 (USD 214,000), across 4 supplied snapshots. Fixed Income was the largest asset-class decline.",
+          "The KYC review is due on 2026-11-01, in 215 days."
         ],
         "openLoopCount": 0,
         "governanceClockCount": 1
@@ -202,7 +203,10 @@
           "Managed portfolios show 2 allocation band breaks and 1 single-position limit break.",
           "A Conservative profile holds 81.9% in equity and structured products.",
           "Global Equity Index Fund is 54.4% of total wealth; energy exposure is 27.5%.",
-          "The KYC review is due on 2026-04-20, in 20 days."
+          "The KYC review is due on 2026-04-20, in 20 days.",
+          "1 Open Loop candidate from dated RM notes.",
+          "Wealth rose 16.94% between 2025-06-30 and 2026-03-31 (USD 895,200), across 4 supplied snapshots. Fixed Income was the largest asset-class decline. 1 recorded event reaches holdings this client owns.",
+          "Totals reconcile across all three sources once base-currency columns are converted."
         ],
         "openLoopCount": 1,
         "governanceClockCount": 1
@@ -268,7 +272,12 @@
           "Managed portfolios show 3 allocation band breaks.",
           "A High liquidity need sits against 27.1% gated or illiquid assets.",
           "US Treasury 3.000% due 2041 is 53.6% of total wealth.",
-          "Foundation endowment commitment: USD 1,800,000 confirmed, due in 45 days, fully covered by assets that can settle in time."
+          "Foundation endowment commitment: USD 1,800,000 confirmed, due in 45 days, fully covered by assets that can settle in time.",
+          "Gated or illiquid holdings are 27.1% of this client's wealth.",
+          "The KYC review is due on 2026-04-05, in 5 days.",
+          "USD 1,818,000 is valued as at a date up to 90 days before the snapshot.",
+          "USD 1,200,000 of uncalled private-markets commitments may be called inside their stated windows.",
+          "Wealth fell 1.50% between 2025-06-30 and 2026-03-31 (USD 102,000), across 4 supplied snapshots. Fixed Income was the largest asset-class decline."
         ],
         "openLoopCount": 0,
         "governanceClockCount": 1
@@ -345,7 +354,10 @@
           "Current loan-to-value of 68.40% sits 1.60 percentage points below the 70% trigger, inside the 5-point watch band.",
           "Managed portfolios show 2 allocation band breaks and 1 single-position limit break.",
           "Zurich Tech Leaders Fund is 52.1% of total wealth; technology exposure is 52.1%; energy exposure is 44.9%.",
-          "2 Open Loop candidates from dated RM notes."
+          "2 Open Loop candidates from dated RM notes.",
+          "Gated or illiquid holdings are 14.3% of this client's wealth.",
+          "Wealth rose 14.07% between 2025-06-30 and 2026-03-31 (USD 1,026,800), across 4 supplied snapshots. Structured Products was the largest asset-class decline. 1 recorded event reaches holdings this client owns.",
+          "The KYC review is due on 2026-06-30, in 91 days."
         ],
         "openLoopCount": 2,
         "governanceClockCount": 1

@@ -195,7 +195,11 @@
           "The SUSBAL mandate's binding exclusions cover 2 holdings worth SGD 5,586,103.",
           "Children's university fees, Australia: SGD 180,000 confirmed, due in 6 days, fully covered by assets that can settle in time.",
           "A SGD obligation sits against mostly non-SGD sellable assets.",
-          "Managed portfolios show 1 allocation band break."
+          "Managed portfolios show 1 allocation band break.",
+          "1 Open Loop candidate from dated RM notes.",
+          "Wealth rose 2.92% between 2025-12-31 and 2026-08-26 (USD 551,097), across 5 supplied snapshots. Fixed Income was the largest asset-class decline. The event log connects rising yields and duration channels to matching holdings; this is a transmission path, not measured attribution. 4 recorded events reach holdings this client owns.",
+          "Totals reconcile across all three sources once base-currency columns are converted.",
+          "The KYC review is due on 2026-10-15, in 50 days."
         ],
         "openLoopCount": 1,
         "governanceClockCount": 1
@@ -269,7 +273,11 @@
           "Managed portfolios show 2 allocation band breaks and 1 single-position limit break.",
           "A Conservative profile holds 76.8% in equity and structured products.",
           "Global Luxury and Consumer Brands Fund is 26.1% of total wealth; luxury and consumer exposure is 26.1%.",
-          "German inheritance tax instalment: EUR 3,400,000 confirmed, due in 36 days, fully covered by assets that can settle in time."
+          "German inheritance tax instalment: EUR 3,400,000 confirmed, due in 36 days, fully covered by assets that can settle in time.",
+          "1 Open Loop candidate from dated RM notes.",
+          "Wealth fell 5.68% between 2025-12-31 and 2026-08-26 (USD 1,335,842), across 5 supplied snapshots. Equity was the largest asset-class decline. 4 recorded events reach holdings this client owns.",
+          "Totals reconcile across all three sources once base-currency columns are converted.",
+          "The KYC review is due on 2027-02-16, in 174 days."
         ],
         "openLoopCount": 1,
         "governanceClockCount": 1
@@ -349,7 +357,12 @@
           "Current loan-to-value of 69.41% sits 0.59 percentage points below the 70% trigger, inside the 5-point watch band.",
           "Managed portfolios show 1 allocation band break and 3 single-position limit breaks.",
           "A High liquidity need sits against 26.6% gated or illiquid assets.",
-          "real estate exposure is 49.0%; gold and precious metals exposure is 29.5%."
+          "real estate exposure is 49.0%; gold and precious metals exposure is 29.5%.",
+          "Mid-Levels redevelopment equity contribution: HKD 60,000,000 confirmed, due in 67 days, fully covered by assets that can settle in time.",
+          "The KYC review is due on 2026-09-22, in 27 days.",
+          "Gated or illiquid holdings are 26.6% of this client's wealth.",
+          "Wealth fell 6.01% between 2025-12-31 and 2026-08-26 (USD 1,692,845), across 5 supplied snapshots. Fixed Income was the largest asset-class decline. The event log connects rising yields and duration channels to matching holdings; this is a transmission path, not measured attribution. 4 recorded events reach holdings this client owns.",
+          "Totals reconcile across all three sources once base-currency columns are converted."
         ],
         "openLoopCount": 0,
         "governanceClockCount": 1
@@ -427,7 +440,12 @@
           "Managed portfolios show 2 allocation band breaks and 2 single-position limit breaks.",
           "Asia Real Estate Opportunity Fund III is 20.4% of total wealth; real estate exposure is 51.4%.",
           "Gated or illiquid holdings are 47.3% of this client's wealth, and a redemption request is outstanding.",
-          "The KYC review is due on 2026-08-31, in 5 days."
+          "The KYC review is due on 2026-08-31, in 5 days.",
+          "1 Open Loop candidate from dated RM notes.",
+          "Estate duty and legal costs on succession planning: SGD 2,800,000 likely, due in 97 days, fully covered by assets that can settle in time.",
+          "Wealth fell 6.73% between 2025-12-31 and 2026-08-26 (USD 2,551,080), across 5 supplied snapshots. Alternatives was the largest asset-class decline. The event log connects rising yields and duration channels to matching holdings; this is a transmission path, not measured attribution. 4 recorded events reach holdings this client owns.",
+          "Loan-to-value of 32.29% is 47.71 percentage points below the trigger.",
+          "Totals reconcile across all three sources once base-currency columns are converted."
         ],
         "openLoopCount": 1,
         "governanceClockCount": 1
@@ -503,7 +521,12 @@
           "Current loan-to-value of 73.71% sits 1.29 percentage points below the 75% trigger, inside the 5-point watch band. The facility also breached its trigger earlier in the supplied history.",
           "A High liquidity need sits against 71.7% gated or illiquid assets.",
           "Managed portfolios show 1 single-position limit break.",
-          "Unlisted Holding - Aranya Technologies Pte Ltd is 68.4% of total wealth; technology exposure is 88.6%."
+          "Unlisted Holding - Aranya Technologies Pte Ltd is 68.4% of total wealth; technology exposure is 88.6%.",
+          "Family trust establishment and funding: USD 2,000,000 likely, due in 67 days, fully covered by assets that can settle in time.",
+          "USD 31,920,000 is valued as at a date up to 330 days before the snapshot.",
+          "Gated or illiquid holdings are 71.7% of this client's wealth.",
+          "Wealth rose 6.63% between 2025-12-31 and 2026-08-26 (USD 2,902,700), across 5 supplied snapshots. 2 recorded events reach holdings this client owns.",
+          "The KYC review is due on 2027-02-28, in 186 days."
         ],
         "openLoopCount": 0,
         "governanceClockCount": 1
@@ -571,7 +594,11 @@
           "G3 education programme: USD 900,000 confirmed, due in 6 days, fully covered by assets that can settle in time.",
           "Managed portfolios show 1 allocation band break and 2 single-position limit breaks.",
           "Outstanding private markets commitments: USD 15,800,000 confirmed, due in 36 days, fully covered by assets that can settle in time.",
-          "Gated or illiquid holdings are 27.4% of this client's wealth."
+          "Gated or illiquid holdings are 27.4% of this client's wealth.",
+          "2 Open Loop candidates from dated RM notes.",
+          "USD 15,800,000 of uncalled private-markets commitments may be called inside their stated windows.",
+          "Wealth rose 2.81% between 2025-12-31 and 2026-08-26 (USD 2,402,140), across 5 supplied snapshots. Fixed Income was the largest asset-class decline. The event log connects rising yields and duration channels to matching holdings; this is a transmission path, not measured attribution. 4 recorded events reach holdings this client owns.",
+          "The KYC review is due on 2026-11-13, in 79 days."
         ],
         "openLoopCount": 2,
         "governanceClockCount": 1
@@ -654,7 +681,11 @@
           "The trigger was breached at 2025-12-31, 2026-02-27, and the current loan-to-value of 59.15% is back below it.",
           "A SGD obligation sits against mostly non-SGD sellable assets.",
           "Bara Nusantara Energy Tbk is 41.4% of total wealth; energy exposure is 45.0%.",
-          "1 Open Loop candidate from dated RM notes."
+          "1 Open Loop candidate from dated RM notes.",
+          "Deposit on Singapore residential property purchase: SGD 9,000,000 likely, due in 187 days, fully covered by assets that can settle in time.",
+          "Wealth rose 17.71% between 2025-12-31 and 2026-08-26 (USD 7,005,973), across 5 supplied snapshots. Fixed Income was the largest asset-class decline. 4 recorded events reach holdings this client owns.",
+          "Totals reconcile across all three sources once base-currency columns are converted.",
+          "The KYC review is due on 2026-11-30, in 96 days."
         ],
         "openLoopCount": 1,
         "governanceClockCount": 1
@@ -727,7 +758,11 @@
           "Managed portfolios show 2 allocation band breaks and 1 single-position limit break.",
           "A JPY obligation sits against mostly non-JPY sellable assets.",
           "Kanto Pharma Holdings KK is 20.1% of total wealth.",
-          "1 Open Loop candidate from dated RM notes."
+          "1 Open Loop candidate from dated RM notes.",
+          "Support for elderly parents in Japan: JPY 18,000,000 confirmed, due in 128 days, fully covered by assets that can settle in time.",
+          "Wealth rose 2.80% between 2025-12-31 and 2026-08-26 (USD 394,824), across 5 supplied snapshots. Fixed Income was the largest asset-class decline. 2 recorded events reach holdings this client owns.",
+          "Totals reconcile across all three sources once base-currency columns are converted.",
+          "The KYC review is due on 2027-07-27, in 335 days."
         ],
         "openLoopCount": 1,
         "governanceClockCount": 1
@@ -784,7 +819,10 @@
           "Managed portfolios show 2 allocation band breaks and 1 single-position limit break.",
           "EUR Call Deposit is 33.9% of total wealth.",
           "2 Open Loop candidates from dated RM notes.",
-          "USD 1,100,000 of uncalled private-markets commitments may be called inside their stated windows."
+          "USD 1,100,000 of uncalled private-markets commitments may be called inside their stated windows.",
+          "Wealth fell 4.02% between 2025-12-31 and 2026-08-26 (USD 1,322,519), across 5 supplied snapshots. Cash and Equivalents was the largest asset-class decline. 3 recorded events reach holdings this client owns.",
+          "Totals reconcile across all three sources once base-currency columns are converted.",
+          "The KYC review is due on 2027-05-29, in 276 days."
         ],
         "openLoopCount": 2,
         "governanceClockCount": 1
@@ -845,7 +883,13 @@
           "CN-007 as recorded would total about USD 25,000,000 over its window, more than this client's total wealth.",
           "US university fees, two children: USD 5,000,000 confirmed, due in 6 days, fully covered by assets that can settle in time.",
           "A recurring draw of 27.7% of wealth runs against a portfolio down 6.1%. A USD obligation sits against mostly non-USD sellable assets.",
-          "Singapore Government Securities 2.75% due 2036 is 22.5% of total wealth; real estate exposure is 25.1%."
+          "Singapore Government Securities 2.75% due 2036 is 22.5% of total wealth; real estate exposure is 25.1%.",
+          "Private equity capital calls: USD 3,000,000 likely, due in 36 days, fully covered by assets that can settle in time.",
+          "Gated or illiquid holdings are 19.3% of this client's wealth, and a redemption request is outstanding.",
+          "USD 3,000,000 of uncalled private-markets commitments may be called inside their stated windows.",
+          "Wealth fell 6.09% between 2025-12-31 and 2026-08-26 (USD 1,172,997), across 5 supplied snapshots. Fixed Income was the largest asset-class decline. The event log connects rising yields and duration channels to matching holdings; this is a transmission path, not measured attribution. 4 recorded events reach holdings this client owns.",
+          "Totals reconcile across all three sources once base-currency columns are converted.",
+          "The KYC review is due on 2027-01-30, in 157 days."
         ],
         "openLoopCount": 0,
         "governanceClockCount": 1
@@ -919,7 +963,10 @@
           "A recurring draw of 4.3% of wealth runs against a portfolio down 6.6%.",
           "Managed portfolios show 1 single-position limit break.",
           "Gated or illiquid holdings are 5.4% of this client's wealth.",
-          "2 Open Loop candidates from dated RM notes."
+          "2 Open Loop candidates from dated RM notes.",
+          "Annual retirement drawdown from Q2 2027: USD 1,450,000 confirmed, due in 218 days, fully covered by assets that can settle in time.",
+          "Wealth fell 6.61% between 2025-12-31 and 2026-08-26 (USD 2,366,564), across 5 supplied snapshots. Fixed Income was the largest asset-class decline. The event log connects rising yields and duration channels to matching holdings; this is a transmission path, not measured attribution. 4 recorded events reach holdings this client owns.",
+          "The KYC review is due on 2026-09-30, in 35 days."
         ],
         "openLoopCount": 2,
         "governanceClockCount": 1
@@ -985,7 +1032,9 @@
           "shipping and marine exposure is 33.2%.",
           "1 Open Loop candidate from dated RM notes.",
           "Seed capital for Singapore family office entity: USD 5,000,000 likely, due in 128 days, fully covered by assets that can settle in time.",
-          "Gated or illiquid holdings are 12.9% of this client's wealth."
+          "Gated or illiquid holdings are 12.9% of this client's wealth.",
+          "Wealth rose 25.92% between 2025-12-31 and 2026-08-26 (USD 6,631,055), across 5 supplied snapshots. Fixed Income was the largest asset-class decline. 4 recorded events reach holdings this client owns.",
+          "The KYC review is due on 2026-11-20, in 86 days."
         ],
         "openLoopCount": 1,
         "governanceClockCount": 1
@@ -1049,7 +1098,9 @@
           "Managed portfolios show 2 allocation band breaks.",
           "Concentration reviewed.",
           "Italian succession planning and notarial costs: EUR 850,000 likely, due in 279 days, fully covered by assets that can settle in time.",
-          "Wealth fell 3.99% between 2025-12-31 and 2026-08-26 (USD 939,313), across 5 supplied snapshots. Fixed Income was the largest asset-class decline. 4 recorded events reach holdings this client owns."
+          "Wealth fell 3.99% between 2025-12-31 and 2026-08-26 (USD 939,313), across 5 supplied snapshots. Fixed Income was the largest asset-class decline. 4 recorded events reach holdings this client owns.",
+          "Totals reconcile across all three sources once base-currency columns are converted.",
+          "The KYC review is due on 2026-12-05, in 101 days."
         ],
         "openLoopCount": 0,
         "governanceClockCount": 1
@@ -1115,7 +1166,11 @@
           "The stated objective (USD 1,100,000) and the recorded obligation (USD 1,280,000) disagree.",
           "A recurring draw of 4.6% of wealth runs against a portfolio down 7.0%.",
           "US Treasury 2.375% due 2045 is 20.8% of total wealth.",
-          "Gated or illiquid holdings are 4.3% of this client's wealth."
+          "Gated or illiquid holdings are 4.3% of this client's wealth.",
+          "1 Open Loop candidate from dated RM notes.",
+          "Living expenses and medical care: USD 1,280,000 confirmed, due in 128 days, fully covered by assets that can settle in time.",
+          "Wealth fell 6.98% between 2025-12-31 and 2026-08-26 (USD 2,102,157), across 5 supplied snapshots. Fixed Income was the largest asset-class decline. The event log connects rising yields and duration channels to matching holdings; this is a transmission path, not measured attribution. 4 recorded events reach holdings this client owns.",
+          "The KYC review is due on 2026-10-04, in 39 days."
         ],
         "openLoopCount": 1,
         "governanceClockCount": 1
@@ -1171,7 +1226,8 @@
           "A SGD obligation sits against mostly non-SGD sellable assets.",
           "The KYC review is due on 2026-09-11, in 16 days.",
           "University fees, two children: SGD 420,000 confirmed, due in 128 days, fully covered by assets that can settle in time.",
-          "Wealth fell 1.54% between 2025-12-31 and 2026-08-26 (USD 187,147), across 5 supplied snapshots. Fixed Income was the largest asset-class decline. The event log connects rising yields and duration channels to matching holdings; this is a transmission path, not measured attribution. 4 recorded events reach holdings this client owns."
+          "Wealth fell 1.54% between 2025-12-31 and 2026-08-26 (USD 187,147), across 5 supplied snapshots. Fixed Income was the largest asset-class decline. The event log connects rising yields and duration channels to matching holdings; this is a transmission path, not measured attribution. 4 recorded events reach holdings this client owns.",
+          "Totals reconcile across all three sources once base-currency columns are converted."
         ],
         "openLoopCount": 0,
         "governanceClockCount": 1
@@ -1236,7 +1292,8 @@
           "Managed portfolios show 1 allocation band break.",
           "1 Open Loop candidate from dated RM notes.",
           "Initial endowment of charitable foundation: USD 12,000,000 likely, due in 128 days, fully covered by assets that can settle in time.",
-          "Wealth rose 7.84% between 2025-12-31 and 2026-08-26 (USD 2,908,908), across 5 supplied snapshots. Fixed Income was the largest asset-class decline. 4 recorded events reach holdings this client owns."
+          "Wealth rose 7.84% between 2025-12-31 and 2026-08-26 (USD 2,908,908), across 5 supplied snapshots. Fixed Income was the largest asset-class decline. 4 recorded events reach holdings this client owns.",
+          "The KYC review is due on 2026-12-31, in 127 days."
         ],
         "openLoopCount": 1,
         "governanceClockCount": 1
@@ -1282,7 +1339,9 @@
           "Managed portfolios show 1 single-position limit break.",
           "US Technology Leaders Fund is 22.4% of total wealth; technology exposure is 57.1%.",
           "Gated or illiquid holdings are 13.6% of this client's wealth.",
-          "Wealth rose 18.57% between 2025-12-31 and 2026-08-26 (USD 5,786,691), across 5 supplied snapshots. 2 recorded events reach holdings this client owns."
+          "Wealth rose 18.57% between 2025-12-31 and 2026-08-26 (USD 5,786,691), across 5 supplied snapshots. 2 recorded events reach holdings this client owns.",
+          "Loan-to-value of 20.39% is 54.61 percentage points below the trigger.",
+          "The KYC review is due on 2026-12-06, in 102 days."
         ],
         "openLoopCount": 0,
         "governanceClockCount": 1
@@ -1405,7 +1464,8 @@
           "Singapore Government Securities 2.75% due 2036 is 21.6% of total wealth.",
           "Gated or illiquid holdings are 7.3% of this client's wealth.",
           "Wealth rose 1.11% between 2025-12-31 and 2026-08-26 (USD 90,200), across 5 supplied snapshots. Fixed Income was the largest asset-class decline. The event log connects rising yields and duration channels to matching holdings; this is a transmission path, not measured attribution. 4 recorded events reach holdings this client owns.",
-          "Totals reconcile across all three sources once base-currency columns are converted."
+          "Totals reconcile across all three sources once base-currency columns are converted.",
+          "The KYC review is due on 2027-07-19, in 327 days."
         ],
         "openLoopCount": 0,
         "governanceClockCount": 1
