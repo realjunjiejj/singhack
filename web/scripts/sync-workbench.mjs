@@ -7,7 +7,7 @@ import addFormats from "ajv-formats";
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const WEB_ROOT = path.resolve(HERE, "..");
 const REPO_ROOT = path.resolve(WEB_ROOT, "..");
-const SCHEMA_PATH = path.join(REPO_ROOT, "contracts", "workbench.schema.json");
+const REPO_SCHEMA_PATH = path.join(REPO_ROOT, "contracts", "workbench.schema.json");
 const GENERATED_PATH = path.join(REPO_ROOT, "artifacts", "workbench.json");
 const FIXTURE_PATH = path.join(REPO_ROOT, "artifacts", "workbench.fixture.json");
 const OUTPUT_DIR = path.join(WEB_ROOT, "public", "data");
@@ -24,6 +24,7 @@ async function exists(file) {
   }
 }
 
+const SCHEMA_PATH = await exists(REPO_SCHEMA_PATH) ? REPO_SCHEMA_PATH : OUTPUT_SCHEMA_PATH;
 const schema = JSON.parse(await readFile(SCHEMA_PATH, "utf8"));
 const ajv = new Ajv2020({ allErrors: true, strict: false });
 addFormats(ajv);
@@ -63,7 +64,7 @@ if (!selected) {
 
 await mkdir(OUTPUT_DIR, { recursive: true });
 if (!selected.retained) await copyFile(selected.path, OUTPUT_PATH);
-await copyFile(SCHEMA_PATH, OUTPUT_SCHEMA_PATH);
+if (SCHEMA_PATH !== OUTPUT_SCHEMA_PATH) await copyFile(SCHEMA_PATH, OUTPUT_SCHEMA_PATH);
 console.log(
   `[sync-data] source=${path.relative(REPO_ROOT, selected.path)}${selected.retained ? " (retained last compatible artifact)" : ""} schema=${selected.data.meta.schemaVersion} kind=${selected.data.meta.artifactKind}`,
 );

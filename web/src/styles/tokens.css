@@ -1,28 +1,50 @@
 :root {
-  --ink-950: #071722;
-  --ink-900: #0d2232;
-  --ink-800: #173247;
-  --ink-700: #28465b;
-  --ink-500: #657785;
-  --paper: #fbfaf6;
-  --paper-warm: #f4f0e8;
-  --mineral-100: #eef0ed;
-  --mineral-200: #dde1dd;
-  --mineral-300: #c7ceca;
-  --copper: #a96132;
-  --copper-dark: #81431f;
-  --copper-soft: #f2e2d5;
-  --critical: #9c3042;
-  --critical-soft: #f7e6e8;
-  --high: #ad641f;
-  --high-soft: #f8ebd7;
-  --watch: #426575;
-  --watch-soft: #e5eef1;
-  --positive: #27654e;
-  --positive-soft: #e4f0ea;
-  --focus: #176c91;
-  --shadow: 0 18px 45px rgb(5 24 36 / 12%);
-  --radius-sm: 6px;
-  --radius: 10px;
-  --radius-lg: 16px;
+  color-scheme: light;
+
+  /* The private-banking workspace: quiet paper, graphite, and one trusted blue. */
+  --ink-950: #161617;
+  --ink-900: #1d1d1f;
+  --ink-800: #303033;
+  --ink-700: #48484d;
+  --ink-500: #6e6e73;
+
+  --paper: #ffffff;
+  --paper-warm: #f9f9fb;
+  --mineral-100: #f5f5f7;
+  --mineral-200: #e8e8ed;
+  --mineral-300: #d2d2d7;
+
+  /* Existing semantic token names are retained so presentation stays decoupled from logic. */
+  --copper: #0071e3;
+  --copper-dark: #0058b0;
+  --copper-soft: #eaf4ff;
+
+  --critical: #c91c2e;
+  --critical-soft: #fff0f2;
+  --high: #a94f00;
+  --high-soft: #fff4e8;
+  --watch: #486878;
+  --watch-soft: #edf4f7;
+  --positive: #237a48;
+  --positive-soft: #edf8f1;
+
+  --focus: #0071e3;
+  --hairline: rgb(0 0 0 / 8%);
+  --hairline-strong: rgb(0 0 0 / 14%);
+  --chrome: rgb(250 250 252 / 82%);
+  --control: #f0f0f3;
+  --control-hover: #e8e8ed;
+  --selection: #eaf4ff;
+  --selection-strong: #d8ecff;
+
+  --shadow: 0 20px 60px rgb(0 0 0 / 12%), 0 2px 10px rgb(0 0 0 / 6%);
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 4%), 0 8px 24px rgb(0 0 0 / 5%);
+
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 18px;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }

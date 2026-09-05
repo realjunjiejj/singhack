@@ -2,13 +2,14 @@ import { EmptyState } from "@/components/common/EmptyState";
 import type { CaseResolutionState, EditableBrief, WorkbenchState } from "@/lib/state/model";
 import { getCasePackets } from "@/lib/workbench/selectors";
 import type { ClientCase, WorkbenchModel } from "@/lib/workbench/types";
+import { AdvisoryOverview } from "./AdvisoryOverview";
 import { ClientReadyView } from "./ClientReadyView";
 import { EvidenceChain } from "./EvidenceChain";
 import { MeetingBrief } from "./MeetingBrief";
 import { StressTest } from "./StressTest";
 
 const titles = {
-  none: "Prepare",
+  none: "Advisory path",
   evidence: "Evidence Chain",
   "stress-test": "Collateral Stress Test",
   "meeting-brief": "Meeting Brief",
@@ -43,11 +44,13 @@ export function WorkSurface({
   return (
     <aside className={`work-surface surface-${state.rightSurface} ${state.rightSurface !== "none" ? "is-open" : ""}`} aria-labelledby="surface-title">
       <div className="column-header surface-header">
-        <div><p className="eyebrow">Prepare</p><h2 id="surface-title">{titles[state.rightSurface]}</h2></div>
+        <div><p className="eyebrow">{state.rightSurface === "none" ? "Understand → Prepare" : "Prepare"}</p><h2 id="surface-title">{titles[state.rightSurface]}</h2></div>
         {state.rightSurface !== "none" && <button type="button" className="icon-button" onClick={onClose} aria-label="Close work surface">×</button>}
       </div>
-      {!clientCase || state.rightSurface === "none" ? (
-        <EmptyState title={clientCase ? "Choose a Guided Action" : "No preparation open"} body={clientCase ? "Open evidence, a supplied what-if, or the Meeting Brief without leaving this Client Case." : "Select a Client Case first."} />
+      {!clientCase ? (
+        <EmptyState title="No preparation open" body="Select a Client Case first." />
+      ) : state.rightSurface === "none" ? (
+        <AdvisoryOverview model={model} clientCase={clientCase} />
       ) : state.rightSurface === "evidence" ? (
         <EvidenceChain packets={getCasePackets(model, clientCase.caseId)} activeEvidenceItemId={state.activeEvidenceItemId} onEvidence={onEvidence} onBack={onBack} />
       ) : state.rightSurface === "stress-test" ? (

@@ -115,7 +115,7 @@ export function CommandCentre() {
   return (
     <div className="app-shell">
       <header className="topbar">
-        <div className="brand"><span className="brand-mark">JB</span><div><strong>JB Clarity</strong><small>RM Intelligence Workbench</small></div></div>
+        <div className="brand"><span className="brand-mark">AA</span><div><strong>AAActual Intelligence</strong><small>RM Intelligence Workbench</small></div></div>
         <p className="promise">Know who to call, why, and how to begin.</p>
         <div className="topbar-meta">
           <span><small>As of</small>{formatDate(model.meta.asOfDate)}</span>
@@ -156,7 +156,7 @@ function LoadingState() {
   return (
     <main className="loading-state" aria-live="polite">
       <span className="loading-mark" aria-hidden="true" />
-      <p className="eyebrow">JB Clarity</p><h1>Validating the Workbench artifact…</h1>
+      <p className="eyebrow">AAActual Intelligence</p><h1>Validating the Workbench artifact…</h1>
       <p>No Client Case is available until the versioned boundary is compatible.</p>
     </main>
   );
