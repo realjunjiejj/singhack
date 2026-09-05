@@ -44,6 +44,7 @@ async function inspect(file) {
   }
 }
 
+const generatedExists = await exists(GENERATED_PATH);
 const candidates = [
   ...(generatedExists ? [GENERATED_PATH] : []),
   ...((await exists(OUTPUT_PATH)) ? [OUTPUT_PATH] : []),
