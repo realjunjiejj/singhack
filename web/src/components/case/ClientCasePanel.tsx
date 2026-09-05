@@ -4,8 +4,8 @@ import { FactorBreakdown } from "@/components/queue/FactorBreakdown";
 import type { WorkbenchState } from "@/lib/state/model";
 import type { AgentReport } from "@/lib/intelligence/types";
 import type { ClientCase, EvidencePacket, WorkbenchModel } from "@/lib/workbench/types";
-import { AdvisoryOverview as WorkbenchOverview } from "@/components/work-surface/AdvisoryOverview";
 import { AdvisoryOverview } from "./AdvisoryOverview";
+import { AIExecutiveAnalysis } from "./AIExecutiveAnalysis";
 import { CaseHeader } from "./CaseHeader";
 import { ClientPulse } from "./ClientPulse";
 import { GovernanceClocks } from "./GovernanceClocks";
@@ -36,7 +36,7 @@ export function ClientCasePanel({ model, clientCase, evidencePackets, agentRepor
     <main className="case-column" id="active-client-case" tabIndex={-1}>
       <CaseHeader clientCase={clientCase} onEvidence={onEvidence} onPrepare={() => onGuidedAction("prepare-conversation")} />
       <ClientPulse clientCase={clientCase} openLoopStates={state.openLoopStates} onEvidence={onEvidence} />
-      <WorkbenchOverview model={model} clientCase={clientCase} />
+      <AIExecutiveAnalysis clientCase={clientCase} onEvidence={onEvidence} onPrepare={() => onGuidedAction("prepare-conversation")} />
       <SpecialistInsights caseId={clientCase.caseId} reports={agentReports} onEvidence={onEvidence} />
       <AdvisoryOverview clientCase={clientCase} evidencePackets={evidencePackets} onEvidence={onEvidence} onPrepare={() => onGuidedAction("prepare-conversation")} onWhatIf={() => onGuidedAction("stress-test")} />
 

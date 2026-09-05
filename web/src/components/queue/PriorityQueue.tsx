@@ -6,12 +6,6 @@ import type { WorkbenchModel } from "@/lib/workbench/types";
 import { QueueFilters } from "./QueueFilters";
 import { QueueItem } from "./QueueItem";
 
-const demoCases = [
-  { id: "CL-0001", short: "Hartono" },
-  { id: "CL-0012", short: "Cheung" },
-  { id: "CL-0003", short: "Margarethe" },
-];
-
 export function PriorityQueue({
   model,
   state,
@@ -26,6 +20,12 @@ export function PriorityQueue({
   onEvidence: (caseId: string, evidenceId: string) => void;
 }) {
   const visible = filterPriorityQueue(model.book.priorityQueue, state.filters, model.clientCases);
+  const topRow = model.book.priorityQueue[0];
+  const demoCases = [
+    ...(topRow ? [{ id: topRow.clientId, short: `#1 ${topRow.clientName.split(" ")[0]}` }] : []),
+    { id: "CL-0012", short: "Cheung" },
+  ].filter((v, i, a) => a.findIndex((t) => t.id === v.id) === i);
+
   return (
     <aside className="queue-column" id="priority-queue" tabIndex={-1} aria-labelledby="queue-title">
       <div className="column-header queue-header">
@@ -38,7 +38,18 @@ export function PriorityQueue({
         <div className="chip-row">
           {demoCases.map((demo) => {
             const item = model.book.priorityQueue.find((row) => row.clientId === demo.id);
-            return <button key={demo.id} type="button" disabled={!item} onClick={() => item && onSelect(item.caseId)}>{demo.short}</button>;
+            const isActive = state.activeCaseId === item?.caseId;
+            return (
+              <button
+                key={demo.id}
+                type="button"
+                className={isActive ? "active" : undefined}
+                disabled={!item}
+                onClick={() => item && onSelect(item.caseId)}
+              >
+                {demo.short}
+              </button>
+            );
           })}
         </div>
       </div>

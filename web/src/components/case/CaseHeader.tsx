@@ -1,7 +1,7 @@
 import { ConfidenceBadge } from "@/components/common/ConfidenceBadge";
 import { StatusBadge, UrgencyBadge } from "@/components/common/StatusBadge";
 import type { ClientCase } from "@/lib/workbench/types";
-
+import { getExecutiveInsight } from "@/lib/intelligence/executiveAnalysis";
 import { CitationLink } from "@/components/common/CitationLink";
 
 export function CaseHeader({
@@ -13,6 +13,7 @@ export function CaseHeader({
   onEvidence: (id: string) => void;
   onPrepare: () => void;
 }) {
+  const insight = getExecutiveInsight(clientCase);
   const conclusionEvidence = Array.from(new Set(clientCase.facts.flatMap((claim) => claim.evidenceItemIds)));
   const whyNowEvidence = Array.from(new Set(clientCase.anticipatorySignals.flatMap((signal) => signal.evidenceItemIds)));
   return (
@@ -36,15 +37,19 @@ export function CaseHeader({
         (What needs attention, Why this matters now, and How to begin) before
         scrolling to client pulse, signals, open loops, or governance clocks.
       */}
-      <details className="case-focus" aria-label="AI Advice">
+      <details className="case-focus" open aria-label="AI Advice">
         <summary>
           <span className="section-kicker">AI Advice · What needs attention</span>
-          <span className="case-focus-summary">{clientCase.conclusion}</span>
+          <span className="case-focus-summary">{insight.headline}</span>
           <span className="case-focus-toggle" aria-hidden="true"><span className="when-closed">Full context</span><span className="when-open">Less</span> <i>⌄</i></span>
         </summary>
         <div className="case-focus-detail">
           <span className="section-kicker">AI Advice · Why this matters now</span>
-          <p>{clientCase.whyNow}</p>
+          <p>{insight.whatHappened.summary}</p>
+          <div className="trap-callout-inline" style={{ marginTop: "10px", padding: "10px 14px", background: "rgba(217, 119, 6, 0.08)", borderLeft: "3px solid #d97706", borderRadius: "4px" }}>
+            <strong style={{ color: "#b45309", display: "block", marginBottom: "4px", fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.04em" }}>The Real Dilemma</strong>
+            <span style={{ fontSize: "0.86rem", lineHeight: "1.5", color: "var(--ink-800)" }}>{insight.clientDilemma.tension}</span>
+          </div>
           <CitationLink evidenceIds={whyNowEvidence} onOpen={onEvidence} />
         </div>
       </details>
@@ -58,7 +63,7 @@ export function CaseHeader({
       <section className="conversation-start" aria-labelledby="conversation-start-title">
         <div>
           <span className="section-kicker">AI Advice · How to begin</span>
-          <p id="conversation-start-title">“{clientCase.meetingBrief.openingQuestion}”</p>
+          <p id="conversation-start-title">{insight.conversationScript.opener}</p>
         </div>
         <button className="primary-button" type="button" onClick={onPrepare}>Prepare conversation</button>
       </section>

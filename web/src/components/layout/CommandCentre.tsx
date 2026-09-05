@@ -142,7 +142,11 @@ export function CommandCentre() {
   return (
     <div className="app-shell">
       <header className="topbar">
-        <div className="brand"><span className="brand-mark">AA</span><div><strong>AAActual Intelligence</strong><small>RM Intelligence Workbench</small></div></div>
+        <div className="brand">
+          <img src="/julius-baer-logo.png" alt="Julius Bär" className="brand-logo" />
+          <div className="brand-divider" aria-hidden="true" />
+          <div><strong>JB Clarity</strong><small>RM Intelligence Workbench</small></div>
+        </div>
         <p className="promise">Know who to call, why, and how to begin.</p>
         <div className="topbar-meta">
           <span><small>As of</small>{formatDate(model.meta.asOfDate)}</span>
