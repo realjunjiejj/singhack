@@ -106,8 +106,33 @@ class EventLink:
         return sum(value for _, _, value in self.matched_instruments)
 
 
+def recognised_channels() -> frozenset[str]:
+    """Transmission channels the engine knows how to map onto holdings."""
+    return frozenset(_CHANNEL_RULES)
+
+
+def split_channels(primary_transmission: str) -> list[str]:
+    """The individual channels an event declares, as written in the source."""
+    return [part.strip() for part in str(primary_transmission).split(",") if part.strip()]
+
+
+def unrecognised_channels(primary_transmission: str) -> list[str]:
+    """Channels this event declares that the engine cannot map.
+
+    An unmapped channel produces no event-to-holding link. It is reported
+    rather than approximated to the nearest-sounding category, because a
+    plausible-looking wrong link is worse than a visible gap.
+    """
+    known = recognised_channels()
+    return [
+        channel
+        for channel in split_channels(primary_transmission)
+        if channel.lower() not in known
+    ]
+
+
 def build_client_timeline(data: ChallengeData, client_id: str) -> ClientTimeline:
-    """Total and asset-class values at each of the five supplied snapshots."""
+    """Total and asset-class values at each snapshot the Book supplies."""
     timeline = ClientTimeline(client_id=client_id)
     for snapshot in data.snapshot_dates:
         holdings = data.holdings_at(snapshot, client_id)

@@ -28,6 +28,88 @@ before writing, so an artifact that reaches disk is always contract-valid. Pass
 byte-reproducible file. No network access and no model credentials are used at
 any point.
 
+## Using it on another client book
+
+JB Clarity is reusable across client books through a documented canonical data
+contract. It does **not** accept arbitrary spreadsheets: a Book must already
+use the canonical filenames and column names described below, and mapping a
+bank's own column names onto that contract is the next adapter layer, not
+something this engine does today.
+
+The canonical contract lives in one place:
+
+```text
+engine/src/jb_clarity/ingestion/source_contract.py   (contract version 1.0.0)
+```
+
+It declares, for each of the twelve canonical tables, the default filename,
+grain, required and optional columns, identifier columns, column types,
+primary key, foreign keys and any snapshot-dependent wide-column families.
+The loader and the validator both read it, so the column list exists once.
+
+Check a Book before building anything:
+
+```bash
+python -m jb_clarity.cli validate-data --data /path/to/book
+```
+
+That reports the contract version, the resolved source filenames, the RM,
+client/portfolio/holding/snapshot counts, which capabilities are enabled,
+every data-quality warning, and whether generation may proceed. It prints
+counts and identifiers only — never note text or client record contents.
+
+Then build exactly as for the supplied Book:
+
+```bash
+python -m jb_clarity.cli build --data /path/to/book --as-of YYYY-MM-DD --output artifacts/workbench.json
+```
+
+### What varies freely
+
+Identifiers and their shapes, client and RM names, booking centres, mandate
+codes, instrument universes, currencies with supplied FX, record counts, the
+number of snapshots and the dates themselves. None of these are assumed.
+
+### What must hold
+
+- Canonical filenames and column names, as declared in the source contract.
+- At least two distinct, ISO-formatted snapshot dates in `holdings.csv`; the
+  as-of snapshot is the latest supplied date. A one-snapshot Book is refused,
+  because nothing can be said about what changed.
+- Wide columns (`aum_<date>`, `drawn_<date>`, `price_<date>` and so on) present
+  for the snapshot dates the Book declares.
+- Market series covering any conversion an active calculation needs.
+- One relationship manager per dataset directory. A Book containing several is
+  refused with the list of RM identifiers rather than silently building the
+  first one.
+
+### Capabilities that depend on optional tables
+
+`credit_facilities`, `commitments`, `planned_cash_needs`, `event_log` and
+`rm_notes` power particular detectors. `validate-data` prints which are
+enabled. Absent input means the capability is unavailable — never a guessed
+substitute.
+
+### Unknown vocabulary is reported, not approximated
+
+Event transmission channels are mapped to holding attributes through a
+declared table. A channel the engine does not recognise produces no
+event-to-holding link and raises `DQ-UNMAPPED-EVENT-CHANNEL` naming it. The
+supplied SingHacks Book has nine such channels; they were previously invisible.
+
+### Tested source shapes
+
+Portability is proven against two Books, not asserted in general:
+
+| Book | Clients | Portfolios | Snapshots | Currencies |
+|---|---:|---:|---:|---|
+| SingHacks (`singhacks-jb-wealth-intelligence/data`) | 20 | 24 | 5 | SGD, USD, EUR, HKD, JPY |
+| Meridian Wealth (`engine/tests/fixtures/second_book.py`) | 4 | 5 | 4 | USD, CHF |
+
+Plus the supplied Book rebuilt under a completely different identifier scheme,
+RM, booking centres and one switched base currency, and the same Book reduced
+to three and four snapshots.
+
 ## The seam
 
 ```python

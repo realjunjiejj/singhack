@@ -1,0 +1,10 @@
+instrument_id,instrument_name,asset_class,sub_asset_class,sector,region,currency,liquidity_tier,underlying_reference,sustainability_excluded,concentration_limit_applies,price_2025-06-30,price_2025-09-30,price_2025-12-31,price_2026-03-31
+MW-I-EQ1,Global Equity Index Fund,Equity,Developed Market Equity,Diversified,Global,USD,Daily,,N,N,100.0,104.0,108.0,112.0
+MW-I-EQ2,Helvetia Energy AG,Equity,Single Stock,Energy,Europe,CHF,Daily,,N,Y,50.0,55.0,60.0,72.0
+MW-I-EQ3,Zurich Tech Leaders Fund,Equity,Developed Market Equity,Information Technology,Europe,USD,Daily,,N,N,300.0,320.0,340.0,310.0
+MW-I-ST1,Nordkap Tobacco Holding,Equity,Single Stock,Consumer Staples,Europe,USD,Daily,,Y,Y,80.0,82.0,85.0,88.0
+MW-I-FI1,US Treasury 3.000% due 2041,Fixed Income,Government Bond,Sovereign,North America,USD,Daily,,N,N,98.0,96.0,94.0,90.0
+MW-I-CM1,Physical Gold ETC,Commodities,Precious Metals,Gold,Global,USD,Daily,XAU spot,N,N,200.0,215.0,230.0,250.0
+MW-I-AL1,Alpine Private Credit Fund II,Alternatives,Private Credit,Corporate,Europe,USD,Quarterly Gate,,N,N,100.0,100.0,101.0,101.0
+MW-I-SP1,"Autocallable ref. Helvetia Energy AG, 8.00% p.a.",Structured Products,Yield Enhancement,Energy,Europe,USD,Illiquid,Single underlying: Helvetia Energy AG,N,Y,100.0,102.0,104.0,99.0
+MW-I-CA1,USD Call Deposit,Cash and Equivalents,Deposit,Cash,Global,USD,Daily,,N,N,1.0,1.0,1.0,1.0

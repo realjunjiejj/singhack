@@ -1,0 +1,2 @@
+transaction_id,trade_date,settlement_date,portfolio_id,client_id,transaction_type,instrument_id,instrument_name,quantity,price_local,currency,amount,narrative
+MW-TX-0001,2026-02-20,2026-02-22,MW-P-300,MW-C-300,Facility Drawdown,,,,,USD,-450000.0,Drawdown ahead of the funding round.

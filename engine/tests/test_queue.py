@@ -117,6 +117,18 @@ def test_demonstration_clients_are_not_promoted(model):
     assert max(ranks.values()) > 3
 
 
+def test_the_queue_row_reports_every_signal_not_a_sample(model, cases_by_client):
+    """The card renders this list's length as the client's signal count.
+
+    Truncating it made 18 of 20 clients under-report, and hid the omitted
+    signals from Book search, which matches against these summaries.
+    """
+    for item in model.book.priority_queue:
+        case = cases_by_client[item.client_id]
+        assert len(item.signal_summaries) == len(case.anticipatory_signals)
+        assert item.signal_summaries == [s.summary for s in case.anticipatory_signals]
+
+
 def test_every_queue_row_answers_why_now(model):
     for item in model.book.priority_queue:
         assert item.priority_rationale.strip()

@@ -1,0 +1,2 @@
+need_id,client_id,description,currency,amount,due_from,due_to,recurrence,certainty
+MW-OB-400,MW-C-400,Foundation endowment commitment,USD,1800000,2026-05-15,2026-06-30,One-off,Confirmed

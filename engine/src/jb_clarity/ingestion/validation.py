@@ -10,6 +10,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import date
 
+from jb_clarity.calculations import timeline
 from jb_clarity.calculations.fx import FxTable
 from jb_clarity.domain.enums import IssueSeverity
 from jb_clarity.domain.models import DataQualityIssue, SourceReference
@@ -76,6 +77,7 @@ def validate(data: ChallengeData) -> ValidationReport:
     latest = data.latest_snapshot
     fx = FxTable.from_market(data.market, latest)
 
+    _check_event_channels(data, report)
     _check_referential_integrity(data, report)
     _check_duplicates(data, report)
     _check_holding_arithmetic(data, report)
@@ -84,6 +86,50 @@ def validate(data: ChallengeData) -> ValidationReport:
 
     report.issues.sort(key=lambda i: (i.severity != IssueSeverity.MATERIAL, i.id))
     return report
+
+
+def _check_event_channels(data: ChallengeData, report: ValidationReport) -> None:
+    """Report event transmission channels the engine cannot map to holdings.
+
+    Silence here would be dishonest: the RM would see an event log that looks
+    fully processed while some of its channels reached nothing because the
+    engine did not recognise them, not because the client held nothing.
+    """
+    if data.events.empty or "primary_transmission" not in data.events.columns:
+        return
+
+    unmapped: dict[str, list[str]] = {}
+    for row in data.events.itertuples():
+        transmission = getattr(row, "primary_transmission", "")
+        for channel in timeline.unrecognised_channels(transmission):
+            unmapped.setdefault(channel, []).append(str(getattr(row, "event_date", "")))
+
+    if not unmapped:
+        return
+
+    named = ", ".join(f"'{channel}'" for channel in sorted(unmapped))
+    report.issues.append(
+        DataQualityIssue(
+            id="DQ-UNMAPPED-EVENT-CHANNEL",
+            severity=IssueSeverity.WARNING,
+            summary=(
+                f"{count_noun(len(unmapped), 'event transmission channel')} "
+                f"{count_verb(len(unmapped), 'is', 'are')} not mapped to any "
+                f"holding attribute: {named}. Events declaring only these channels "
+                "produce no event-to-holding explanation. They are reported as "
+                "unsupported rather than matched to the nearest-sounding category, "
+                "and mapping them is a configuration change."
+            ),
+            source_references=[
+                SourceReference(
+                    file="event_log.csv",
+                    record_key=f"{dates[0]}|{channel}",
+                    field="primary_transmission",
+                )
+                for channel, dates in sorted(unmapped.items())[:10]
+            ],
+        )
+    )
 
 
 def _check_referential_integrity(data: ChallengeData, report: ValidationReport) -> None:

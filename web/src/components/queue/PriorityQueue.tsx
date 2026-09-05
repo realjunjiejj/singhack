@@ -3,14 +3,9 @@ import { EmptyState } from "@/components/common/EmptyState";
 import type { WorkbenchState } from "@/lib/state/model";
 import { filterPriorityQueue } from "@/lib/state/selectors";
 import type { WorkbenchModel } from "@/lib/workbench/types";
+import { selectFeaturedCases } from "@/lib/workbench/featuredCases";
 import { QueueFilters } from "./QueueFilters";
 import { QueueItem } from "./QueueItem";
-
-const demoCases = [
-  { id: "CL-0001", short: "Hartono" },
-  { id: "CL-0012", short: "Cheung" },
-  { id: "CL-0003", short: "Margarethe" },
-];
 
 export function PriorityQueue({
   model,
@@ -26,6 +21,7 @@ export function PriorityQueue({
   onEvidence: (caseId: string, evidenceId: string) => void;
 }) {
   const visible = filterPriorityQueue(model.book.priorityQueue, state.filters, model.clientCases);
+  const featured = selectFeaturedCases(model.book.priorityQueue);
   return (
     <aside className="queue-column" aria-labelledby="queue-title">
       <div className="column-header queue-header">
@@ -33,15 +29,18 @@ export function PriorityQueue({
         <span className="row-count">{visible.length}/{model.book.priorityQueue.length}</span>
       </div>
       <p className="queue-explainer">Ordered by deterministic Urgency. Confidence is evidence quality, not priority.</p>
-      <div className="demo-finds" aria-label="Demo cases">
-        <span>Demo cases</span>
-        <div className="chip-row">
-          {demoCases.map((demo) => {
-            const item = model.book.priorityQueue.find((row) => row.clientId === demo.id);
-            return <button key={demo.id} type="button" disabled={!item} onClick={() => item && onSelect(item.caseId)}>{demo.short}</button>;
-          })}
+      {featured.cases.length > 0 && (
+        <div className="demo-finds" aria-label={featured.heading}>
+          <span>{featured.heading}</span>
+          <div className="chip-row">
+            {featured.cases.map((entry) => (
+              <button key={entry.clientId} type="button" onClick={() => onSelect(entry.caseId)}>
+                {entry.label}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
       <QueueFilters options={model.book.filters} filters={state.filters} onChange={onFilters} />
       <div className="queue-list">
         {visible.length === 0 ? (

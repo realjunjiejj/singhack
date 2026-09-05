@@ -1,0 +1,6 @@
+portfolio_id,client_id,portfolio_name,mandate_code,mandate_name,service_model,base_currency,inception_date,benchmark,aum_2025-06-30,aum_2025-09-30,aum_2025-12-31,aum_2026-03-31,aum_usd_current
+MW-P-100,MW-C-100,Preservation Mandate,MW-CONS,Conservative,Advisory,CHF,2016-01-01,MW Conservative Composite,4803636.363636363,4928571.428571428,5019130.434782608,5236610.169491526,6179200.0
+MW-P-200,MW-C-200,Sustainable Core Mandate,MW-SUS,Sustainable Balanced,Discretionary,USD,2016-01-01,MW Sustainable Balanced Composite,5876000.0,5946000.0,6025000.0,6060000.0,6060000.0
+MW-P-201,MW-C-200,Legacy Custody Account,MW-SUS,Sustainable Balanced,Custody,USD,2016-01-01,None - custody only,900000.0,960000.0,1020000.0,930000.0,930000.0
+MW-P-300,MW-C-300,Growth Advisory Portfolio,MW-GROW,Growth,Advisory,USD,2016-01-01,MW Growth Composite,7300000.0,7802000.0,8328000.0,8326800.0,8326800.0
+MW-P-400,MW-C-400,Income Mandate,MW-INC,Income,Advisory,USD,2016-01-01,MW Income Composite,6820000.0,6800000.0,6798000.0,6718000.0,6718000.0

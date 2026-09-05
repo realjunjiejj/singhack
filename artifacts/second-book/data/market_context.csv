@@ -1,0 +1,13 @@
+snapshot_date,series_id,series_name,category,unit,value
+2025-06-30,CHFUSD,CHF/USD,FX,USD per CHF,1.1
+2025-06-30,BRENT_USD_BBL,Brent crude,Commodity,USD/barrel,70.0
+2025-06-30,UST_10Y_PCT,US Treasury 10-year yield,Rates,percent,3.9
+2025-09-30,CHFUSD,CHF/USD,FX,USD per CHF,1.12
+2025-09-30,BRENT_USD_BBL,Brent crude,Commodity,USD/barrel,76.0
+2025-09-30,UST_10Y_PCT,US Treasury 10-year yield,Rates,percent,4.15
+2025-12-31,CHFUSD,CHF/USD,FX,USD per CHF,1.15
+2025-12-31,BRENT_USD_BBL,Brent crude,Commodity,USD/barrel,82.0
+2025-12-31,UST_10Y_PCT,US Treasury 10-year yield,Rates,percent,4.4
+2026-03-31,CHFUSD,CHF/USD,FX,USD per CHF,1.18
+2026-03-31,BRENT_USD_BBL,Brent crude,Commodity,USD/barrel,88.0
+2026-03-31,UST_10Y_PCT,US Treasury 10-year yield,Rates,percent,4.65

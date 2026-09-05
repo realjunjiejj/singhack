@@ -199,7 +199,12 @@ def build_workbench(
                     priority_rationale=_priority_rationale(case, urgency_result),
                     factor_contributions=case.factor_contributions,
                     status=case.status,
-                    signal_summaries=[s.summary for s in signals[:4]],
+                    # Every signal, not a sample. The queue card reports this
+                    # list's length as the client's signal count and the Book
+                    # search matches against its contents, so truncating here
+                    # made the card under-report and hid later signals from
+                    # search.
+                    signal_summaries=[s.summary for s in signals],
                     open_loop_count=len(loops),
                     governance_clock_count=len(clocks),
                 ),

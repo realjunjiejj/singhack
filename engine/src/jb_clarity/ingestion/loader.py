@@ -13,35 +13,10 @@ from pathlib import Path
 
 import pandas as pd
 
-REQUIRED_FILES = (
-    "clients.csv",
-    "portfolios.csv",
-    "holdings.csv",
-    "instruments.csv",
-    "mandates.csv",
-    "transactions.csv",
-    "credit_facilities.csv",
-    "commitments.csv",
-    "planned_cash_needs.csv",
-    "market_context.csv",
-    "event_log.csv",
-    "rm_notes.json",
-)
+from jb_clarity.ingestion import source_contract
 
-# Identifier columns are read as strings so that a stable record key never
-# becomes a float through type inference.
-_ID_COLUMNS = (
-    "client_id",
-    "portfolio_id",
-    "instrument_id",
-    "facility_id",
-    "commitment_id",
-    "need_id",
-    "transaction_id",
-    "mandate_code",
-    "rm_id",
-    "series_id",
-    "note_id",
+REQUIRED_FILES = tuple(
+    contract.default_filename for contract in source_contract.TABLES.values()
 )
 
 
@@ -78,8 +53,18 @@ class ChallengeData:
 
     @property
     def snapshot_dates(self) -> list[str]:
-        """The five supplied snapshot dates, chronologically ordered."""
-        return sorted(self.holdings["snapshot_date"].unique().tolist())
+        """The snapshot dates this Book supplies, chronologically ordered.
+
+        Discovered from holdings and validated by the source contract; the
+        engine never assumes how many there are.
+        """
+        return source_contract.discover_snapshots(
+            self.holdings["snapshot_date"].tolist(), "holdings.csv"
+        )
+
+    @property
+    def snapshot_count(self) -> int:
+        return len(self.snapshot_dates)
 
     @property
     def latest_snapshot(self) -> str:
@@ -130,11 +115,28 @@ class ChallengeData:
         return float(row.iloc[0]["value"])
 
 
-def _read_csv(path: Path) -> pd.DataFrame:
-    frame = pd.read_csv(path)
-    for column in frame.columns:
-        if column in _ID_COLUMNS:
-            frame[column] = frame[column].astype("string")
+def _read_csv(path: Path, contract: source_contract.TableContract) -> pd.DataFrame:
+    """Read one canonical table with contract-declared parse-time types.
+
+    Identifier columns are given to pandas as strings up front rather than
+    cast afterwards, because inference has already destroyed a key like `0001`
+    by the time a later `astype` runs.
+    """
+    try:
+        frame = pd.read_csv(path, dtype=contract.dtype_map())
+    except ValueError as error:
+        raise source_contract.SourceContractError(
+            f"{contract.default_filename}: could not parse with the declared "
+            f"column types for table '{contract.canonical_name}'. {error}"
+        ) from error
+
+    missing = sorted(set(contract.required_columns) - set(frame.columns))
+    if missing:
+        raise source_contract.SourceContractError(
+            f"{contract.default_filename} is missing required column(s): "
+            f"{', '.join(missing)}. Table '{contract.canonical_name}' has grain: "
+            f"{contract.grain}."
+        )
     return frame
 
 
@@ -150,31 +152,51 @@ def load_challenge_data(data_dir: Path) -> ChallengeData:
     with (data_dir / "rm_notes.json").open(encoding="utf-8") as handle:
         raw_notes = json.load(handle)
 
-    notes = [
-        RmNote(
-            note_id=str(item["note_id"]),
-            client_id=str(item["client_id"]),
-            note_date=date.fromisoformat(item["note_date"]),
-            rm_id=str(item["rm_id"]),
-            rm_name=str(item["rm_name"]),
-            channel=str(item["channel"]),
-            note=str(item["note"]),
-        )
-        for item in raw_notes
-    ]
+    notes = [_read_note(item, index) for index, item in enumerate(raw_notes)]
+
+    def read(name: str) -> pd.DataFrame:
+        contract = source_contract.table(name)
+        return _read_csv(data_dir / contract.default_filename, contract)
 
     return ChallengeData(
         root=data_dir,
-        clients=_read_csv(data_dir / "clients.csv"),
-        portfolios=_read_csv(data_dir / "portfolios.csv"),
-        holdings=_read_csv(data_dir / "holdings.csv"),
-        instruments=_read_csv(data_dir / "instruments.csv"),
-        mandates=_read_csv(data_dir / "mandates.csv"),
-        transactions=_read_csv(data_dir / "transactions.csv"),
-        facilities=_read_csv(data_dir / "credit_facilities.csv"),
-        commitments=_read_csv(data_dir / "commitments.csv"),
-        cash_needs=_read_csv(data_dir / "planned_cash_needs.csv"),
-        market=_read_csv(data_dir / "market_context.csv"),
-        events=_read_csv(data_dir / "event_log.csv"),
+        clients=read("clients"),
+        portfolios=read("portfolios"),
+        holdings=read("holdings"),
+        instruments=read("instruments"),
+        mandates=read("mandates"),
+        transactions=read("transactions"),
+        facilities=read("credit_facilities"),
+        commitments=read("commitments"),
+        cash_needs=read("planned_cash_needs"),
+        market=read("market_context"),
+        events=read("event_log"),
         notes=sorted(notes, key=lambda n: (n.client_id, n.note_date, n.note_id)),
+    )
+
+
+def _read_note(item: dict, index: int) -> RmNote:
+    """Parse one note, naming the record and field when it is malformed."""
+    contract = source_contract.RM_NOTES
+    where = f"rm_notes.json record {index} ({item.get('note_id', 'no note_id')})"
+    missing = sorted(set(contract.required_columns) - set(item))
+    if missing:
+        raise source_contract.SourceContractError(
+            f"{where} is missing required field(s): {', '.join(missing)}."
+        )
+    try:
+        note_date = date.fromisoformat(str(item["note_date"]))
+    except ValueError as error:
+        raise source_contract.SourceContractError(
+            f"{where} has note_date '{item['note_date']}', which is not an ISO "
+            "date (YYYY-MM-DD)."
+        ) from error
+    return RmNote(
+        note_id=str(item["note_id"]),
+        client_id=str(item["client_id"]),
+        note_date=note_date,
+        rm_id=str(item.get("rm_id", "")),
+        rm_name=str(item.get("rm_name", "")),
+        channel=str(item.get("channel", "Note")),
+        note=str(item["note"]),
     )
