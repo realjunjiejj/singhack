@@ -8,3 +8,11 @@ node_modules/
 coverage/
 
 *.egg-info/
+
+# User-owned scratch files
+.pptx-build/
+
+# Secrets & Environment variables
+.env
+.env.*
+*.env

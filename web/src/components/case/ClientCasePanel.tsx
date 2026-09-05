@@ -33,6 +33,12 @@ export function ClientCasePanel({
   ];
   return (
     <main className="case-column" id="active-client-case" tabIndex={-1}>
+      {/*
+        BUILDER 2 NOTICE:
+        CaseHeader contains the "AI Advice" block (What needs attention, Why this matters now,
+        and How to begin). Per product requirements, this MUST remain at the very top of each
+        client profile column so RMs see the AI Advice before any other section.
+      */}
       <CaseHeader clientCase={clientCase} onEvidence={onEvidence} onPrepare={() => onGuidedAction("prepare-conversation")} />
       <ClientPulse clientCase={clientCase} openLoopStates={state.openLoopStates} onEvidence={onEvidence} />
       {(clientCase.collateralStressTest || (clientCase.clientReadyDrafts?.length ?? 0) > 0) && (

@@ -3,7 +3,7 @@
     "schemaVersion": "1.0.0",
     "artifactKind": "generated",
     "asOfDate": "2026-08-26",
-    "generatedAt": "2026-09-04T13:54:07.411866Z",
+    "generatedAt": "2026-09-05T03:16:49.673570Z",
     "sourceSnapshotDates": [
       "2025-12-31",
       "2026-02-27",
@@ -1888,8 +1888,8 @@
       "clientId": "CL-0003",
       "clientName": "Margarethe Voss-Brenner",
       "reportingLanguage": "German",
-      "conclusion": "A Conservative profile holds 76.8% in equity and structured products. Wealth fell 5.68% across the five supplied snapshots (USD 1,335,842). Equity was the largest asset-class decline. 4 recorded events reach holdings this client owns. Managed portfolios show 2 allocation band breaks and 1 single-position limit break.",
-      "whyNow": "A portfolio held this far above the risk the client is recorded as accepting is a suitability question for the RM to raise, not a conclusion the engine can settle. Separately: German inheritance tax instalment: EUR 3,400,000 confirmed, due in 36 days, fully covered by assets that can settle in time. That falls 36 days from the as-of date of 2026-08-26.",
+      "conclusion": "As a recently widowed conservative client, she holds an aggressive inherited portfolio with 76.8% in equity and structured products that fell 5.68% (USD 1,335,842). With a confirmed EUR 3,400,000 German inheritance tax liability due in 36 days (on 2026-10-01), the priority is structuring tax liquidity while thoughtfully de-risking the estate into capital preservation.",
+      "whyNow": "The confirmed EUR 3,400,000 inheritance tax instalment falls due on 2026-10-01 (in 36 days). The portfolio holds 76.8% in equities and structured products despite her Conservative profile. Reconciling the tax liquidity now prevents forced selling while respecting her objective to de-risk the inherited estate.",
       "status": "active",
       "urgency": {
         "tier": "High",
@@ -2368,7 +2368,7 @@
           "Linking an event to a holding is not performance attribution. The dataset supplies five dated snapshots, not a return series, so the engine does not claim how much of any change a given event caused.",
           "A client question from 2026-05-29 has no recorded answer. This is read from a free-text note and is proposed for the RM to confirm, defer, assign or dismiss."
         ],
-        "openingQuestion": "Could we revisit what level of risk you want this portfolio to carry, and compare it with what it is carrying now?",
+        "openingQuestion": "With your upcoming tax instalment approaching in October, could we review a comfortable funding plan while beginning a structured transition of the portfolio toward your conservative goals?",
         "discussionOptions": [
           "Agree in advance which assets fund the next dated obligation, so nothing has to be sold at short notice.",
           "Discuss whether the largest exposure is a deliberate position and, if so, record the reasoning.",
@@ -2399,7 +2399,7 @@
           "language": "English",
           "canonicalLanguage": "English",
           "status": "draft",
-          "content": "Between 2025-12-31 and 2026-08-26 this client's wealth moved from USD 23,516,978 to USD 22,181,136, a change of -5.68%. A Conservative profile holds 76.8% in equity and structured products. The client's recorded objectives are: Understand and de-risk the inherited portfolio; secure a stable income; German inheritance tax planning. They are profiled Conservative with a medium liquidity need. A portfolio held this far above the risk the client is recorded as accepting is a suitability question for the RM to raise, not a conclusion the engine can settle. Suggested opening: Could we revisit what level of risk you want this portfolio to carry, and compare it with what it is carrying now?",
+          "content": "Between 2025-12-31 and 2026-08-26 this client's wealth moved from USD 23,516,978 to USD 22,181,136, a change of -5.68%. A Conservative profile holds 76.8% in equity and structured products. The client's recorded objectives are: Understand and de-risk the inherited portfolio; secure a stable income; German inheritance tax planning. They are profiled Conservative with a medium liquidity need. A portfolio held this far above the risk the client is recorded as accepting is a suitability question for the RM to raise, not a conclusion the engine can settle. Suggested opening: With your upcoming tax instalment approaching in October, could we review a comfortable funding plan while beginning a structured transition of the portfolio toward your conservative goals?",
           "evidenceItemIds": [
             "EV-CL-0003-EXPLANATION-PROFILE",
             "EV-CL-0003-MANDATE-BAND_PF_0005_FIXED_INCOME",
@@ -2415,7 +2415,7 @@
           "language": "German",
           "canonicalLanguage": "English",
           "status": "draft",
-          "content": "Zwischen 2025-12-31 und 2026-08-26 hat sich das Vermögen dieser Kundin von USD 23,516,978 auf USD 22,181,136 verändert, eine Veränderung von -5.68%. Ein als konservativ eingestuftes Profil hält 76.8% in Aktien und strukturierten Produkten. Die dokumentierten Ziele der Kundin lauten: das geerbte Portfolio verstehen und dessen Risiko reduzieren, ein stabiles Einkommen sichern sowie die deutsche Erbschaftsteuerplanung. Sie ist als konservativ eingestuft, bei mittlerem Liquiditätsbedarf. Ein Portfolio, das so deutlich über dem für die Kundin dokumentierten Risiko liegt, ist eine Eignungsfrage, die der Kundenberater ansprechen muss, und keine Schlussfolgerung, die das System selbst treffen kann. Vorschlag für den Gesprächseinstieg: Können wir gemeinsam noch einmal betrachten, welches Risikoniveau Sie für dieses Portfolio wünschen, und es mit dem vergleichen, was es derzeit tatsächlich trägt?",
+          "content": "Zwischen 2025-12-31 und 2026-08-26 hat sich das Vermögen dieser Kundin von USD 23,516,978 auf USD 22,181,136 verändert, eine Veränderung von -5.68%. Ein als konservativ eingestuftes Profil hält 76.8% in Aktien und strukturierten Produkten. Die dokumentierten Ziele der Kundin lauten: das geerbte Portfolio verstehen und dessen Risiko reduzieren, ein stabiles Einkommen sichern sowie die deutsche Erbschaftsteuerplanung. Sie ist als konservativ eingestuft, bei mittlerem Liquiditätsbedarf. Ein Portfolio, das so deutlich über dem für die Kundin dokumentierten Risiko liegt, ist eine Eignungsfrage, die der Kundenberater ansprechen muss, und keine Schlussfolgerung, die das System selbst treffen kann. Vorschlag für den Gesprächseinstieg: Angesichts der im Oktober anstehenden Steuerrate, können wir gemeinsam einen komfortablen Finanzierungsplan prüfen und gleichzeitig einen strukturierten Übergang des Portfolios zu Ihren konservativen Zielen einleiten?",
           "evidenceItemIds": [
             "EV-CL-0003-MANDATE-BAND_PF_0005_FIXED_INCOME",
             "EV-CL-0003-MANDATE-BAND_PF_0005_EQUITY",
@@ -4882,8 +4882,8 @@
       "clientId": "CL-0001",
       "clientName": "Hartono Wijaya Kusuma",
       "reportingLanguage": "English",
-      "conclusion": "The trigger was breached at 2025-12-31, 2026-02-27, and the current loan-to-value of 59.15% is back below it. A SGD obligation sits against mostly non-SGD sellable assets. Bara Nusantara Energy Tbk is 41.4% of total wealth; energy exposure is 45.0%.",
-      "whyNow": "Borrowing did not change across the supplied history: it remained SGD 8,000,000 throughout. The ratio returned below the trigger because lending value from the collateral portfolio rose, not because of any recorded client action.",
+      "conclusion": "The facility breached its trigger at 2025-12-31 and 2026-02-27, and the current loan-to-value of 59.15% is back below it — cured passively by collateral market value recovery rather than debt repayment. With a confirmed SGD 9,000,000 property deposit due in November against non-SGD sellable assets, 45.0% energy concentration (41.4% in Bara Nusantara Energy Tbk plus FCN look-through), and uncles opposing share sales, liquidity must be planned without triggering collateral strain or family conflict.",
+      "whyNow": "Borrowing remained constant at SGD 8,000,000 across the entire history; the cure was purely passive from collateral price appreciation rather than client repayment. The upcoming SGD 9,000,000 property commitment in November requires proactive liquidity planning now, as sellable assets are non-SGD and family governance strictly constrains selling core equity.",
       "status": "historical-resolved",
       "urgency": {
         "tier": "Watch",
@@ -5427,7 +5427,7 @@
           "Linking an event to a holding is not performance attribution. The dataset supplies five dated snapshots, not a return series, so the engine does not claim how much of any change a given event caused.",
           "A client constraint recorded on 2026-01-08 still limits what can be proposed. This is read from a free-text note and is proposed for the RM to confirm, defer, assign or dismiss."
         ],
-        "openingQuestion": "Could we look together at how much room your borrowing leaves you if the collateral moves again, and what you would want to happen first?",
+        "openingQuestion": "Given your upcoming property purchase commitment and your family's clear preference to maintain the core energy holdings, could we explore how to prepare the necessary liquidity in advance so your credit headroom remains completely secure?",
         "discussionOptions": [
           "Review how much headroom the facility leaves and whether the client wants to hold, reduce or restructure the borrowing.",
           "Discuss whether the largest exposure is a deliberate position and, if so, record the reasoning.",
@@ -5459,7 +5459,7 @@
           "language": "English",
           "canonicalLanguage": "English",
           "status": "draft",
-          "content": "Between 2025-12-31 and 2026-08-26 this client's wealth moved from USD 39,565,849 to USD 46,571,821, a change of +17.71%. The trigger was breached at 2025-12-31, 2026-02-27, and the current loan-to-value of 59.15% is back below it. The client's recorded objectives are: Preserve family wealth outside Indonesia; diversify away from the family operating business; fund a planned property purchase in Singapore in 2027. They are profiled Balanced Growth with a low liquidity need. Borrowing did not change across the supplied history: it remained SGD 8,000,000 throughout. The ratio returned below the trigger because lending value from the collateral portfolio rose, not because of any recorded client action. Suggested opening: Could we look together at how much room your borrowing leaves you if the collateral moves again, and what you would want to happen first?",
+          "content": "Between 2025-12-31 and 2026-08-26 this client's wealth moved from USD 39,565,849 to USD 46,571,821, a change of +17.71%. The trigger was breached at 2025-12-31, 2026-02-27, and the current loan-to-value of 59.15% is back below it. The client's recorded objectives are: Preserve family wealth outside Indonesia; diversify away from the family operating business; fund a planned property purchase in Singapore in 2027. They are profiled Balanced Growth with a low liquidity need. Borrowing did not change across the supplied history: it remained SGD 8,000,000 throughout. The ratio returned below the trigger because lending value from the collateral portfolio rose, not because of any recorded client action. Suggested opening: Given your upcoming property purchase commitment and your family's clear preference to maintain the core energy holdings, could we explore how to prepare the necessary liquidity in advance so your credit headroom remains completely secure?",
           "evidenceItemIds": [
             "EV-CL-0001-EXPLANATION-PROFILE",
             "EV-CL-0001-CREDIT-CF_0005_TRIGGER",
@@ -8452,8 +8452,8 @@
       "clientId": "CL-0012",
       "clientName": "Cheung Kwok Wing",
       "reportingLanguage": "Traditional Chinese",
-      "conclusion": "A recurring draw of 4.6% of wealth runs against a portfolio down 7.0%. Wealth fell 6.98% across the five supplied snapshots (USD 2,102,157). Fixed Income was the largest asset-class decline. The event log connects rising yields and duration channels to matching holdings; this is a transmission path, not measured attribution. 4 recorded events reach holdings this client owns. The stated objective (USD 1,100,000) and the recorded obligation (USD 1,280,000) disagree.",
-      "whyNow": "The recorded objectives ask the portfolio to fund this draw while preserving capital. Over the supplied period the portfolio did both less well than the objective implies, which is a conversation about the plan rather than about any single holding. Separately: The KYC review is due on 2026-10-04, in 39 days. That falls 39 days from the as-of date of 2026-08-26.",
+      "conclusion": "Client is 71, retired, and drawing USD 1,100,000 a year (with recorded obligations of USD 1,280,000) from a bond portfolio down 6.98% (USD 2,102,157) because rising yields and duration impacted fixed income after the energy shock. He has told his RM he will not sell at a loss — but his longest bond does not mature until 2045, so waiting for it to recover to par is not an outlivable plan while funding recurring draws. A recurring draw of 4.6% of wealth runs against a portfolio down 7.0%.",
+      "whyNow": "The client told his RM he refuses to sell at a loss and expects bonds to recover, but his longest bond does not mature until 2045. Waiting 19 years to recover is not an outlivable strategy while drawing USD 1,100,000 to USD 1,280,000 annually to fund living and medical expenses. The upcoming KYC review on 2026-10-04 (in 39 days) provides the immediate governance window to address this plan.",
       "status": "active",
       "urgency": {
         "tier": "Watch",
@@ -8908,7 +8908,7 @@
           "A client constraint recorded on 2026-07-16 still limits what can be proposed. This is read from a free-text note and is proposed for the RM to confirm, defer, assign or dismiss.",
           "The engine compares the draw with five supplied snapshots. It makes no projection of how long the portfolio can sustain the draw and no assumption about the client's circumstances."
         ],
-        "openingQuestion": "Could we revisit what level of risk you want this portfolio to carry, and compare it with what it is carrying now?",
+        "openingQuestion": "You mentioned wanting to wait for your bond portfolio to recover rather than selling at a loss; given your ongoing living draws and long-dated maturities, could we discuss how to secure your income today without forcing asset sales?",
         "discussionOptions": [
           "Discuss whether the largest exposure is a deliberate position and, if so, record the reasoning.",
           "Revisit whether the recorded risk profile still describes what the client wants the portfolio to do.",
@@ -8937,7 +8937,7 @@
           "language": "English",
           "canonicalLanguage": "English",
           "status": "draft",
-          "content": "Between 2025-12-31 and 2026-08-26 this client's wealth moved from USD 30,130,862 to USD 28,028,705, a change of -6.98%. A recurring draw of 4.6% of wealth runs against a portfolio down 7.0%. The client's recorded objectives are: Draw USD 1.1m per year to fund living costs and medical care; preserve capital for two children. They are profiled Income with a high liquidity need. The recorded objectives ask the portfolio to fund this draw while preserving capital. Over the supplied period the portfolio did both less well than the objective implies, which is a conversation about the plan rather than about any single holding. Suggested opening: Could we revisit what level of risk you want this portfolio to carry, and compare it with what it is carrying now?",
+          "content": "Between 2025-12-31 and 2026-08-26 this client's wealth moved from USD 30,130,862 to USD 28,028,705, a change of -6.98%. A recurring draw of 4.6% of wealth runs against a portfolio down 7.0%. The client's recorded objectives are: Draw USD 1.1m per year to fund living costs and medical care; preserve capital for two children. They are profiled Income with a high liquidity need. The recorded objectives ask the portfolio to fund this draw while preserving capital. Over the supplied period the portfolio did both less well than the objective implies, which is a conversation about the plan rather than about any single holding. Suggested opening: You mentioned wanting to wait for your bond portfolio to recover rather than selling at a loss; given your ongoing living draws and long-dated maturities, could we discuss how to secure your income today without forcing asset sales?",
           "evidenceItemIds": [
             "EV-CL-0012-EXPLANATION-PROFILE",
             "EV-CL-0012-DATA_CONFLICT-OBJECTIVE_AMOUNT_OBJECTIVE",
@@ -8953,7 +8953,7 @@
           "language": "Traditional Chinese",
           "canonicalLanguage": "English",
           "status": "draft",
-          "content": "在 2025-12-31 至 2026-08-26 期間，本客戶的財富由 USD 30,130,862 變動至 USD 28,028,705，變動幅度為 -6.98%。相當於財富 4.6% 的經常性提取，正對應一個下跌 7.0% 的投資組合。客戶記錄在案的目標為：每年提取 USD 1.1m 以支應生活費用及醫療照護，並為兩名子女保全資本。客戶風險屬性為收益型，流動性需求為高。記錄在案的目標要求投資組合在支應此項提取的同時保全資本；在所提供的期間內，投資組合在這兩方面的表現均不如該目標所隱含的水準。這是一場關於整體計畫的對話，而非關於任何單一持倉。建議開場：我們可以一起重新檢視您希望這個投資組合承擔的風險水準，並與它目前實際承擔的風險作比較嗎？",
+          "content": "在 2025-12-31 至 2026-08-26 期間，本客戶的財富由 USD 30,130,862 變動至 USD 28,028,705，變動幅度為 -6.98%。相當於財富 4.6% 的經常性提取，正對應一個下跌 7.0% 的投資組合。客戶記錄在案的目標為：每年提取 USD 1.1m 以支應生活費用及醫療照護，並為兩名子女保全資本。客戶風險屬性為收益型，流動性需求為高。記錄在案的目標要求投資組合在支應此項提取的同時保全資本；在所提供的期間內，投資組合在這兩方面的表現均不如該目標所隱含的水準。這是一場關於整體計畫的對話，而非關於任何單一持倉。建議開場：您曾提到希望等待債券回本而非在虧損時變賣；考慮到您持續的生活提取與長存續期持倉，我們是否可以探討如何在今天保障您的收入，而無需被迫承受損失？",
           "evidenceItemIds": [
             "EV-CL-0012-DATA_CONFLICT-OBJECTIVE_AMOUNT_OBJECTIVE",
             "EV-CL-0012-DATA_CONFLICT-OBJECTIVE_AMOUNT_PLANNED_NEED",

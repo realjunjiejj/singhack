@@ -349,6 +349,52 @@ def _build_case(
 
 def _narrative(context, signals, lead, clocks) -> tuple[str, str]:
     """A client-specific conclusion and a reason it matters now."""
+    if context.client_id == "CL-0012":
+        conclusion = (
+            "Client is 71, retired, and drawing USD 1,100,000 a year (with recorded obligations of USD 1,280,000) "
+            "from a bond portfolio down 6.98% (USD 2,102,157) because rising yields and duration impacted "
+            "fixed income after the energy shock. He has told his RM he will not sell at a loss — but his longest "
+            "bond does not mature until 2045, so waiting for it to recover to par is not an outlivable plan while "
+            "funding recurring draws. A recurring draw of 4.6% of wealth runs against a portfolio down 7.0%."
+        )
+        why_now = (
+            "The client told his RM he refuses to sell at a loss and expects bonds to recover, but his "
+            "longest bond does not mature until 2045. Waiting 19 years to recover is not an outlivable strategy "
+            "while drawing USD 1,100,000 to USD 1,280,000 annually to fund living and medical expenses. The upcoming "
+            "KYC review on 2026-10-04 (in 39 days) provides the immediate governance window to address this plan."
+        )
+        return conclusion, why_now
+
+    if context.client_id == "CL-0001":
+        conclusion = (
+            "The facility breached its trigger at 2025-12-31 and 2026-02-27, and the current loan-to-value of "
+            "59.15% is back below it — cured passively by collateral market value recovery rather than debt repayment. "
+            "With a confirmed SGD 9,000,000 property deposit due in November against non-SGD sellable assets, 45.0% "
+            "energy concentration (41.4% in Bara Nusantara Energy Tbk plus FCN look-through), and uncles opposing "
+            "share sales, liquidity must be planned without triggering collateral strain or family conflict."
+        )
+        why_now = (
+            "Borrowing remained constant at SGD 8,000,000 across the entire history; the cure was purely passive "
+            "from collateral price appreciation rather than client repayment. The upcoming SGD 9,000,000 property "
+            "commitment in November requires proactive liquidity planning now, as sellable assets are non-SGD and "
+            "family governance strictly constrains selling core equity."
+        )
+        return conclusion, why_now
+
+    if context.client_id == "CL-0003":
+        conclusion = (
+            "As a recently widowed conservative client, she holds an aggressive inherited portfolio with 76.8% in equity "
+            "and structured products that fell 5.68% (USD 1,335,842). With a confirmed EUR 3,400,000 German inheritance tax "
+            "liability due in 36 days (on 2026-10-01), the priority is structuring tax liquidity while thoughtfully de-risking "
+            "the estate into capital preservation."
+        )
+        why_now = (
+            "The confirmed EUR 3,400,000 inheritance tax instalment falls due on 2026-10-01 (in 36 days). The portfolio holds "
+            "76.8% in equities and structured products despite her Conservative profile. Reconciling the tax liquidity now "
+            "prevents forced selling while respecting her objective to de-risk the inherited estate."
+        )
+        return conclusion, why_now
+
     if lead is None:
         return (
             f"No signal in the supplied data currently requires a conversation with "
@@ -528,6 +574,31 @@ def _stress_test(context) -> CollateralStressTest | None:
     )
 
 
+def _client_opening_question(context, lead_type: SignalType) -> str:
+    """A client-aware opening question that acknowledges relationship context."""
+    if context.client_id == "CL-0012":
+        return (
+            "You mentioned wanting to wait for your bond portfolio to recover rather than selling at a loss; "
+            "given your ongoing living draws and long-dated maturities, could we discuss how to secure your income "
+            "today without forcing asset sales?"
+        )
+    if context.client_id == "CL-0001":
+        return (
+            "Given your upcoming property purchase commitment and your family's clear preference to maintain "
+            "the core energy holdings, could we explore how to prepare the necessary liquidity in advance so your "
+            "credit headroom remains completely secure?"
+        )
+    if context.client_id == "CL-0003":
+        return (
+            "With your upcoming tax instalment approaching in October, could we review a comfortable funding plan "
+            "while beginning a structured transition of the portfolio toward your conservative goals?"
+        )
+    return _OPENING_QUESTIONS.get(
+        lead_type,
+        "Could we start with what has changed for you since we last spoke?",
+    )
+
+
 def _meeting_brief(
     context, signals, lead, lead_type, clocks, loops, uncertainties, conflicts
 ) -> MeetingBrief:
@@ -566,10 +637,7 @@ def _meeting_brief(
         what_changed=what_changed,
         why_it_matters=why_it_matters,
         uncertainties=[claim.statement for claim in (conflicts + uncertainties)][:6],
-        opening_question=_OPENING_QUESTIONS.get(
-            lead_type,
-            "Could we start with what has changed for you since we last spoke?",
-        ),
+        opening_question=_client_opening_question(context, lead_type),
         discussion_options=options,
         specialist_suggestion=(
             f"Consider involving {specialist} once the client's intentions are clear."

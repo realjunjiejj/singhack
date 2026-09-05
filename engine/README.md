@@ -22,6 +22,21 @@ python -m jb_clarity.cli build --data singhacks-jb-wealth-intelligence/data --as
 python -m pytest engine/tests
 ```
 
+To produce one UI-ready Intelligence Run containing the Workbench plus the
+specialist-team output:
+
+```bash
+python -m jb_clarity.cli analyse \
+  --data singhacks-jb-wealth-intelligence/data \
+  --as-of 2026-08-26 \
+  --output artifacts/intelligence.json
+```
+
+The `analyse` entry point profiles the source before loading it. The supplied
+challenge bundle uses adapter `jb-wealth-challenge-v1`; an unknown source
+returns `needs-mapping` with its files, headers, row counts, hashes, and the
+missing canonical files. It never guesses financial meaning from column names.
+
 The build validates its own output against `contracts/workbench.schema.json`
 before writing, so an artifact that reaches disk is always contract-valid. Pass
 `--generated-at 2026-09-04T00:00:00+00:00` to fix the timestamp for a
@@ -42,6 +57,26 @@ payload = model.to_contract_dict()
 exercises: challenge data and an as-of date in, a complete `WorkbenchModel`
 out. Given the same inputs it produces semantically identical output; only
 `meta.generatedAt` varies, and an injectable clock fixes that too.
+
+For new applications, the deeper seam is:
+
+```python
+from datetime import date
+from jb_clarity import analyse_dataset
+
+run = analyse_dataset("path/to/data", date(2026, 8, 26))
+if run.status == "completed":
+    workbench = run.workbench
+    specialist_reports = run.agent_reports
+else:
+    mapping_diagnostics = run.diagnostics
+```
+
+It runs a Dataset Steward, a deep Hidden Risk Specialist, a supporting
+Advisory Context Analyst, a deep Prioritisation Specialist, and an Evidence
+Auditor. See
+[`docs/architecture/multi-agent-intelligence.md`](../docs/architecture/multi-agent-intelligence.md)
+for the integration contract and optional model-provider seam.
 
 ## Layout
 
@@ -105,7 +140,7 @@ selects evidence, contacts a client, or executes anything.
 
 ## Tests
 
-`python -m pytest engine/tests` runs 144 tests against the real supplied
+`python -m pytest engine/tests` runs 195 tests against the real supplied
 dataset. They assert observable behaviour — artifact shape, queue ordering,
 signal states and boundaries, evidence-graph integrity, bilingual parity, and
 pinned regression facts for the demonstrated clients — rather than pandas
