@@ -3,7 +3,7 @@
 
 > **Product:** Julius Bär Clarity · RM Intelligence Workbench  
 > **Format:** 3 Presenters (1 minute each) · Total: 180 Seconds (3:00)  
-> **Setup:** 1 Laptop connected to projector at `http://127.0.0.1:3000` (or Vercel link `https://web-mocha-eta.vercel.app`).  
+> **Live Site:** `https://web-mocha-eta.vercel.app` (or local `http://127.0.0.1:3000`)  
 > Full Priority Queue visible. Screen shows Julius Baer logo, date **26 Aug 2026**, RM **Priscilla Ong**, and **20/20** clients. Presenter 2 operates the mouse.
 
 ---
@@ -19,9 +19,9 @@
                                          (Angry arms crossed ──▶ Convinced, relieved smile)
                                          ──▶ Screen: Click [Cheung], Executive AI card
 
-[2:00 - 3:00]  PRESENTER 3 SPEAKS  ──▶  PRESENTER 2 DEMONSTRATES PORTFOLIO CHARTS & EVIDENCE
-                                         (Portfolio Charts ──▶ Click Evidence Box ──▶ Drawer on Right shows Exact Bond ──▶ 1-Click Approve)
-                                         ──▶ Screen: Charts ──▶ Click Evidence ──▶ Evidence Chain Drawer on Right ──▶ Approve Brief
+[2:00 - 3:00]  PRESENTER 3 SPEAKS  ──▶  PRESENTER 2 DEMONSTRATES EVIDENCE DRAWER & CHARTS
+                                         (Click Blue Evidence Box ──▶ Drawer on Right ──▶ Link to Charts ──▶ 1-Click Approve)
+                                         ──▶ Screen: Click Blue Evidence ──▶ Right Drawer ──▶ Portfolio Charts ──▶ Approve Brief
 ```
 
 ---
@@ -89,52 +89,48 @@
 
 ---
 
-### Minute 3 (2:00 – 3:00) · Portfolio Charts, Auditable Evidence & Product Functionality
+### Minute 3 (2:00 – 3:00) · Auditable Evidence, Portfolio Charts & The Finish
 
-**[STAGE ACTION (2:00 – 2:10):**  
+**[STAGE ACTION (2:00 – 2:05):**  
 *Presenter 3 steps back into his presenter role with executive presence.*  
-*Presenter 2 scrolls to the **Portfolio Trend & Asset Allocation charts** on screen, pointing to the historical position line and asset breakdown.* **]**
+*Presenter 2 hovers the mouse over the blue evidence citation box in Cheung's case.* **]**
 
 **PRESENTER 3 (Speaks with authority):**
 > “When it comes to wealthy clients with huge portfolios, Priscilla cannot afford to make a single mistake. This then leads us to an important question: **How does Priscilla know that the information Julius Bär Clarity provides is accurate?**
 >
-> First, Priscilla doesn’t have to guess—she has real-time visual clarity. Look at these **Portfolio Charts**: Clarity plots the client’s historical position trends against risk triggers, alongside an interactive asset allocation breakdown across fixed income, equities, and cash. 
+> With Clarity, every insight is anchored by an auditable **Evidence Packet**. Every percentage, transaction date, and duration metric is directly linked to verified source records. 
+> 
+> Let’s take Mr. Cheung’s bonds for example. Watch what happens when Priscilla clicks this blue evidence box.
 >
-> But here is where Clarity truly stands out: every single claim and metric is anchored by an auditable **Evidence Packet**.
+> **[STAGE ACTION: Presenter 2 clicks the blue evidence box on screen — the Evidence Chain drawer immediately slides open on the right side!]**
 >
-> **[STAGE ACTION: Presenter 2 clicks directly on the Evidence citation box on screen. The Evidence Chain drawer slides open on the right side!]**
+> As shown on the right side of the screen, clicking the blue box instantly opens the **Evidence Chain** drawer! All evidence used for analysis is drawn directly from the CSV or Excel files that have been uploaded by Priscilla. This ensures that she will be able to properly utilize company records to provide accurate and reliable data for the analysis. The particular values extracted from the uploaded files are included as well, allowing Priscilla to verify the information conveniently.
 >
-> Watch what happens when Priscilla clicks this evidence box: **look at the right side of the screen**.
+> **[STAGE ACTION: Presenter 2 closes or pans over to the Portfolio Trend and Asset Allocation charts]**
 >
-> It instantly opens the **Evidence Chain** drawer! It pulls up the exact asset name—showing the **US Treasury 2.375% maturing in 2045**—its exact market value of 5.82 million dollars, the raw holding record key, and the underlying calculation.
+> Clarity then connects these verified records directly into dynamic **Portfolio Charts**—giving Priscilla an immediate visual breakdown of Mr. Cheung’s heavy fixed income concentration and historical yield trends alongside risk thresholds.
 >
-> Zero black-box hallucinations. 100% mathematical, auditable proof.
+> **[STAGE ACTION: Presenter 2 scrolls down, clicks 'Prepare Conversation' and then clicks 'Approve']**
 >
-> **[STAGE ACTION: Presenter 2 clicks 'Prepare Conversation' and then clicks 'Approve']**
+> With one final click, Priscilla prepares and approves an audit-ready **Meeting Brief**, ready for her client call.
 >
-> Next, with a single click on **Prepare Conversation**, Clarity generates an audit-ready **Meeting Brief** and **Client-Ready Views** in both English and German.
+> **[STAGE ACTION: Presenters 1, 2, and 3 stand together facing the judges for the short, punchy ending]**
 >
-> Priscilla stays in full control: she reviews, edits, and clicks **Approve**. Any subsequent market shift automatically invalidates the approval, safeguarding compliance.
->
-> **[STAGE ACTION: Presenter 1 and Presenter 2 step up alongside Presenter 3 for the finale]**
->
-> Best of all, Clarity operates deterministically and runs 100% offline within the bank’s secure perimeter.
->
-> For Priscilla, this transforms four hours of administrative dread into fifteen minutes of confident, trusted advisory leadership.
->
-> **Julius Bär Clarity:** Turning complex wealth data into trusted conversations, with the RM always in control.
+> **PRESENTER 3 (or all 3 in strong unison):**
+> “Julius Bär Clarity turns four hours of spreadsheet dread into fifteen minutes of trusted client advice—with the Relationship Manager always in control.
 >
 > Thank you!”
 
 ---
 
-## Mouse Operator Click Cheat Sheet for Rehearsal
+## Click & Stage Cue Cheat Sheet for Presenter 2 (Mouse Operator)
 
-| Timestamp | Screen Target | What Happens On Screen |
+| Time | Action | Screen Feedback |
 | :--- | :--- | :--- |
-| **0:20** | Full Priority Queue | Priscilla's whole 20-client book, #1 Aishah visible at top |
-| **1:00** | Click `[Cheung]` | Navigates directly to Cheung Kwok Wing |
-| **1:15** | Scroll to Executive AI Card | Shows Headline, Dilemma, What Should Be Done, Opener |
-| **2:05** | Point to Portfolio Charts | Shows SVG trend line, risk trigger, & asset allocation bar |
-| **2:18** | **Click Evidence Box / Badge** | **Right drawer slides open showing Evidence Chain, exact 2045 Treasury bond name & raw record** |
-| **2:32** | Click `[Prepare Conversation]` → `[Approve]` | Generates structured Meeting Brief and locks RM approval status |
+| **0:20** | Show Full Priority Queue | 20 clients, #1 Aishah at the top |
+| **1:00** | Click `[Cheung]` | Navigates to Cheung Kwok Wing |
+| **1:15** | Point to Executive AI Card | Displays duration trap and talking script |
+| **2:15** | **Click Blue Evidence Box** | **Right drawer slides open showing Evidence Chain & raw file values** |
+| **2:32** | Point to **Portfolio Charts** | Highlights trend line and asset allocation visual |
+| **2:45** | Click `[Prepare Conversation]` → `[Approve]` | Locks in approved Meeting Brief |
+| **2:55** | Step forward with team | Final closing line |
