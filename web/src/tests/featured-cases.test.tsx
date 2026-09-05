@@ -101,8 +101,9 @@ describe("selectFeaturedCases", () => {
     expect(featured.isDemoBook).toBe(true);
     expect(featured.heading).toBe("Demo cases");
     expect(featured.cases.map((entry) => entry.label)).toEqual([
-      "#1 Aishah",
+      "Hartono",
       "Cheung",
+      "Margarethe",
     ]);
   });
 
@@ -142,7 +143,8 @@ describe("selectFeaturedCases", () => {
 describe("Priority Queue shortcuts", () => {
   it("renders the demonstration shortcuts for the SingHacks Book", () => {
     renderQueue(SINGHACKS_QUEUE);
-    expect(screen.getByRole("button", { name: "#1 Aishah" })).toBeEnabled();
+    expect(screen.getByRole("button", { name: "Hartono", exact: true })).toBeEnabled();
+    expect(screen.getByRole("button", { name: "Margarethe", exact: true })).toBeEnabled();
     expect(screen.getByRole("button", { name: "Cheung" })).toBeEnabled();
   });
 

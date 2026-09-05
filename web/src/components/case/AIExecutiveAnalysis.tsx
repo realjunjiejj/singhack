@@ -40,7 +40,7 @@ export function AIExecutiveAnalysis({
             <span className="step-num">01</span>
             <span className="step-title">WHAT HAPPENED</span>
           </div>
-          <h3>Macro Shocks &amp; Portfolio Reality</h3>
+          <h3>Evidence-backed changes</h3>
           <p className="card-body-text">{insight.whatHappened.summary}</p>
           <div className="metric-chip-row">
             {insight.whatHappened.metrics.map((m) => (
@@ -58,10 +58,10 @@ export function AIExecutiveAnalysis({
             <span className="step-num">02</span>
             <span className="step-title">THE CLIENT DILEMMA</span>
           </div>
-          <h3>Behavioral Belief vs. Structural Reality</h3>
+          <h3>Why this matters to the client</h3>
           <p className="card-body-text">{insight.clientDilemma.tension}</p>
           <div className="trap-callout">
-            <strong className="trap-header">⚠️ The Structural Trap:</strong>
+            <strong className="trap-header">Confirm before acting:</strong>
             <p>{insight.clientDilemma.trapSummary}</p>
           </div>
         </article>
@@ -72,7 +72,7 @@ export function AIExecutiveAnalysis({
             <span className="step-num">03</span>
             <span className="step-title">WHAT SHOULD BE DONE</span>
           </div>
-          <h3>Actionable RM Strategy</h3>
+          <h3>Options for RM review</h3>
           <ol className="action-step-list">
             {insight.whatShouldBeDone.map((step, idx) => (
               <li key={idx}>
@@ -94,7 +94,7 @@ export function AIExecutiveAnalysis({
             {insight.conversationScript.opener}
           </blockquote>
           <div className="why-works-box">
-            <strong>Why this proves we understand the client:</strong>
+            <strong>Specialist support &amp; RM review:</strong>
             <p>{insight.conversationScript.whyItWorks}</p>
           </div>
           <div className="exec-card-actions">

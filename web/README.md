@@ -1,4 +1,4 @@
-# JB Clarity RM Intelligence Workbench
+# J Buddy RM Intelligence Workbench
 
 Desktop-first Next.js workbench for Priscilla Ong’s Priority Queue → Client Case → Evidence Chain → Meeting Brief workflow. It consumes only the versioned Workbench contract and contains no financial calculations, ranking logic, browser translation, trade execution, messaging, or persistent workflow state.
 

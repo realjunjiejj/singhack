@@ -1,4 +1,5 @@
 import type { EditableBrief, WorkbenchState } from "./model";
+import { createInitialState } from "./model";
 import type { ArtifactKind, OpenLoopStateValue } from "@/lib/workbench/types";
 import type { CaseResolutionState, RightSurface } from "./model";
 
@@ -42,7 +43,8 @@ export function workbenchReducer(state: WorkbenchState, action: Action): Workben
   switch (action.type) {
     case "SOURCE_READY":
       return {
-        ...state,
+        // Approvals and decisions belong to the adopted dataset, not IDs alone.
+        ...createInitialState(),
         source: {
           status: "ready",
           artifactKind: action.artifactKind,

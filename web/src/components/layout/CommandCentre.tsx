@@ -10,6 +10,7 @@ import { DatasetUpload } from "@/components/upload/DatasetUpload";
 import { WorkSurface } from "@/components/work-surface/WorkSurface";
 import type { IntelligenceRun } from "@/lib/intelligence/types";
 import { isIntelligenceRun } from "@/lib/intelligence/types";
+import { intelligenceMatchesWorkbench } from "@/lib/intelligence/source";
 import type { EditableBrief } from "@/lib/state/model";
 import { createInitialState } from "@/lib/state/model";
 import { workbenchReducer } from "@/lib/state/reducer";
@@ -53,7 +54,7 @@ export function CommandCentre() {
       .then(([loaded, run]) => {
         if (!current) return;
         setModel(loaded);
-        setIntelligenceRun(run);
+        setIntelligenceRun(intelligenceMatchesWorkbench(run, loaded) ? run : null);
         dispatch({ type: "SOURCE_READY", artifactKind: loaded.meta.artifactKind, schemaVersion: loaded.meta.schemaVersion });
         const first = loaded.book.priorityQueue[0];
         const firstCase = first ? getCase(loaded, first.caseId) : null;
@@ -145,7 +146,7 @@ export function CommandCentre() {
         <div className="brand">
           <img src="/julius-baer-logo.png" alt="Julius Bär" className="brand-logo" />
           <div className="brand-divider" aria-hidden="true" />
-          <div><strong>JB Clarity</strong><small>RM Intelligence Workbench</small></div>
+          <div><strong>J Buddy</strong><small>RM Intelligence Workbench</small></div>
         </div>
         <p className="promise">Know who to call, why, and how to begin.</p>
         <div className="topbar-meta">
@@ -195,7 +196,7 @@ function LoadingState() {
   return (
     <main className="loading-state" aria-live="polite">
       <span className="loading-mark" aria-hidden="true" />
-      <p className="eyebrow">AAActual Intelligence</p><h1>Validating the Workbench artifact…</h1>
+      <p className="eyebrow">J Buddy</p><h1>Validating the Workbench artifact…</h1>
       <p>No Client Case is available until the versioned boundary is compatible.</p>
     </main>
   );

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type DragEvent, type FormEvent } from "react";
 import type { IntelligenceRun } from "@/lib/intelligence/types";
 import { isIntelligenceRun } from "@/lib/intelligence/types";
+import { analysisErrorMessage } from "@/lib/intelligence/source";
 
 type EngineHealth = { status: string; geminiConfigured: boolean; detail?: string };
 
@@ -57,8 +58,7 @@ export function DatasetUpload({ onClose, onComplete }: {
       const response = await fetch("/api/analysis", { method: "POST", body });
       const payload: unknown = await response.json();
       if (!response.ok) {
-        const detail = payload && typeof payload === "object" && "detail" in payload ? String(payload.detail) : `Analysis failed (${response.status}).`;
-        throw new Error(detail);
+        throw new Error(analysisErrorMessage(payload, response.status));
       }
       if (!isIntelligenceRun(payload) || !payload.workbench) throw new Error("The engine returned no compatible Workbench artifact.");
       await onComplete(payload);
@@ -111,7 +111,7 @@ export function DatasetUpload({ onClose, onComplete }: {
             <button type="button" onClick={onClose} disabled={status === "running"}>Cancel</button>
             <button type="submit" className="primary-button" disabled={status === "running" || health.status !== "ready"}>{status === "running" ? "Analysis running…" : "Upload & analyse automatically"}</button>
           </div>
-          <p className="upload-privacy">Files are processed by the configured analysis service and removed from its temporary workspace after the run. No browser-side financial calculations are performed.</p>
+          <p className="upload-privacy">A successful upload replaces this session's Book and clears its draft briefs, approvals and case decisions. Files are removed from the service's temporary workspace after the run. Gemini refinement sends selected evidence summaries to the configured model provider when enabled; use only authorised data.</p>
         </form>
       </section>
     </div>
