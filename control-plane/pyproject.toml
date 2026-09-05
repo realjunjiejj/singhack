@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jb-control-plane"
+version = "0.1.0"
+description = "Bank-sandbox control envelope for AAActual Intelligence"
+requires-python = ">=3.11"
+dependencies = [
+    "pyjwt>=2.8",
+    "cryptography>=42.0",
+    "jsonschema>=4.20",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4"]
+
+[tool.pytest.ini_options]
+# Lets the suite run as `pytest control-plane/tests` from the repository root
+# as well as from this directory, so one documented command works everywhere.
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+jb_control = ["../../contracts/*.json"]

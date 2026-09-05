@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aaactual.local/contracts/audit-event.schema.json",
+  "title": "Application audit event",
+  "description": "One append-only record of an authorisation decision or RM action. Written for every outcome, including denials and failures. Carries identifiers, versions and hashes — never client narrative, holdings, note text or generated content.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eventId",
+    "schemaVersion",
+    "occurredAt",
+    "actor",
+    "action",
+    "outcome",
+    "purpose",
+    "policy",
+    "correlationId"
+  ],
+  "properties": {
+    "eventId": { "type": "string", "description": "Unique identifier for this event." },
+    "schemaVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "occurredAt": { "type": "string", "format": "date-time", "description": "UTC." },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["subject", "issuer", "roles"],
+      "properties": {
+        "subject": {
+          "type": "string",
+          "description": "Trusted subject from the validated token. Never a browser-supplied identity."
+        },
+        "issuer": { "type": "string" },
+        "roles": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Role/group snapshot at decision time, so a later entitlement change cannot rewrite history."
+        }
+      }
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "view_case",
+        "view_evidence",
+        "prepare_conversation",
+        "edit_brief",
+        "approve_brief",
+        "delegate_specialist",
+        "dismiss_case",
+        "export_client_ready"
+      ]
+    },
+    "outcome": { "type": "string", "enum": ["allowed", "denied", "failed"] },
+    "purpose": {
+      "type": "string",
+      "description": "Declared purpose for the access, checked against the action allowlist."
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "modelVersion"],
+      "properties": {
+        "decision": { "type": "string", "enum": ["permit", "deny", "error"] },
+        "modelVersion": { "type": "string", "description": "Authorization model version applied." },
+        "reference": { "type": "string", "description": "Relation or rule that produced the decision." }
+      }
+    },
+    "subjectRefs": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Identifiers only, and only where the actor was authorised to know them.",
+      "properties": {
+        "clientId": { "type": "string" },
+        "caseId": { "type": "string" },
+        "packetId": { "type": "string" },
+        "briefId": { "type": "string" }
+      }
+    },
+    "versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Operational lineage for the decision.",
+      "properties": {
+        "sourceSnapshot": { "type": "string" },
+        "artifact": { "type": "string" },
+        "rulesConfig": { "type": "string" },
+        "promptTemplate": { "type": "string" },
+        "model": { "type": "string" }
+      }
+    },
+    "revision": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Meeting Brief revision transition, for edits and approvals.",
+      "properties": {
+        "previous": { "type": ["integer", "null"], "minimum": 0 },
+        "resulting": { "type": ["integer", "null"], "minimum": 0 }
+      }
+    },
+    "contentHashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Hashes of mutable RM state, so a change is provable without copying restricted content.",
+      "properties": {
+        "before": { "type": ["string", "null"] },
+        "after": { "type": ["string", "null"] }
+      }
+    },
+    "reason": {
+      "type": "string",
+      "description": "Required for denied, failed, dismissal and deferral outcomes. A stable code or short operator-facing phrase, never restricted values."
+    },
+    "correlationId": {
+      "type": "string",
+      "description": "Ties this event to the request trace without identifying the client."
+    }
+  }
+}
