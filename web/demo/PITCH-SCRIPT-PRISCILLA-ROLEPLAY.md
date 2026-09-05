@@ -19,9 +19,9 @@
                                          (Angry arms crossed ──▶ Convinced, relieved smile)
                                          ──▶ Screen: Click [Cheung], Executive AI card
 
-[2:00 - 3:00]  PRESENTER 3 SPEAKS  ──▶  PRESENTER 2 DEMONSTRATES PRODUCT FUNCTIONALITY
-                                         (Evidence Packet ──▶ Meeting Brief ──▶ 1-Click Approve ──▶ Bilingual View)
-                                         ──▶ Screen: Expand Evidence, Click [Prepare] ──▶ [Approve]
+[2:00 - 3:00]  PRESENTER 3 SPEAKS  ──▶  PRESENTER 2 DEMONSTRATES PORTFOLIO CHARTS & EVIDENCE
+                                         (Portfolio Charts ──▶ Click Evidence Box ──▶ Drawer on Right shows Exact Bond ──▶ 1-Click Approve)
+                                         ──▶ Screen: Charts ──▶ Click Evidence ──▶ Evidence Chain Drawer on Right ──▶ Approve Brief
 ```
 
 ---
@@ -89,34 +89,38 @@
 
 ---
 
-### Minute 3 (2:00 – 3:00) · Product Functionality, Auditable Evidence & RM Governance
+### Minute 3 (2:00 – 3:00) · Portfolio Charts, Auditable Evidence & Product Functionality
 
 **[STAGE ACTION (2:00 – 2:10):**  
 *Presenter 3 steps back into his presenter role with executive presence.*  
-*Presenter 2 keeps hands on the mouse to demonstrate features in real time as Presenter 3 describes them.* **]**
+*Presenter 2 scrolls to the **Portfolio Trend & Asset Allocation charts** on screen, pointing to the historical position line and asset breakdown.* **]**
 
 **PRESENTER 3 (Speaks with authority):**
 > “When it comes to wealthy clients with huge portfolios, Priscilla cannot afford to make a single mistake. This then leads us to an important question: **How does Priscilla know that the information Julius Bär Clarity provides is accurate?**
 >
-> With Clarity, every insight is anchored by an auditable **Evidence Packet**. Every percentage, transaction date, and duration metric is directly linked to verified source records.
+> First, Priscilla doesn’t have to guess—she has real-time visual clarity. Look at these **Portfolio Charts**: Clarity plots the client’s historical position trends against risk triggers, alongside an interactive asset allocation breakdown across fixed income, equities, and cash. 
 >
-> **[STAGE ACTION: Presenter 2 clicks and expands the 'Evidence Packet' on screen]**
+> But here is where Clarity truly stands out: every single claim and metric is anchored by an auditable **Evidence Packet**.
 >
-> Nothing is left to black-box guesswork. When Priscilla clicks into any metric, Clarity reveals the exact calculation, transaction timestamps, and portfolio line-items backing it up.
+> **[STAGE ACTION: Presenter 2 clicks directly on the Evidence citation box on screen. The Evidence Chain drawer slides open on the right side!]**
 >
-> Next, look at the **Work Surface**. With a single click on **Prepare Conversation**, Clarity instantly generates a structured, audit-ready **Meeting Brief**—complete with talking agendas, liquidity gap analysis, and mandatory risk disclosures.
+> Watch what happens when Priscilla clicks this evidence box: **look at the right side of the screen**.
+>
+> It instantly opens the **Evidence Chain** drawer! It pulls up the exact asset name—showing the **US Treasury 2.375% maturing in 2045**—its exact market value of 5.82 million dollars, the raw holding record key, and the underlying calculation.
+>
+> Zero black-box hallucinations. 100% mathematical, auditable proof.
 >
 > **[STAGE ACTION: Presenter 2 clicks 'Prepare Conversation' and then clicks 'Approve']**
 >
-> Notice that Priscilla remains in **100% control**. She reviews the brief, customizes talking points, and clicks **Approve**. If market data or portfolio holdings change tomorrow, that approval automatically invalidates—guaranteeing bank-grade governance.
+> Next, with a single click on **Prepare Conversation**, Clarity generates an audit-ready **Meeting Brief** and **Client-Ready Views** in both English and German.
 >
-> Clarity even generates **Client-Ready Views** in the client’s native language—including German and English—so Priscilla doesn’t spend hours translating investment memos.
+> Priscilla stays in full control: she reviews, edits, and clicks **Approve**. Any subsequent market shift automatically invalidates the approval, safeguarding compliance.
 >
 > **[STAGE ACTION: Presenter 1 and Presenter 2 step up alongside Presenter 3 for the finale]**
 >
-> Best of all, Clarity operates deterministically and runs **100% offline** within the bank’s secure perimeter—zero confidential client wealth data ever leaks to external models.
+> Best of all, Clarity operates deterministically and runs 100% offline within the bank’s secure perimeter.
 >
-> For Priscilla, this transforms four hours of administrative dread into fifteen minutes of high-conviction, high-trust advisory meetings.
+> For Priscilla, this transforms four hours of administrative dread into fifteen minutes of confident, trusted advisory leadership.
 >
 > **Julius Bär Clarity:** Turning complex wealth data into trusted conversations, with the RM always in control.
 >
@@ -124,13 +128,13 @@
 
 ---
 
-## Key Numbers & Delivery Checklist for Rehearsal
+## Mouse Operator Click Cheat Sheet for Rehearsal
 
-- **Aishah:** Sustainable Balanced mandate, **SGD 5.6M** non-compliant energy holdings, **AUD 1.45M** tuition due in **6 days**.
-- **Cheung:** Age **71**, **USD 1.1M** annual living drawdown, down **USD 5.8M** on bonds, longest maturity **2045** (19 years / age **90**), **4.8%** short-term yields.
-- **Book Overview:** **20 clients**, **USD 100M AUM**, date **26 August 2026**, RM **Priscilla Ong**.
-- **Mouse Operator Sync:**
-  - `0:20`: Show full Priority Queue.
-  - `1:00`: Click `[Cheung]`, scroll to Executive AI card.
-  - `2:10`: Expand `[Evidence Packet]`.
-  - `2:25`: Scroll down, click `[Prepare Conversation]`, then `[Approve]`.
+| Timestamp | Screen Target | What Happens On Screen |
+| :--- | :--- | :--- |
+| **0:20** | Full Priority Queue | Priscilla's whole 20-client book, #1 Aishah visible at top |
+| **1:00** | Click `[Cheung]` | Navigates directly to Cheung Kwok Wing |
+| **1:15** | Scroll to Executive AI Card | Shows Headline, Dilemma, What Should Be Done, Opener |
+| **2:05** | Point to Portfolio Charts | Shows SVG trend line, risk trigger, & asset allocation bar |
+| **2:18** | **Click Evidence Box / Badge** | **Right drawer slides open showing Evidence Chain, exact 2045 Treasury bond name & raw record** |
+| **2:32** | Click `[Prepare Conversation]` → `[Approve]` | Generates structured Meeting Brief and locks RM approval status |
