@@ -101,9 +101,8 @@ describe("selectFeaturedCases", () => {
     expect(featured.isDemoBook).toBe(true);
     expect(featured.heading).toBe("Demo cases");
     expect(featured.cases.map((entry) => entry.label)).toEqual([
-      "Hartono",
+      "#1 Aishah",
       "Cheung",
-      "Margarethe",
     ]);
   });
 
@@ -143,8 +142,8 @@ describe("selectFeaturedCases", () => {
 describe("Priority Queue shortcuts", () => {
   it("renders the demonstration shortcuts for the SingHacks Book", () => {
     renderQueue(SINGHACKS_QUEUE);
-    expect(screen.getByLabelText("Demo cases")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Hartono" })).toBeEnabled();
+    expect(screen.getByRole("button", { name: "#1 Aishah" })).toBeEnabled();
+    expect(screen.getByRole("button", { name: "Cheung" })).toBeEnabled();
   });
 
   it("renders real featured cases for a Book with none of those clients", () => {

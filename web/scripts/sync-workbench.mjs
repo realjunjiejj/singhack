@@ -13,6 +13,8 @@ const FIXTURE_PATH = path.join(REPO_ROOT, "artifacts", "workbench.fixture.json")
 const OUTPUT_DIR = path.join(WEB_ROOT, "public", "data");
 const OUTPUT_PATH = path.join(OUTPUT_DIR, "workbench.json");
 const OUTPUT_SCHEMA_PATH = path.join(OUTPUT_DIR, "workbench.schema.json");
+const INTELLIGENCE_PATH = path.join(REPO_ROOT, "artifacts", "intelligence.json");
+const OUTPUT_INTELLIGENCE_PATH = path.join(OUTPUT_DIR, "intelligence.json");
 const EXPECTED_VERSION = "1.0.0";
 
 async function exists(file) {
@@ -45,9 +47,11 @@ async function inspect(file) {
 }
 
 const generatedExists = await exists(GENERATED_PATH);
-const candidates = generatedExists
-  ? [GENERATED_PATH, ...(await exists(OUTPUT_PATH) ? [OUTPUT_PATH] : []), FIXTURE_PATH]
-  : [FIXTURE_PATH];
+const candidates = [
+  ...(generatedExists ? [GENERATED_PATH] : []),
+  ...((await exists(OUTPUT_PATH)) ? [OUTPUT_PATH] : []),
+  ...((await exists(FIXTURE_PATH)) ? [FIXTURE_PATH] : []),
+];
 let selected;
 for (const candidate of candidates) {
   const result = await inspect(candidate);
@@ -65,6 +69,7 @@ if (!selected) {
 await mkdir(OUTPUT_DIR, { recursive: true });
 if (!selected.retained) await copyFile(selected.path, OUTPUT_PATH);
 if (SCHEMA_PATH !== OUTPUT_SCHEMA_PATH) await copyFile(SCHEMA_PATH, OUTPUT_SCHEMA_PATH);
+if (await exists(INTELLIGENCE_PATH)) await copyFile(INTELLIGENCE_PATH, OUTPUT_INTELLIGENCE_PATH);
 console.log(
   `[sync-data] source=${path.relative(REPO_ROOT, selected.path)}${selected.retained ? " (retained last compatible artifact)" : ""} schema=${selected.data.meta.schemaVersion} kind=${selected.data.meta.artifactKind}`,
 );

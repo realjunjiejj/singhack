@@ -22,8 +22,9 @@ export function PriorityQueue({
 }) {
   const visible = filterPriorityQueue(model.book.priorityQueue, state.filters, model.clientCases);
   const featured = selectFeaturedCases(model.book.priorityQueue);
+
   return (
-    <aside className="queue-column" aria-labelledby="queue-title">
+    <aside className="queue-column" id="priority-queue" tabIndex={-1} aria-labelledby="queue-title">
       <div className="column-header queue-header">
         <div><p className="eyebrow">Choose</p><h1 id="queue-title">Priority Queue</h1></div>
         <span className="row-count">{visible.length}/{model.book.priorityQueue.length}</span>
@@ -33,11 +34,19 @@ export function PriorityQueue({
         <div className="demo-finds" aria-label={featured.heading}>
           <span>{featured.heading}</span>
           <div className="chip-row">
-            {featured.cases.map((entry) => (
-              <button key={entry.clientId} type="button" onClick={() => onSelect(entry.caseId)}>
-                {entry.label}
-              </button>
-            ))}
+            {featured.cases.map((entry) => {
+              const isActive = state.activeCaseId === entry.caseId;
+              return (
+                <button
+                  key={entry.clientId}
+                  type="button"
+                  className={isActive ? "active" : undefined}
+                  onClick={() => onSelect(entry.caseId)}
+                >
+                  {entry.label}
+                </button>
+              );
+            })}
           </div>
         </div>
       )}

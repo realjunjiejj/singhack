@@ -6,9 +6,8 @@ import type { PriorityQueueItem } from "./types";
  * else in the interface may depend on these identifiers.
  */
 const SINGHACKS_DEMO_CASES = [
-  { clientId: "CL-0001", label: "Hartono" },
+  { clientId: "CL-0005", label: "#1 Aishah" },
   { clientId: "CL-0012", label: "Cheung" },
-  { clientId: "CL-0003", label: "Margarethe" },
 ] as const;
 
 export const MAX_FEATURED_CASES = 3;

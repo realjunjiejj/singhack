@@ -61,6 +61,12 @@ A timed non-developer Hartono rehearsal under 60 seconds remains a presentation 
 
 No fixture-only case logic is embedded in the components. `npm run sync-data` adopts the generated artifact through the same adapter used for the fallback fixture. Missing Evidence Packets, foreign packets, or unresolved citation IDs are treated as contract defects and block adoption.
 
+## Builder 2 Notice: "AI Advice" at the top of Client Profiles
+
+- **Naming:** The primary intelligence narrative (`clientCase.conclusion`, `clientCase.whyNow`, and `clientCase.meetingBrief.openingQuestion`) is designated **"AI Advice"**.
+- **Placement Requirement:** Keep this AI Advice section at the **very top part of each client profile** in `CaseHeader.tsx` (above `ClientPulse`, `SignalList`, `OpenLoops`, and `GovernanceClocks`), so that Relationship Managers immediately see the contextual private-banking AI Advice the moment they select any client.
+- **Section Kickers:** The kickers are labeled `AI Advice · What needs attention`, `AI Advice · Why this matters now`, and `AI Advice · How to begin`.
+
 ## Attribution
 
 Advisor Desktop was inspected for compact-card, expandable-detail, filtering, and presentation/service-boundary patterns. Anthropic Financial Services was inspected for Meeting Brief staging and no-send/human-review guardrails. This implementation is original; no third-party source code or text was materially copied, so `THIRD_PARTY_NOTICES.md` is not required.

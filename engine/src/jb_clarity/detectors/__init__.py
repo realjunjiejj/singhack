@@ -131,6 +131,8 @@ def detect_all(context: ClientContext) -> list[DetectedSignal]:
         liquidity_restrictions,
         mandate,
         suitability,
+        tax_aware,
+        life_events,
     )
 
     signals: list[DetectedSignal] = []
@@ -141,5 +143,7 @@ def detect_all(context: ClientContext) -> list[DetectedSignal]:
     signals.extend(mandate.detect(context))
     signals.extend(concentration.detect(context))
     signals.extend(suitability.detect(context))
+    signals.extend(tax_aware.detect(context))
+    signals.extend(life_events.detect(context))
     signals.extend(evidence_conflicts.detect(context))
     return sorted(signals, key=lambda s: (-s.severity_rank, s.signal_id))

@@ -6,8 +6,17 @@ __pycache__/
 node_modules/
 .next/
 coverage/
+web/public/data/intelligence.json
 
 *.egg-info/
 
 # Control plane sandbox artefacts
 control-plane/**/audit.jsonl
+
+# User-owned scratch files
+.pptx-build/
+
+# Secrets & Environment variables
+.env
+.env.*
+*.env

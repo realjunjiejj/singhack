@@ -53,6 +53,8 @@ def detect(context) -> list[DetectedSignal]:
             "liquidityNeeds": str(context.client["liquidity_needs"]),
             "lifeStage": str(context.client["life_stage"]),
             "sourceOfWealth": str(context.client["source_of_wealth"]),
+            "countryOfResidence": str(context.client["country_of_residence"]),
+            "taxDomicile": str(context.client["tax_domicile"]),
             "investmentHorizonYears": int(context.client["investment_horizon_years"]),
         },
         file=CLIENTS_FILE,
@@ -67,9 +69,15 @@ def detect(context) -> list[DetectedSignal]:
                 f"total-{point.snapshot_date}",
                 snapshot_item_label(point.snapshot_date),
                 {
+                    "snapshotDate": point.snapshot_date,
                     "amount": point.total_usd,
                     "currency": "USD",
                     "byAssetClassUsd": point.by_asset_class_usd,
+                    "byAssetClassPct": {
+                        name: round(100.0 * value / point.total_usd, 4)
+                        for name, value in point.by_asset_class_usd.items()
+                        if point.total_usd > 0
+                    },
                 },
                 file=HOLDINGS_FILE,
                 record_key=f"{context.client_id}|{point.snapshot_date}",

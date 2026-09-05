@@ -2,23 +2,23 @@ import { CitationLink } from "@/components/common/CitationLink";
 import { EmptyState } from "@/components/common/EmptyState";
 import { FactorBreakdown } from "@/components/queue/FactorBreakdown";
 import type { WorkbenchState } from "@/lib/state/model";
-import type { ClientCase } from "@/lib/workbench/types";
+import type { AgentReport } from "@/lib/intelligence/types";
+import type { ClientCase, EvidencePacket, WorkbenchModel } from "@/lib/workbench/types";
+import { AdvisoryOverview } from "./AdvisoryOverview";
+import { AIExecutiveAnalysis } from "./AIExecutiveAnalysis";
 import { CaseHeader } from "./CaseHeader";
 import { ClientPulse } from "./ClientPulse";
 import { GovernanceClocks } from "./GovernanceClocks";
 import { OpenLoops } from "./OpenLoops";
 import { SignalList } from "./SignalList";
 import { SnapshotComparison } from "./SnapshotComparison";
+import { SpecialistInsights } from "./SpecialistInsights";
 
-export function ClientCasePanel({
-  clientCase,
-  state,
-  onEvidence,
-  onOpenLoop,
-  onSnapshots,
-  onGuidedAction,
-}: {
+export function ClientCasePanel({ model, clientCase, evidencePackets, agentReports, state, onEvidence, onOpenLoop, onSnapshots, onGuidedAction }: {
+  model: WorkbenchModel;
   clientCase: ClientCase | null;
+  evidencePackets: EvidencePacket[];
+  agentReports: AgentReport[];
   state: WorkbenchState;
   onEvidence: (id: string) => void;
   onOpenLoop: (id: string, value: Parameters<typeof OpenLoops>[0]["loops"][number]["state"], note?: string) => void;
@@ -31,10 +31,20 @@ export function ClientCasePanel({
     { title: "Interpretations", className: "interpretation", claims: clientCase.interpretations },
     { title: "Uncertainties", className: "uncertainty", claims: clientCase.uncertainties },
   ];
+
   return (
     <main className="case-column" id="active-client-case" tabIndex={-1}>
       <CaseHeader clientCase={clientCase} onEvidence={onEvidence} onPrepare={() => onGuidedAction("prepare-conversation")} />
       <ClientPulse clientCase={clientCase} openLoopStates={state.openLoopStates} onEvidence={onEvidence} />
+      <AIExecutiveAnalysis clientCase={clientCase} onEvidence={onEvidence} onPrepare={() => onGuidedAction("prepare-conversation")} />
+      <SpecialistInsights caseId={clientCase.caseId} reports={agentReports} onEvidence={onEvidence} />
+      <AdvisoryOverview clientCase={clientCase} evidencePackets={evidencePackets} onEvidence={onEvidence} onPrepare={() => onGuidedAction("prepare-conversation")} onWhatIf={() => onGuidedAction("stress-test")} />
+
+      <details className="support-details comparison-details">
+        <summary><span>Compare exact snapshots</span><small>Select any two supplied dates and inspect their values</small></summary>
+        <SnapshotComparison timeline={clientCase.timeline} selected={state.selectedSnapshots} onSelect={onSnapshots} onEvidence={onEvidence} />
+      </details>
+
       {(clientCase.collateralStressTest || (clientCase.clientReadyDrafts?.length ?? 0) > 0) && (
         <section className="case-section prepared-views" aria-labelledby="prepared-views-title">
           <p className="eyebrow">Useful before the call</p><h2 id="prepared-views-title">Prepared views</h2>
@@ -45,38 +55,31 @@ export function ClientCasePanel({
         </section>
       )}
 
-      <details className="case-more-actions">
-        <summary><span>More actions</span><small>Requests remain bounded and require RM review</small></summary>
-        <div className="action-row">
-          {clientCase.allowedGuidedActions.filter((action) => action !== "prepare-conversation").map((action) => (
-            <button type="button" key={action} onClick={() => onGuidedAction(action)}>{action.replace(/-/g, " ")}</button>
-          ))}
-        </div>
-        <p className="boundary-note">Nothing is sent, traded, scheduled, or persisted.</p>
+      <details className="support-details">
+        <summary><span>Supporting evidence &amp; relationship detail</span><small>Facts, signals, Open Loops and Governance Clocks</small></summary>
+        <section className="case-section thread-section" aria-labelledby="case-thread-title">
+          <div className="section-heading"><div><p className="eyebrow">Signal → Evidence → Conversation</p><h2 id="case-thread-title">Case thread</h2></div></div>
+          <div className="claim-grid">
+            {claimGroups.map((group) => (
+              <div className={`claim-group ${group.className}`} key={group.title}>
+                <h3>{group.title}</h3>
+                {group.claims.length === 0 ? <p className="muted">None supplied.</p> : group.claims.map((claim) => <p key={claim.id}>{claim.statement} <CitationLink evidenceIds={claim.evidenceItemIds} onOpen={onEvidence} /></p>)}
+              </div>
+            ))}
+          </div>
+        </section>
+        <section className="case-section"><h2>Visible Priority Rationale</h2><FactorBreakdown factors={clientCase.factorContributions} onEvidence={onEvidence} /></section>
+        <SignalList signals={clientCase.anticipatorySignals} onEvidence={onEvidence} />
+        <OpenLoops loops={clientCase.openLoops} states={state.openLoopStates} onEvidence={onEvidence} onDecision={onOpenLoop} />
+        <GovernanceClocks clocks={clientCase.governanceClocks} onEvidence={onEvidence} />
       </details>
 
-      <details className="case-deep-dive">
-        <summary><span>Full analysis</span><small>Reasoning, relationship notes, evidence and history</small></summary>
-        <div className="case-deep-dive-body">
-          <section className="case-section thread-section" aria-labelledby="case-thread-title">
-            <div className="section-heading"><div><p className="eyebrow">Signal → Evidence → Conversation</p><h2 id="case-thread-title">Case thread</h2></div></div>
-            <div className="claim-grid">
-              {claimGroups.map((group) => (
-                <div className={`claim-group ${group.className}`} key={group.title}>
-                  <h3>{group.title}</h3>
-                  {group.claims.length === 0 ? <p className="muted">None supplied.</p> : group.claims.map((claim) => (
-                    <p key={claim.id}>{claim.statement} <CitationLink evidenceIds={claim.evidenceItemIds} onOpen={onEvidence} /></p>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </section>
-          <section className="case-section"><h2>Visible Priority Rationale</h2><FactorBreakdown factors={clientCase.factorContributions} onEvidence={onEvidence} /></section>
-          <SignalList signals={clientCase.anticipatorySignals} onEvidence={onEvidence} />
-          <OpenLoops loops={clientCase.openLoops} states={state.openLoopStates} onEvidence={onEvidence} onDecision={onOpenLoop} />
-          <GovernanceClocks clocks={clientCase.governanceClocks} onEvidence={onEvidence} />
-          <SnapshotComparison timeline={clientCase.timeline} selected={state.selectedSnapshots} onSelect={onSnapshots} onEvidence={onEvidence} />
+      <details className="case-more-actions">
+        <summary><span>More Guided Actions</span><small>Requests remain bounded and require RM review</small></summary>
+        <div className="action-row">
+          {clientCase.allowedGuidedActions.filter((action) => action !== "prepare-conversation").map((action) => <button type="button" key={action} onClick={() => onGuidedAction(action)}>{action.replace(/-/g, " ")}</button>)}
         </div>
+        <p className="boundary-note">Nothing is sent, traded, scheduled, or persisted.</p>
       </details>
     </main>
   );
