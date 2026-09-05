@@ -4,7 +4,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "AAActual Intelligence · RM Intelligence Workbench",
-  description: "Know who to call, why, and how to begin.",
+  description: "Turn insight into client-ready actions, with the Relationship Manager in control.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

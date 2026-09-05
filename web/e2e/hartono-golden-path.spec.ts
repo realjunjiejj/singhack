@@ -8,6 +8,17 @@ test("Hartono Queue to Evidence Chain to approved Meeting Brief", async ({ page 
   await page.getByRole("button", { name: "Hartono", exact: true }).click();
   await expect(page.getByRole("heading", { name: "Hartono Wijaya Kusuma", exact: true })).toBeVisible();
   await expect(page.getByText("Historical — resolved").first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: "From signal to client-ready action" })).toBeVisible();
+  await expect(page.getByText("Personalised context", { exact: true })).toBeVisible();
+  await expect(page.getByText("Tax-aware opportunities", { exact: true })).toBeVisible();
+  await expect(page.getByText("Life-event planning", { exact: true })).toBeVisible();
+  await expect(page.getByText("Whole-Book priority", { exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "How the intelligence reads the data" })).toBeVisible();
+  await expect(page.getByText("All portfolios combined", { exact: true })).toBeVisible();
+  await expect(page.getByText("Structured-product look-through", { exact: true })).toBeVisible();
+  await expect(page.getByText("RM-note conflicts stay visible", { exact: true })).toBeVisible();
+  await expect(page.getByText("Private-market valuation lag", { exact: true })).toBeVisible();
+  await expect(page.getByText("Real-world imperfections", { exact: true })).toBeVisible();
   await page.screenshot({ path: "demo/screenshots/01-priority-queue.png", fullPage: true });
 
   await page.locator(".client-pulse").getByText(/Evidence · \d+ cited records/).first().click();

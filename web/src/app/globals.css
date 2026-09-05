@@ -1575,6 +1575,222 @@ dd {
   margin: 72px 24px;
 }
 
+.advisory-overview {
+  padding: 20px 20px 44px;
+}
+
+.advisory-flow {
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--hairline-strong);
+}
+
+.overview-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.overview-heading h2,
+.overview-group-heading h3 {
+  margin: 0;
+}
+
+.overview-heading h2 {
+  max-width: 260px;
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.control-seal {
+  display: inline-flex;
+  min-height: 26px;
+  flex: 0 0 auto;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--ink-900);
+  color: white;
+  font-size: .6rem;
+  font-weight: 650;
+  letter-spacing: .035em;
+  text-transform: uppercase;
+}
+
+.overview-intro {
+  margin: 7px 0 10px;
+  color: var(--ink-500);
+  font-size: .66rem;
+  line-height: 1.35;
+}
+
+.advisory-path {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.advisory-path li {
+  position: relative;
+  display: grid;
+  min-height: 29px;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 10px;
+}
+
+.advisory-path li:not(:last-child)::after {
+  position: absolute;
+  top: 20px;
+  bottom: 0;
+  left: 10px;
+  width: 1px;
+  background: var(--mineral-300);
+  content: "";
+}
+
+.path-index {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: var(--control);
+  color: var(--ink-500);
+  place-items: center;
+  font-size: .55rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.advisory-path li:first-child .path-index {
+  background: var(--selection-strong);
+  color: var(--copper-dark);
+}
+
+.advisory-path li:nth-last-child(2) .path-index,
+.advisory-path li:last-child .path-index {
+  background: var(--positive-soft);
+  color: var(--positive);
+}
+
+.advisory-path li div {
+  min-width: 0;
+  padding: 0 0 3px;
+}
+
+.advisory-path strong,
+.advisory-path small {
+  display: block;
+}
+
+.advisory-path strong {
+  color: var(--ink-800);
+  font-size: .71rem;
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+.advisory-path small {
+  overflow: hidden;
+  color: var(--ink-500);
+  font-size: .57rem;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.overview-group {
+  padding-top: 12px;
+}
+
+.overview-group-heading {
+  margin-bottom: 5px;
+}
+
+.overview-group-heading h3 {
+  font-size: .86rem;
+}
+
+.coverage-list,
+.intelligence-checks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--hairline-strong);
+  list-style: none;
+}
+
+.coverage-list li,
+.intelligence-checks li {
+  min-width: 0;
+  padding: 5px 8px 5px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.coverage-list li:nth-child(even),
+.intelligence-checks li:nth-child(even) {
+  padding-right: 0;
+  padding-left: 8px;
+  border-left: 1px solid var(--hairline);
+}
+
+.coverage-list strong,
+.coverage-list span,
+.intelligence-checks strong,
+.intelligence-checks small {
+  display: block;
+}
+
+.coverage-list strong,
+.intelligence-checks strong {
+  color: var(--ink-800);
+  font-size: .66rem;
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+.coverage-list span,
+.intelligence-checks small {
+  margin-top: 3px;
+  color: var(--ink-500);
+  font-size: .59rem;
+  line-height: 1.4;
+}
+
+.coverage-list span,
+.intelligence-checks small {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.coverage-list .coverage-priority {
+  grid-column: 1 / -1;
+  padding: 5px 0;
+  border-left: 0;
+  background: linear-gradient(90deg, var(--selection), transparent);
+}
+
+.coverage-priority strong,
+.coverage-priority span {
+  padding-left: 9px;
+}
+
+.intelligence-checks li {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  gap: 5px;
+}
+
+.intelligence-checks li > span {
+  color: var(--positive);
+  font-size: .65rem;
+  font-weight: 750;
+}
+
 .surface-content {
   padding: 20px 20px 54px;
 }
