@@ -2,11 +2,11 @@ import { EmptyState } from "@/components/common/EmptyState";
 import type { CaseResolutionState, EditableBrief, WorkbenchState } from "@/lib/state/model";
 import { getCasePackets } from "@/lib/workbench/selectors";
 import type { ClientCase, WorkbenchModel } from "@/lib/workbench/types";
-import { AdvisoryOverview } from "./AdvisoryOverview";
 import { ClientReadyView } from "./ClientReadyView";
 import { EvidenceChain } from "./EvidenceChain";
 import { MeetingBrief } from "./MeetingBrief";
 import { StressTest } from "./StressTest";
+import { DecisionGuide } from "./DecisionGuide";
 
 const titles = {
   none: "Advisory path",
@@ -28,6 +28,7 @@ export function WorkSurface({
   onResetBrief,
   onApproveBrief,
   onResolve,
+  onGuidedAction,
 }: {
   model: WorkbenchModel;
   clientCase: ClientCase | null;
@@ -40,6 +41,7 @@ export function WorkSurface({
   onResetBrief: () => void;
   onApproveBrief: () => void;
   onResolve: (state: CaseResolutionState, reason?: string) => void;
+  onGuidedAction: (action: string) => void;
 }) {
   return (
     <aside className={`work-surface surface-${state.rightSurface} ${state.rightSurface !== "none" ? "is-open" : ""}`} aria-labelledby="surface-title">
@@ -50,7 +52,7 @@ export function WorkSurface({
       {!clientCase ? (
         <EmptyState title="No preparation open" body="Select a Client Case first." />
       ) : state.rightSurface === "none" ? (
-        <AdvisoryOverview model={model} clientCase={clientCase} />
+        <DecisionGuide clientCase={clientCase} onAction={onGuidedAction} />
       ) : state.rightSurface === "evidence" ? (
         <EvidenceChain packets={getCasePackets(model, clientCase.caseId)} activeEvidenceItemId={state.activeEvidenceItemId} onEvidence={onEvidence} onBack={onBack} />
       ) : state.rightSurface === "stress-test" ? (

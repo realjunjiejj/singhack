@@ -19,6 +19,8 @@ test("Hartono Queue to Evidence Chain to approved Meeting Brief", async ({ page 
   await expect(page.getByText("RM-note conflicts stay visible", { exact: true })).toBeVisible();
   await expect(page.getByText("Private-market valuation lag", { exact: true })).toBeVisible();
   await expect(page.getByText("Real-world imperfections", { exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "AI-assisted insights for this client" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Portfolio allocation by asset class" })).toBeVisible();
   await page.screenshot({ path: "demo/screenshots/01-priority-queue.png", fullPage: true });
 
   await page.locator(".client-pulse").getByText(/Evidence · \d+ cited records/).first().click();
@@ -33,7 +35,7 @@ test("Hartono Queue to Evidence Chain to approved Meeting Brief", async ({ page 
   await page.getByRole("button", { name: "Explore supplied collateral what-if" }).click();
   await page.getByLabel("Supplied scenario").selectOption({ label: "-15% collateral · near" });
   await expect(page.getByText("69.59%")).toBeVisible();
-  await expect(page.getByText("SGD 8,000,000", { exact: true })).toBeVisible();
+  await expect(page.getByLabel("Collateral Stress Test").getByText("SGD 8,000,000", { exact: true })).toBeVisible();
   await expect(page.getByText(/not a forecast/i).first()).toBeVisible();
   await page.getByRole("button", { name: "Close work surface" }).click();
   await page.getByRole("button", { name: /prepare conversation/i, exact: true }).click();
@@ -130,4 +132,20 @@ test("core workbench makes no external network requests", async ({ page }) => {
   await page.getByRole("button", { name: "Review Client-Ready View" }).click();
   await expect(page.getByText(/cached \/ offline mode/i)).toBeVisible();
   expect(externalRequests).toEqual([]);
+});
+
+test("local analysis upload explains formats and Gemini availability", async ({ page }) => {
+  await page.route("**/api/analysis/health", (route) => route.fulfill({
+    status: 200,
+    contentType: "application/json",
+    body: JSON.stringify({ status: "ready", geminiConfigured: false }),
+  }));
+  await page.goto("/");
+  await page.getByRole("button", { name: "Upload & analyse" }).click();
+  await expect(page.getByRole("heading", { name: "Analyse a customer Book" })).toBeVisible();
+  await expect(page.getByText(/CSV\/JSON files or an Excel workbook/i)).toBeVisible();
+  await expect(page.getByText(/API key not configured/i)).toBeVisible();
+  await expect(page.getByRole("button", { name: "Upload & analyse automatically" })).toBeEnabled();
+  await page.getByRole("button", { name: "Cancel" }).click();
+  await expect(page.getByRole("heading", { name: "Analyse a customer Book" })).not.toBeAttached();
 });

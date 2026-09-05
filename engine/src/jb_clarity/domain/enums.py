@@ -88,6 +88,8 @@ class SignalType(StrEnum):
     RELATIONSHIP = "relationship"
     EXPLANATION = "explanation"
     DATA_CONFLICT = "data-conflict"
+    TAX_AWARE = "tax-aware"
+    LIFE_EVENT = "life-event"
 
 
 class ScoringFactor(StrEnum):

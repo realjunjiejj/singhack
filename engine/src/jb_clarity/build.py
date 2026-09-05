@@ -75,6 +75,8 @@ _FAMILY_LEAD_BONUS = {
     SignalType.RELATIONSHIP: -5,
     SignalType.GOVERNANCE: -10,
     SignalType.DATA_CONFLICT: -20,
+    SignalType.TAX_AWARE: -12,
+    SignalType.LIFE_EVENT: -8,
 }
 
 _SPECIALISTS = {
@@ -87,6 +89,8 @@ _SPECIALISTS = {
     SignalType.LIQUIDITY_RESTRICTION: "the alternatives and fund-operations team",
     SignalType.DATA_CONFLICT: "the client data and reporting team",
     SignalType.GOVERNANCE: "the client lifecycle and compliance team",
+    SignalType.TAX_AWARE: "a qualified tax specialist in the relevant jurisdiction",
+    SignalType.LIFE_EVENT: "the wealth-planning specialist relevant to the client's objective",
 }
 
 _OPENING_QUESTIONS = {
@@ -128,6 +132,12 @@ _OPENING_QUESTIONS = {
     ),
     SignalType.RELATIONSHIP: (
         "I owe you a proper answer on what you raised last time. Could we start there?"
+    ),
+    SignalType.TAX_AWARE: (
+        "Could we confirm the tax domicile and the gains and losses on record before deciding which options deserve specialist review?"
+    ),
+    SignalType.LIFE_EVENT: (
+        "Could we revisit the next important life event and check whether the portfolio is prepared for it?"
     ),
 }
 

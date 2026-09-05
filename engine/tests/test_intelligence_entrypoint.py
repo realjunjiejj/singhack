@@ -30,6 +30,7 @@ def test_supported_dataset_runs_the_specialist_team(data_dir, model):
         "dataset-steward",
         "hidden-risk-specialist",
         "advisory-context-analyst",
+        "advisory-opportunity-analyst",
         "prioritisation-specialist",
         "evidence-auditor",
     ]
@@ -210,6 +211,7 @@ def test_optional_model_provider_can_only_enrich_bounded_deep_findings(data_dir,
     hidden = _agent(result, "hidden-risk-specialist")
     priority = _agent(result, "prioritisation-specialist")
     context = _agent(result, "advisory-context-analyst")
+    opportunities = _agent(result, "advisory-opportunity-analyst")
     assert all(
         finding.narrative_source == "model-validated" for finding in hidden.findings
     )
@@ -219,9 +221,28 @@ def test_optional_model_provider_can_only_enrich_bounded_deep_findings(data_dir,
     assert all(
         finding.narrative_source == "deterministic" for finding in context.findings
     )
+    assert all(
+        finding.narrative_source == "deterministic"
+        for finding in opportunities.findings
+    )
     assert [finding.rank for finding in priority.findings] == [
         item.rank for item in model.book.priority_queue
     ]
+
+
+def test_supporting_advisory_lenses_are_source_bounded(data_dir, model):
+    result = analyse_dataset(data_dir, clock=lambda: model.meta.generated_at)
+    report = _agent(result, "advisory-opportunity-analyst")
+
+    assert report.depth == "supporting"
+    assert {finding.direction for finding in report.findings} >= {
+        "personalised",
+        "rebalancing",
+        "tax-aware",
+        "life-event",
+    }
+    assert all(finding.evidence_packet_ids for finding in report.findings)
+    assert all(finding.evidence_item_ids for finding in report.findings)
 
 
 def test_unsafe_model_output_is_rejected_without_losing_deterministic_insights(

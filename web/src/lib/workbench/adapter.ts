@@ -31,3 +31,14 @@ export async function loadWorkbench(fetcher: typeof fetch = fetch): Promise<Work
   if (!result.ok) throw new WorkbenchAdapterError(result.message, result.receivedVersion);
   return result.data;
 }
+
+export async function adoptWorkbench(artifact: unknown, fetcher: typeof fetch = fetch): Promise<WorkbenchModel> {
+  const schemaResponse = await fetcher("/data/workbench.schema.json", { cache: "no-store" });
+  if (!schemaResponse.ok) {
+    throw new WorkbenchAdapterError(`Could not load the Workbench schema (${schemaResponse.status}).`);
+  }
+  const schema = await schemaResponse.json();
+  const result = validateWorkbenchModel(artifact, schema as object);
+  if (!result.ok) throw new WorkbenchAdapterError(result.message, result.receivedVersion);
+  return result.data;
+}

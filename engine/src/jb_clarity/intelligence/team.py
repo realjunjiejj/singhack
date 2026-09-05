@@ -50,6 +50,14 @@ def run_agent_team(
                 findings=[],
             ),
             AgentReport(
+                agent_id="advisory-opportunity-analyst",
+                role="Surfaces personalised, rebalancing, tax-aware, and life-event discussion opportunities from approved Evidence Packets.",
+                depth="supporting",
+                status="blocked",
+                summary="Blocked due to material data integrity issues.",
+                findings=[],
+            ),
+            AgentReport(
                 agent_id="prioritisation-specialist",
                 role="Explains the deterministic whole-Book order while keeping Urgency and Confidence separate.",
                 depth="deep",
@@ -71,6 +79,7 @@ def run_agent_team(
         steward,
         _hidden_risk_specialist(workbench),
         _advisory_context_analyst(workbench),
+        _advisory_opportunity_analyst(workbench),
         _prioritisation_specialist(workbench),
     ]
     if narrative_provider is not None:
@@ -197,6 +206,75 @@ def _advisory_context_analyst(workbench: WorkbenchModel) -> AgentReport:
         depth="supporting",
         status="completed",
         summary=f"Prepared bounded context for {len(findings)} Client Cases.",
+        findings=findings,
+    )
+
+
+def _advisory_opportunity_analyst(workbench: WorkbenchModel) -> AgentReport:
+    """Expose supporting RM lenses without inventing recommendations.
+
+    Hidden Risk and whole-Book Prioritisation remain the two deep roles. This
+    supporting role organises already-approved Evidence Packets into the other
+    client-conversation lenses requested by the workbench.
+    """
+    cases = {case.client_id: case for case in workbench.client_cases}
+    queue = {item.client_id: item for item in workbench.book.priority_queue}
+    directions = {
+        "relationship": "personalised",
+        "explanation": "personalised",
+        "mandate": "rebalancing",
+        "suitability": "rebalancing",
+        "exclusion": "rebalancing",
+        "tax-aware": "tax-aware",
+        "life-event": "life-event",
+        "cash-need": "life-event",
+    }
+    findings: list[AgentFinding] = []
+    for packet in workbench.evidence_packets:
+        direction = directions.get(packet.signal_type)
+        if direction is None:
+            continue
+        case = cases[packet.client_id]
+        queue_item = queue[packet.client_id]
+        summary = " ".join(claim.statement for claim in packet.facts)
+        meaning = " ".join(claim.statement for claim in packet.interpretations)
+        findings.append(
+            AgentFinding(
+                finding_id=(
+                    f"FINDING-{packet.client_id}-{packet.signal_type.upper()}-"
+                    f"{direction.upper()}"
+                ),
+                direction=direction,
+                client_id=packet.client_id,
+                case_id=packet.case_id,
+                title=f"{direction.replace('-', ' ').title()} — {case.client_name}",
+                summary=summary or case.conclusion,
+                why_it_matters=meaning or case.why_now,
+                limitations=[
+                    claim.statement
+                    for claim in [*packet.uncertainties, *packet.conflicts]
+                ],
+                evidence_packet_ids=[packet.packet_id],
+                evidence_item_ids=[item.id for item in packet.items],
+                derived_metrics=packet.derived_metrics,
+                rank=queue_item.rank,
+                urgency=queue_item.urgency,
+                confidence=queue_item.confidence,
+            )
+        )
+    findings.sort(key=lambda finding: (finding.rank or 10**6, finding.direction))
+    return AgentReport(
+        agent_id="advisory-opportunity-analyst",
+        role=(
+            "Surfaces personalised, rebalancing, tax-aware, and life-event "
+            "discussion opportunities from approved Evidence Packets."
+        ),
+        depth="supporting",
+        status="completed",
+        summary=(
+            f"Prepared {len(findings)} evidence-backed supporting insights; "
+            "Hidden Risk and Prioritisation remain the deep-focus analyses."
+        ),
         findings=findings,
     )
 

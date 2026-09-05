@@ -27,7 +27,7 @@ export function PriorityQueue({
 }) {
   const visible = filterPriorityQueue(model.book.priorityQueue, state.filters, model.clientCases);
   return (
-    <aside className="queue-column" aria-labelledby="queue-title">
+    <aside className="queue-column" id="priority-queue" tabIndex={-1} aria-labelledby="queue-title">
       <div className="column-header queue-header">
         <div><p className="eyebrow">Choose</p><h1 id="queue-title">Priority Queue</h1></div>
         <span className="row-count">{visible.length}/{model.book.priorityQueue.length}</span>
